@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, NgForm} from '@angular/forms';
 import {HouseService} from '../../service/house/house.service';
-import {House} from '../../model/house';
+
 import {ImageService} from '../../service/image/image.service';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
 import {Image} from '../../model/image';
+import {House} from '../../model/house';
+
 
 declare var $: any;
 declare var Swal: any;

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {House} from '../../model/House';
+
 import {Image} from '../../model/image';
 import {HouseService} from '../../service/house/house.service';
 import {ActivatedRoute, ParamMap} from '@angular/router';
+import {House} from '../../model/house';
 
 
 
@@ -27,7 +28,7 @@ export class DetailHouseComponent implements OnInit {
   getHouse(houseId: number) {
     return this.houseService.findByHouseId(houseId).subscribe(house => {
       this.house = house;
-      this.listImage = house.imagesList;
+      this.listImage = house.imageList;
     });
   }
 
