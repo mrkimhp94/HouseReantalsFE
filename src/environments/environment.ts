@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: 'http://localhost:8080',
+  firebaseConfig : {
+    apiKey: 'AIzaSyBrzdKSVfCjHaWjHtpUYucmpChrhAMnoGM',
+    authDomain: 'houserentals-fc046.firebaseapp.com',
+    projectId: 'houserentals-fc046',
+    storageBucket: 'houserentals-fc046.appspot.com',
+    messagingSenderId: '516871245408',
+    appId: '1:516871245408:web:ebb5c4500c8b7927cb3d05',
+    measurementId: 'G-2PXL8HBMEZ'
+  }
 };
 
 /*
