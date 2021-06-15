@@ -3,13 +3,15 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MyBookingComponent } from './booking-module/my-booking/my-booking.component';
-import {BookingModuleModule} from './booking-module/booking-module.module';
+import {HouseModule} from './house/house.module';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {BookingServiceService} from './bookingservice.service';
-import {BookingActiveModule} from './booking-active/booking-active.module';
-import {BookingActiveComponent} from './booking-active/bookingActive/bookingactive.component';
-import {MatButtonModule, MatDialogModule} from '@angular/material';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {AngularFireStorageModule} from '@angular/fire/storage';
+import {AngularFireModule} from '@angular/fire';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {environment} from '../environments/environment';
+import {HouseService} from './service/house/house.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,15 +19,18 @@ import {MatButtonModule, MatDialogModule} from '@angular/material';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BookingModuleModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
     HttpClientModule,
-    BookingActiveModule,
-    MatDialogModule,
-    MatButtonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    HouseModule,
   ],
-  providers: [HttpClient, BookingServiceService],
-  exports: [
-  ],
+  providers: [HttpClient,
+    HouseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
