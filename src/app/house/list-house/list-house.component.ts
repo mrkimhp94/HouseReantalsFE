@@ -60,4 +60,6 @@ export class ListHouseComponent implements OnInit {
     this.currentPage = page;
   }
 
+  search() {
+  }
 }
