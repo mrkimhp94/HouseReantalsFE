@@ -1,17 +1,28 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { HouseRoutingModule } from './house-routing.module';
-import { HouseCreateComponent } from './house-create/house-create.component';
-import {FormsModule} from '@angular/forms';
+import {DetailHouseComponent} from './detail-house/detail-house.component';
 
+import {HouseCreateComponent} from './house-create/house-create.component';
+import {ListHouseComponent} from './list-house/list-house.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HouseRoutingModule} from './house-routing.module';
 
 @NgModule({
-  declarations: [HouseCreateComponent],
+  declarations: [
+    ListHouseComponent,
+    DetailHouseComponent,
+    HouseCreateComponent
+  ],
   imports: [
     CommonModule,
-    HouseRoutingModule,
-    FormsModule
-  ]
+    ReactiveFormsModule,
+    FormsModule,
+    HouseRoutingModule
+  ],
+  // exports: [
+  //   HouseRoutingModule
+  // ]
 })
-export class HouseModule { }
+export class HouseModule {
+}

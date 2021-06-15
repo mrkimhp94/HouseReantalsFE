@@ -27,7 +27,10 @@ export class HouseService {
     return this.http.get<Image[]>(API_URL + `/houses/${id}/images`);
   }
 
-  getSearchHouse(search: string, checkin: Date, checkout: Date):Observable<House[]> {
+  getSearchHouse(search: string, checkin: Date, checkout: Date): Observable<House[]> {
     return this.http.get<House[]>(`${API_URL}/houses/search?search=${search}&checkin=${checkin}&checkout=${checkout}`);
+  }
+  findByHouseId(houseId: number): Observable<House> {
+    return this.http.get<House>(`${API_URL}/houses/detail/${houseId}`);
   }
 }

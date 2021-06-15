@@ -3,11 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {AngularFireModule} from '@angular/fire';
-import {environment} from '../environments/environment';
-import {AngularFireStorageModule} from '@angular/fire/storage';
+import {HouseModule} from './house/house.module';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
-import {HttpClientModule} from '@angular/common/http';
+import {AngularFireStorageModule} from '@angular/fire/storage';
+import {AngularFireModule} from '@angular/fire';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {environment} from '../environments/environment';
+import {HouseService} from './service/house/house.service';
 
 @NgModule({
   declarations: [
@@ -19,9 +22,15 @@ import {HttpClientModule} from '@angular/common/http';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
     AngularFireDatabaseModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    HouseModule,
   ],
-  providers: [],
+  providers: [HttpClient,
+    HouseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

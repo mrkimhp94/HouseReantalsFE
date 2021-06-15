@@ -173,7 +173,7 @@ export class HouseCreateComponent implements OnInit {
       bathroomQuantity: this.houseForm.value.bathroomQuantity,
       description: this.houseForm.value.description,
       pricePerDay: this.houseForm.value.pricePerDay,
-      houseStatus: false,
+      houseStatus: 'false',
     };
     if (isValidated) {
       return this.houseService.createHouse(house).toPromise();

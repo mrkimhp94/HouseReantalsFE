@@ -1,4 +1,4 @@
-
+import {Images} from "./Images";
 
 export interface House {
   houseId?: number;
