@@ -11,6 +11,8 @@ import {AngularFireModule} from '@angular/fire';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {environment} from '../environments/environment';
 import {HouseService} from './service/house/house.service';
+import {BookingActiveModule} from './booking-active/booking-active.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import {HouseService} from './service/house/house.service';
     HttpClientModule,
     AppRoutingModule,
     HouseModule,
+    BookingActiveModule,
+    BrowserAnimationsModule,
   ],
   providers: [HttpClient,
     HouseService],

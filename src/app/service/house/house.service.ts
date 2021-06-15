@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Image} from '../../model/image';
-const API_URL = `${environment.apiUrl}`;
+const API_URL = `${environment.api_url}`;
 @Injectable({
   providedIn: 'root'
 })

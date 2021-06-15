@@ -10,7 +10,7 @@ import {
   MatInputModule,
   MatDialogModule,
   MAT_DIALOG_DEFAULT_OPTIONS
-} from '@angular/material';
+} from "@angular/material";
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {BookingActiveComponent} from './bookingActive/bookingactive.component';

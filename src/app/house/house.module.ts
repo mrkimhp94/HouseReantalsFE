@@ -9,20 +9,23 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HouseRoutingModule} from './house-routing.module';
 
 @NgModule({
-  declarations: [
-    ListHouseComponent,
-    DetailHouseComponent,
-    HouseCreateComponent
-  ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FormsModule,
-    HouseRoutingModule
-  ],
-  // exports: [
-  //   HouseRoutingModule
-  // ]
+    declarations: [
+        ListHouseComponent,
+        DetailHouseComponent,
+        HouseCreateComponent
+    ],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        FormsModule,
+        HouseRoutingModule
+    ],
+    exports: [
+        ListHouseComponent
+    ],
+    // exports: [
+    //   HouseRoutingModule
+    // ]
 })
 export class HouseModule {
 }
