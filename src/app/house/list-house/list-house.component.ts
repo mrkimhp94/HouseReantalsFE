@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import {HouseService} from '../../service/house/house.service';
 import {House} from '../../model/house';
+import {FormControl, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
 
 
 
@@ -14,11 +16,13 @@ import {House} from '../../model/house';
 export class ListHouseComponent implements OnInit {
   public currentPage = 0;
   public size = 9;
-  // public course: any[];
-
-
   private listHouse: House[] = [];
   private numberOfPage = 1;
+  searchForm: FormGroup = new FormGroup({
+    search: new FormControl(''),
+    checkin: new FormControl(''),
+    checkout: new FormControl('')
+  });
 
 
   get filteredListHouse() {
@@ -28,7 +32,8 @@ export class ListHouseComponent implements OnInit {
     }
 
 
-  constructor(private houseService: HouseService) { }
+  constructor(private houseService: HouseService,
+              private router: Router) { }
 
   get pageArray() {
     const pages = [...Array(this.numberOfPage).keys()];
@@ -62,5 +67,24 @@ export class ListHouseComponent implements OnInit {
   }
 
   search() {
+    const search = this.searchForm.value.search;
+    const checkin = this.searchForm.value.checkin;
+    const checkout = this.searchForm.value.checkout;
+    this.houseService.getSearchHouse(search, checkin, checkout).subscribe(listHouse => {
+      this.listHouse = listHouse;
+      this.addImageToHouse(this.listHouse);
+      this.router.navigate(['/houses'], {queryParams: {search: search, checkin: checkin, checkout: checkout}});
+  });
+  }
+
+  private addImageToHouse(listHouse: House[]) {
+    listHouse.map(async house => {
+      house.imagesList = await this.getAllImageByProduct(house);
+    });
+  }
+
+  private async getAllImageByProduct(house: House) {
+    return this.houseService.getAllImageByHouse(house.houseId).toPromise();
+
   }
 }

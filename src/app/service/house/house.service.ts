@@ -4,13 +4,16 @@ import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Image} from '../../model/image';
+import {FormControl, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
 const API_URL = `${environment.api_url}`;
 @Injectable({
   providedIn: 'root'
 })
 export class HouseService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private router: Router) { }
   createHouse(house): Observable<House> {
     return this.http.post<House>(API_URL + '/houses', house);
   }
@@ -26,11 +29,10 @@ export class HouseService {
   getAllImageByHouse(id: number): Observable<Image[]> {
     return this.http.get<Image[]>(API_URL + `/houses/${id}/images`);
   }
-
-  getSearchHouse(search: string, checkin: Date, checkout: Date): Observable<House[]> {
-    return this.http.get<House[]>(`${API_URL}/houses/search?search=${search}&checkin=${checkin}&checkout=${checkout}`);
-  }
   findByHouseId(houseId: number): Observable<House> {
     return this.http.get<House>(`${API_URL}/houses/detail/${houseId}`);
+  }
+  getSearchHouse(search: string, checkin: Date, checkout: Date): Observable<House[]> {
+    return this.http.get<House[]>(`${API_URL}/houses/search?search=${search}&checkin=${checkin}&checkout=${checkout}`);
   }
 }
