@@ -21,11 +21,11 @@
               <h3 class="panel-title">Smart search</h3>
             </div>
             <div class="panel-body search-widget">
-              <form class=" form-inline">
+              <form class=" form-inline" [formGroup]="searchForm" (ngSubmit)="search()">
                 <fieldset>
                   <div class="row">
                     <div class="col-xs-12">
-                      <input type="text" class="form-control" #address placeholder="Key word">
+                      <input type="text" class="form-control" formControlName="search" placeholder="Key word">
                     </div>
                   </div>
                 </fieldset>
@@ -33,10 +33,10 @@
                 <fieldset>
                   <div class="row">
                     <div class="col-xs-6">
-                      <input type="date" class="form-control" #checkin placeholder="Key word">
+                      <input type="date" class="form-control" formControlName="checkin" placeholder="Key word">
                     </div>
                     <div class="col-xs-6">
-                      <input type="date" class="form-control" #checkout placeholder="Key word">
+                      <input type="date" class="form-control" formControlName="checkout" placeholder="Key word">
 
                     </div>
                   </div>
@@ -46,7 +46,7 @@
                 <fieldset >
                   <div class="row">
                     <div class="col-xs-12">
-                      <input class="button btn largesearch-btn" value="Search" type="button" (click)="search()">
+                      <input class="button btn largesearch-btn" value="Search">
                     </div>
                   </div>
                 </fieldset>
@@ -163,11 +163,11 @@
             <div class="col-sm-6 col-md-4 p0" *ngFor="let house of filteredListHouse; index as i">
               <div class="box-two proerty-item">
                 <div class="item-thumb">
-                  <a [routerLink]="['/houses/detail',house.houseId]" ><img src="{{house.imagesList[0]?.linkImage}}"></a>
+                  <a  ><img src="{{house.imageList[0].linkImage}}"></a>
                 </div>
 
                 <div class="item-entry overflow">
-                  <h5><a href="property-1.html"> {{house.houseName}} </a></h5>
+                  <h5><a [routerLink]="['detail',house.houseId]"> {{house.houseName}} </a></h5>
                   <div class="dot-hr"></div>
                   <span class="pull-left"><b> Area :</b> {{house.area}} </span>
                   <span class="proerty-price pull-right"> {{house.pricePerDay}}</span>
