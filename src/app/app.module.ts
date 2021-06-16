@@ -11,20 +11,40 @@ import {JwtInterceptor} from './helper/jwt-interceptor';
 import {LoginModule} from './login/login.module';
 import {RegisterModule} from './register/register.module';
 import {RegisterComponent} from './register/register.component';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireStorageModule} from '@angular/fire/storage';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {environment} from '../environments/environment';
+import {HouseModule} from './house/house.module';
+import {BookingActiveModule} from './booking-active/booking-active.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HouseService} from './service/house/house.service';
 
-// @ts-ignore
-// @ts-ignore
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     LoginModule,
     BrowserModule,
     AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    HouseModule,
+    BookingActiveModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
     RegisterModule
   ],
   providers: [
+    HttpClient,
+    HouseService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

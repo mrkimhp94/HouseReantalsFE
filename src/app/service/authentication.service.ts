@@ -4,8 +4,9 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {JwtResponse} from '../interface/Jwt-Response';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
+import {User} from '../interface/user';
 
-const API_URL = `${environment.apiUrl}`;
+const API_URL = `${environment.api_url}`;
 
 @Injectable({
   providedIn: 'root'
@@ -30,8 +31,8 @@ export class AuthenticationService {
       return user;
     }));
   }
-  register(registerForm){
-    return this.http.post<any>(`${API_URL}/register`, registerForm)
+  register(user: Partial<User>): Observable<any> {
+    return this.http.post<any>(`${API_URL}/register`, user)
   }
 
   logout() {

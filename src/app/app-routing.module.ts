@@ -4,7 +4,6 @@ import {LoginComponent} from './login/login.component';
 import {RegisterModule} from './register/register.module';
 import {RegisterComponent} from './register/register.component';
 
-
 const routes: Routes = [
   {
     path: 'login',
@@ -13,7 +12,16 @@ const routes: Routes = [
   {
     path:"register",
     loadChildren:()=> import('./register/register.module').then(module => module.RegisterModule)
-  }
+  },
+  {
+  path: '',
+  pathMatch: 'full',
+  redirectTo: 'houses'
+}, {
+  path : 'houses',
+  loadChildren: () => import('./house/house.module').then(module => module.HouseModule)
+},
+
 ];
 
 @NgModule({

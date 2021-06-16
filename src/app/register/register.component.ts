@@ -1,8 +1,19 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from '../service/authentication.service';
 import {Router} from '@angular/router';
 import {first} from 'rxjs/operators';
+import {register} from 'ts-node';
+import firebase from 'firebase';
+import {User} from '../interface/user';
+
+
+function comparePassword(c: AbstractControl) {
+  const v = c.value;
+  return (v.password === v.confirmPassword) ? null : {
+    passwordnotmatch: true
+  };
+}
 
 @Component({
   selector: 'app-register',
@@ -11,42 +22,65 @@ import {first} from 'rxjs/operators';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  loading = false;
-  submitted = false;
+  avatarDefault = 'https://avi.edu.vn/wp-content/uploads/2019/11/london-2393098.jpg';
+  user: Partial<User>;
+  success: boolean;
+  message: string;
+
 
   constructor(
     private fb: FormBuilder,
-    private authenticationService: AuthenticationService,
+    private authenticationserivce: AuthenticationService,
     private router: Router
   ) {
   }
 
+  // @ts-ignore
   ngOnInit() {
     this.registerForm = this.fb.group({
-      username: [''],
-      password: [''],
-      fullname: [''],
-      phone: [''],
-      userAddress: [''],
-      email: ['']
+      username: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+      confirmPassword: [''],
+      email: ['', [Validators.required, Validators.email]],
+      phone: [''
+        // , [Validators.required, Validators.pattern('((0)+([0-9]{9})\\b)')]
+      ],
+      userAddress: [''
+        // , [Validators.required, Validators.pattern('[A-Za-z ]+')]
+      ],
+      fullname: [''
+        // , [Validators.required, Validators.pattern('[A-Za-z ]+')]
+      ]
     });
+
+    this.user = {
+      username: '',
+      password: '',
+      fullname: '',
+      email: '',
+      phone: '',
+      userAddress: '',
+      avatar: this.avatarDefault
+    };
   }
 
   register() {
-    this.submitted = true;
-    if (this.registerForm.invalid) {
-      return;
+    if (this.registerForm.valid) {
+      this.authenticationserivce.register(this.user)
+        .subscribe(
+          next => {
+            this.success = next.success;
+            this.message = next.message;
+            alert('Register Success');
+            this.router.navigateByUrl('/');
+          }
+        );
     }
-
-    this.loading = true;
-    this.authenticationService.register(this.registerForm.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.router.navigateByUrl('/');
-        },
-        error => {
-          this.loading = false;
-        });
   }
+
+  //
+  // getImageUrl(imageUrls: string[]) {
+  //   this.user.avatar = imageUrls[0];
+  // }
+
 }

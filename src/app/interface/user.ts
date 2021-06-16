@@ -2,8 +2,9 @@ export interface User {
   id?: number;
   fullname?: string;
   email?: string;
-  phone?: number;
-  username?: string;
-  password?: string;
+  phone?: string;
+  username: string;
+  password: string;
   userAddress?: string;
+  avatar?: string;
 }
