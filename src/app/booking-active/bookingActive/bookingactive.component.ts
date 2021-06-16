@@ -4,6 +4,7 @@ import {BookingServiceService} from '../../service/booking/bookingservice.servic
 import {Booking} from '../../model/booking';
 import {NotifyServiceService} from '../../service/notify/notify-service.service';
 import {UserServiceService} from '../../user-service.service';
+import {HouseService} from '../../service/house/house.service';
 
 @Component({
   selector: 'booking-active',
@@ -19,7 +20,10 @@ export class BookingActiveComponent implements OnInit, DoCheck {
   minDate: Date;
   maxDate: Date;
 
-  constructor(private bookingService: BookingServiceService, private notifyService: NotifyServiceService, private userService: UserServiceService) {
+  constructor(private bookingService: BookingServiceService,
+              private notifyService: NotifyServiceService,
+              private userService: UserServiceService,
+              private houseService: HouseService) {
   }
 
   ngOnInit() {
@@ -78,7 +82,7 @@ export class BookingActiveComponent implements OnInit, DoCheck {
         bookingStatus: -1,
         checkinDate: start,
         checkoutDate: end,
-        total: totalDay,
+        total: this.checkTotalMoney(this.checkInDate,this.checkOutDate),
         house: {
           houseId: this.bookingService.currentId
         },
@@ -106,8 +110,8 @@ export class BookingActiveComponent implements OnInit, DoCheck {
 
     let start = this.checkInDate;
     if (this.listDisableDate.length != 0) {
-      let x =1;
-      while (++x<60) {
+      let x = 1;
+      while (++x < 60) {
         let theDayAfterCheckInDay = this.formatDate(this.getNextDay(start));
         if (this.listDisableDate.indexOf(theDayAfterCheckInDay) != -1) {
           this.maxDate = start;
@@ -128,4 +132,18 @@ export class BookingActiveComponent implements OnInit, DoCheck {
       this.notifyService.notify = 'valid';
     }
   }
+
+  checkTotalMoney(start: any, end: any): number {
+    let totalDays = 0;
+    let total;
+    let pricesPerDay = this.houseService.getCurrentHouse().pricePerDay;
+    while (start <= end) {
+      totalDays++;
+      start = this.getNextDay(start);
+    }
+    total = totalDays * pricesPerDay;
+    return total;
+  }
 }
+
+
