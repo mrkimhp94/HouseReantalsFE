@@ -21,6 +21,10 @@ const routes: Routes = [
   path : 'houses',
   loadChildren: () => import('./house/house.module').then(module => module.HouseModule)
 },
+  {
+    path : 'edit',
+    loadChildren: () => import('./update-user/update-user.module').then(module => module.UpdateUserModule)
+  },
 
 ];
 

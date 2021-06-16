@@ -31,12 +31,21 @@ export class AuthenticationService {
       return user;
     }));
   }
+
   register(user: Partial<User>): Observable<any> {
-    return this.http.post<any>(`${API_URL}/register`, user)
+    return this.http.post<any>(`${API_URL}/register`, user);
+  }
+
+  updateProfile(user: Partial<User>): Observable<any> {
+    return this.http.put<any>(`${API_URL}/edit-profile`, user);
   }
 
   logout() {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+  }
+
+  confirmPasswordUser(password: string): Observable<any> {
+    return this.http.post<any>(`${API_URL}/confirmPassword`, password);
   }
 }

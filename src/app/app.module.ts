@@ -19,6 +19,7 @@ import {HouseModule} from './house/house.module';
 import {BookingActiveModule} from './booking-active/booking-active.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HouseService} from './service/house/house.service';
+import {UpdateUserModule} from './update-user/update-user.module';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {HouseService} from './service/house/house.service';
     BookingActiveModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    RegisterModule
+    RegisterModule,
+    UpdateUserModule
   ],
   providers: [
     HttpClient,

@@ -43,13 +43,13 @@ export class RegisterComponent implements OnInit {
       confirmPassword: [''],
       email: ['', [Validators.required, Validators.email]],
       phone: [''
-        // , [Validators.required, Validators.pattern('((0)+([0-9]{9})\\b)')]
+        , [Validators.required, Validators.pattern('((0)+([0-9]{9})\\b)')]
       ],
       userAddress: [''
-        // , [Validators.required, Validators.pattern('[A-Za-z ]+')]
+        , [Validators.required, Validators.pattern('[A-Za-z ]+')]
       ],
       fullname: [''
-        // , [Validators.required, Validators.pattern('[A-Za-z ]+')]
+        , [Validators.required, Validators.pattern('[A-Za-z ]+')]
       ]
     });
 
@@ -75,6 +75,9 @@ export class RegisterComponent implements OnInit {
             this.router.navigateByUrl('/');
           }
         );
+    }else {
+      alert("Register false");
+      this.router.navigateByUrl('/register')
     }
   }
 

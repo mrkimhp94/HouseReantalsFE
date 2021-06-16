@@ -14,20 +14,22 @@
 <!--</form>-->
 
 
-<div style="position: absolute;left: 50%;top: 50%;transform: translate(-50%, 0%);" class="col-md-12 col-xs-12 login-blocks">
+<div style="position: absolute;left: 50%;top: 0%;transform: translate(-40%, 0%);" class="col-md-4 col-xs-4 login-blocks">
   <h2>Login : </h2>
   <form [formGroup]="loginForm" (ngSubmit)="login()">
     <div class="form-group">
       <label for="username">Username</label>
       <input type="text" formControlName="username" id="username" >
       <ng-container *ngIf="loginForm.controls.username.touched">
-        <p *ngIf="loginForm.controls.username?.errors?.required"> Trường này không được để trống </p>
-        <p *ngIf="loginForm.controls.username?.errors?.minLength"> Trường nàfđược để trống </p>
+        <p *ngIf="loginForm.controls.username?.hasError('required')"> Trường này không được để trống </p>
       </ng-container>
     </div>
     <div class="form-group">
       <label for="password">Password</label>
       <input type="password" formControlName="password" id="password" required="">
+      <ng-container *ngIf="loginForm.controls.password.touched">
+        <p *ngIf="loginForm.controls.password?.hasError('required')"> Trường này không được để trống </p>
+      </ng-container>
     </div>
     <div class="text-center">
       <button class="btn btn-default" [disabled]="loginForm.invalid"> Log in</button>
