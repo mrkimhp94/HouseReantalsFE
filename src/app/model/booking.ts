@@ -4,4 +4,6 @@ export interface Booking {
   checkoutDate?: any;
   total?: any;
   bookingStatus?: any;
+  userId?:any;
+  houseId?:any
 }

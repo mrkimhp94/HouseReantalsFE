@@ -80,11 +80,14 @@ export class BookingActiveComponent implements OnInit, DoCheck {
         checkinDate: start,
         checkoutDate: end,
         total: totalDay,
+        houseId: 1,
+        userId: JSON.parse(window.localStorage.getItem('currentUser')).id
       };
       console.log(booking);
       this.bookingService.doBooking(booking).subscribe(() => {
-        this.notifyService.notify='success'
-       console.log("success ")
+        this.notifyService.notify = 'success';
+        alert('Booking Success');
+        window.location.reload();
       });
     }
   }
@@ -96,14 +99,16 @@ export class BookingActiveComponent implements OnInit, DoCheck {
     //Để tránh trường hợp chọn ngày bị ngắt quãng
 
     let start = this.checkInDate;
-    // while (true) {
-    //   let theDayAfterCheckInDay = this.formatDate(this.getNextDay(start));
-    //   if (this.listDisableDate.indexOf(theDayAfterCheckInDay) != -1) {
-    //     this.maxDate = start;
-    //     break;
-    //   }
-    //   start = this.getNextDay(start);
-    // }
+    if (this.listDisableDate.length != 0) {
+      while (true) {
+        let theDayAfterCheckInDay = this.formatDate(this.getNextDay(start));
+        if (this.listDisableDate.indexOf(theDayAfterCheckInDay) != -1) {
+          this.maxDate = start;
+          break;
+        }
+        start = this.getNextDay(start);
+      }
+    }
 
   }
 

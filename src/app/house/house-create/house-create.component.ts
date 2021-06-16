@@ -7,6 +7,10 @@ import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
 import {Image} from '../../model/image';
 import {House} from '../../model/house';
+import {User} from '../../interface/user';
+import {AuthenticationService} from '../../service/authentication.service';
+import {Router} from '@angular/router';
+import {UserToken} from '../../model/user-token';
 
 
 declare var $: any;
@@ -32,14 +36,24 @@ export class HouseCreateComponent implements OnInit {
 
   selectedImages: any[] = [];
 
+  currentUser: UserToken;
+  user: User;
+
+
 
   constructor(private houseService: HouseService,
               private imageService: ImageService,
-              private storage: AngularFireStorage
+              private storage: AngularFireStorage,
+              private authenticationService: AuthenticationService,
+              private router: Router
   ) {
+    this.authenticationService.currentUser.subscribe(value => {
+      this.currentUser = value;
+    });
   }
 
   ngOnInit() {
+    console.log(this.currentUser);
     $(document).ready(function() {
       $('#product-form').validate({
         rules: {
@@ -138,7 +152,7 @@ export class HouseCreateComponent implements OnInit {
           const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
-            showConfirmButton: false,
+            showConfirmButton: true,
             timer: 3000
           });
 
@@ -175,7 +189,7 @@ export class HouseCreateComponent implements OnInit {
       bathroomQuantity: this.houseForm.value.bathroomQuantity,
       description: this.houseForm.value.description,
       pricePerDay: this.houseForm.value.pricePerDay,
-      houseStatus: 'false',
+      houseStatus: 'blank',
     };
     if (isValidated) {
       return this.houseService.createHouse(house).toPromise();
@@ -201,6 +215,10 @@ export class HouseCreateComponent implements OnInit {
       images[i] = this.selectedImages[i + 1];
     }
     this.selectedImages = images;
+  }
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
   }
 
 

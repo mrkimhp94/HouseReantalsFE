@@ -14,7 +14,6 @@ import {BookingServiceService} from '../../service/booking/bookingservice.servic
 export class MyBookingComponent implements OnInit {
   constructor(private bookingService: BookingServiceService, private dialog: MatDialog) {
   }
-
   ngOnInit() {
   }
 
@@ -64,5 +63,9 @@ export class BookingList implements OnInit {
         console.log('delete success');
       }
     );
+  }
+
+  reload() {
+    window.location.reload()
   }
 }

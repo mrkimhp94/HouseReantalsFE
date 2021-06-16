@@ -12,5 +12,5 @@ export interface House {
   pricePerDay?: string;
   imagesList?: any[];
   houseStatus?: string;
-  users? : any;
+  users?: any;
 }

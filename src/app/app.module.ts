@@ -23,14 +23,17 @@ import {CommonModule} from '@angular/common';
 import {GeneralPopupComponent} from './general-popup/general-popup.component';
 import {MatDialogModule} from '@angular/material';
 
+import {UpdateUserModule} from './update-user/update-user.module';
+import {SharedModule} from './shared/shared.module';
+import {HouseRoutingModule} from './house/house-routing.module';
+import {BookingModuleModule} from './booking-module/booking-module.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    GeneralPopupComponent
+    AppComponent
   ],
   imports: [
-    CommonModule,
+    LoginModule,
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -47,7 +50,11 @@ import {MatDialogModule} from '@angular/material';
     AppRoutingModule,
     RegisterModule,
     LoginModule,
-    MatDialogModule
+    MatDialogModule,
+    RegisterModule,
+    UpdateUserModule,
+    HouseRoutingModule,
+    BookingModuleModule
   ],
   providers: [
     HttpClient,

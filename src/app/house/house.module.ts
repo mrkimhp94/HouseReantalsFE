@@ -7,35 +7,31 @@ import {HouseCreateComponent} from './house-create/house-create.component';
 import {ListHouseComponent} from './list-house/list-house.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HouseRoutingModule} from './house-routing.module';
-import {MyHouseComponent, OpenListHouse} from './my-house/my-house.component';
-import {MatButtonModule} from '@angular/material';
-import {MatDialogModule} from '@angular/material/dialog';
+import {SharedModule} from '../shared/shared.module';
+import {SharedRoutingModule} from '../shared/shared-routing.module';
 import {BookingActiveModule} from '../booking-active/booking-active.module';
-import {BookingActiveComponent} from '../booking-active/bookingActive/bookingactive.component';
-
+import {OpenListHouse} from './my-house/my-house.component';
 
 @NgModule({
-  declarations: [
-    ListHouseComponent,
-    DetailHouseComponent,
-    HouseCreateComponent,
-    MyHouseComponent,
-    OpenListHouse
-  ],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        FormsModule,
-        HouseRoutingModule,
-        MatButtonModule,
-        MatDialogModule,
-        BookingActiveModule
+    declarations: [
+        ListHouseComponent,
+        DetailHouseComponent,
+        HouseCreateComponent
     ],
-  exports: [
-    ListHouseComponent,
-    MyHouseComponent
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HouseRoutingModule,
+    SharedModule,
+    BookingActiveModule,
   ],
-  entryComponents:[OpenListHouse,BookingActiveComponent]
+    exports: [
+        ListHouseComponent
+    ],
+  entryComponents:[
+    OpenListHouse
+  ]
 })
 export class HouseModule {
 }
