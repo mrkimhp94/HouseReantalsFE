@@ -31,9 +31,6 @@ export class DetailHouseComponent implements OnInit {
     return this.houseService.findByHouseId(houseId).subscribe(house => {
       console.log(house);
       this.house = house;
-      // for(let i =0;i<house.imagesList.length;i++){
-      //   this.images.push(house.imageList[i])
-      // }
       this.images = house.imagesList;
       console.log(this.images);
     });

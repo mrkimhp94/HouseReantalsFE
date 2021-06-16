@@ -5,6 +5,7 @@ import {MatDialog} from '@angular/material/dialog';
 import * as moment from 'moment';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {BookingServiceService} from '../../service/booking/bookingservice.service';
+import {UserServiceService} from '../../user-service.service';
 
 @Component({
   selector: 'my-booking',
@@ -31,11 +32,13 @@ export class BookingList implements OnInit {
   bookingList: Booking[] = [];
   bookingId: string;
 
-  constructor(private bookingService: BookingServiceService, private dialog: MatDialog, private activeRouter: ActivatedRoute) {
+  constructor(private bookingService: BookingServiceService,
+              private dialog: MatDialog, private activeRouter: ActivatedRoute,
+              private userService : UserServiceService) {
 
   }
-  getAll() {
-    this.bookingService.getAll().subscribe(data => {
+  getAllBookingListOfUser() {
+    this.bookingService.getAllBookingByUserId(this.userService.getCurrentUser().id).subscribe(data => {
       // this.bookingList = data;
       for (let i = 0; i < data.length; i++) {
         data[i].checkinDate = this.formatDate(data[i].checkinDate);
@@ -47,7 +50,7 @@ export class BookingList implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAll();
+    this.getAllBookingListOfUser();
   }
 
   formatDate(date: any): any {

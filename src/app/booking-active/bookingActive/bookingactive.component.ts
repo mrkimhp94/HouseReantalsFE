@@ -3,8 +3,7 @@ import * as moment from 'moment';
 import {BookingServiceService} from '../../service/booking/bookingservice.service';
 import {Booking} from '../../model/booking';
 import {NotifyServiceService} from '../../service/notify/notify-service.service';
-import {MatDialogRef} from '@angular/material/dialog';
-import {GeneralPopupComponent} from '../../general-popup/general-popup.component';
+import {UserServiceService} from '../../user-service.service';
 
 @Component({
   selector: 'booking-active',
@@ -20,7 +19,7 @@ export class BookingActiveComponent implements OnInit, DoCheck {
   minDate: Date;
   maxDate: Date;
 
-  constructor(private bookingService: BookingServiceService, private notifyService: NotifyServiceService) {
+  constructor(private bookingService: BookingServiceService, private notifyService: NotifyServiceService, private userService: UserServiceService) {
   }
 
   ngOnInit() {
@@ -80,12 +79,19 @@ export class BookingActiveComponent implements OnInit, DoCheck {
         checkinDate: start,
         checkoutDate: end,
         total: totalDay,
-        houseId: 1,
-        userId: JSON.parse(window.localStorage.getItem('currentUser')).id
+        house: {
+          houseId: this.bookingService.currentId
+        },
+        users: {
+          userId: this.userService.getCurrentUser().id
+        }
       };
+      console.log('data booking : ');
       console.log(booking);
-      this.bookingService.doBooking(booking).subscribe(() => {
-        this.notifyService.notify = 'success';
+      console.log('data booking : ');
+      this.bookingService.doBooking(booking).subscribe((data) => {
+        console.log(data);
+        // this.notifyService.notify = 'success';
         alert('Booking Success');
         window.location.reload();
       });
@@ -100,7 +106,8 @@ export class BookingActiveComponent implements OnInit, DoCheck {
 
     let start = this.checkInDate;
     if (this.listDisableDate.length != 0) {
-      while (true) {
+      let x =1;
+      while (++x<60) {
         let theDayAfterCheckInDay = this.formatDate(this.getNextDay(start));
         if (this.listDisableDate.indexOf(theDayAfterCheckInDay) != -1) {
           this.maxDate = start;

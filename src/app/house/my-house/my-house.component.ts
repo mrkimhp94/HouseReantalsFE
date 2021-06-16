@@ -23,7 +23,7 @@ export class MyHouseComponent implements OnInit {
 
 @Component({
   selector: 'my-list-house',
-  templateUrl: 'test2.html',
+  templateUrl: 'list-house.html',
   styleUrls: ['./my-house.component.css']
 })
 export class OpenListHouse implements OnInit {

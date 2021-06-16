@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
+import {House} from '../../model/House';
 
 const API_URL = `${environment.api_url}`;
 
@@ -13,10 +14,10 @@ export class BookingServiceService {
 currentId : number;
   constructor(private http: HttpClient) {
   }
-  public getAll(): Observable<any> {
-    return this.http.get(API_URL+'/bookings');
+  public getAllBookingByUserId(id:number): Observable<any> {
+    return this.http.get(API_URL+`/bookings/${id}`);
   }
-  public getBookingByHouseId(houseId:any): Observable<any>{
+  public getBookingByHouseId(houseId:number): Observable<any>{
     return  this.http.get(API_URL+`/bookings/house/${houseId}`)
   }
   public doBooking(booking : any) : Observable<any>{
