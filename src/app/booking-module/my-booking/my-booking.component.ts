@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 
 import {Booking} from '../../model/booking';
 import {MatDialog} from '@angular/material/dialog';
-import {BookingServiceService} from '../../service/booking/bookingservice.service';
 import * as moment from 'moment';
 import {ActivatedRoute, ParamMap} from '@angular/router';
+import {BookingServiceService} from '../../service/booking/bookingservice.service';
 
 @Component({
   selector: 'my-booking',

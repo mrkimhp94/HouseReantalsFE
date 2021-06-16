@@ -10,15 +10,14 @@ const API_URL = `${environment.api_url}`;
   providedIn: 'root'
 })
 export class BookingServiceService {
-
+currentId : number;
   constructor(private http: HttpClient) {
   }
   public getAll(): Observable<any> {
     return this.http.get(API_URL+'/bookings');
   }
   public getBookingByHouseId(houseId:any): Observable<any>{
-    console.log(API_URL+`bookings/house/${houseId}`)
-    return  this.http.get(API_URL+`bookings/house/${houseId}`)
+    return  this.http.get(API_URL+`/bookings/house/${houseId}`)
   }
   public doBooking(booking : any) : Observable<any>{
     return  this.http.post(API_URL+`/bookings`,booking)

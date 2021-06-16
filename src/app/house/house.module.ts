@@ -10,6 +10,8 @@ import {HouseRoutingModule} from './house-routing.module';
 import {MyHouseComponent, OpenListHouse} from './my-house/my-house.component';
 import {MatButtonModule} from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
+import {BookingActiveModule} from '../booking-active/booking-active.module';
+import {BookingActiveComponent} from '../booking-active/bookingActive/bookingactive.component';
 
 
 @NgModule({
@@ -20,19 +22,20 @@ import {MatDialogModule} from '@angular/material/dialog';
     MyHouseComponent,
     OpenListHouse
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FormsModule,
-    HouseRoutingModule,
-    MatButtonModule,
-    MatDialogModule
-  ],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        FormsModule,
+        HouseRoutingModule,
+        MatButtonModule,
+        MatDialogModule,
+        BookingActiveModule
+    ],
   exports: [
     ListHouseComponent,
     MyHouseComponent
   ],
-  entryComponents:[OpenListHouse]
+  entryComponents:[OpenListHouse,BookingActiveComponent]
 })
 export class HouseModule {
 }

@@ -10,6 +10,7 @@ export interface House {
   bathroomQuantity?: string;
   description?: string;
   pricePerDay?: string;
-  imageList?: any[];
+  imagesList?: any[];
   houseStatus?: string;
+  users? : any;
 }

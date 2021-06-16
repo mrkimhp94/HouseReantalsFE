@@ -3,6 +3,8 @@ import * as moment from 'moment';
 import {BookingServiceService} from '../../service/booking/bookingservice.service';
 import {Booking} from '../../model/booking';
 import {NotifyServiceService} from '../../service/notify/notify-service.service';
+import {MatDialogRef} from '@angular/material/dialog';
+import {GeneralPopupComponent} from '../../general-popup/general-popup.component';
 
 @Component({
   selector: 'booking-active',
@@ -22,7 +24,7 @@ export class BookingActiveComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
-    this.getAllBookingByHouseId(1);
+    this.getAllBookingByHouseId(this.bookingService.currentId);
   }
 
   dateFilter = (d: Date) => {
@@ -45,6 +47,7 @@ export class BookingActiveComponent implements OnInit, DoCheck {
     for (let i = 0; i < data.length; i++) {
       let start = new Date(data[i].checkinDate);
       let end = new Date(data[i].checkoutDate);
+      console.log(start, end);
       this.setListDisableDate(start, end);
     }
   }
@@ -80,7 +83,8 @@ export class BookingActiveComponent implements OnInit, DoCheck {
       };
       console.log(booking);
       this.bookingService.doBooking(booking).subscribe(() => {
-        console.log('success');
+        this.notifyService.notify='success'
+       console.log("success ")
       });
     }
   }
@@ -92,15 +96,14 @@ export class BookingActiveComponent implements OnInit, DoCheck {
     //Để tránh trường hợp chọn ngày bị ngắt quãng
 
     let start = this.checkInDate;
-    while (true) {
-      console.log(start)
-      let theDayAfterCheckInDay = this.formatDate(this.getNextDay(start));
-      if (this.listDisableDate.indexOf(theDayAfterCheckInDay) != -1) {
-        this.maxDate = start;
-        break;
-      }
-      start = this.getNextDay(start);
-    }
+    // while (true) {
+    //   let theDayAfterCheckInDay = this.formatDate(this.getNextDay(start));
+    //   if (this.listDisableDate.indexOf(theDayAfterCheckInDay) != -1) {
+    //     this.maxDate = start;
+    //     break;
+    //   }
+    //   start = this.getNextDay(start);
+    // }
 
   }
 

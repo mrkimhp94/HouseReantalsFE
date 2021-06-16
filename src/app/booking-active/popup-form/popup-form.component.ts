@@ -1,8 +1,11 @@
 import {Component, EventEmitter, Output,OnInit} from '@angular/core';
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
 import {config} from 'rxjs';
 import {NotifyServiceService} from '../../service/notify/notify-service.service';
 import {element} from 'protractor';
+import {templateSourceUrl} from '@angular/compiler';
+import {getTemplateUrl} from 'codelyzer/util/ngQuery';
+import {GeneralPopupComponent} from '../../general-popup/general-popup.component';
 
 @Component({
   selector: 'popup-button',
@@ -22,11 +25,16 @@ export class PopUpFormComponent {
       const dialogRef = this.dialog.open(PopUpContent);
       dialogRef.afterClosed().subscribe(result => {
         this.submitEvt.emit(result);
+        // if(this.notifyService.notify='success'){
+        //   this.dialog.open(PopUpContent)
+        // }
+
       })
 
     }
     else {
       this.dialog.open(PopUpContent);
+
     }
   }
 }

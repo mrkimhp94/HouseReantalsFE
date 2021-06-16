@@ -13,7 +13,8 @@ const routes: Routes = [
   },
   {
     path: 'detail/:houseId',
-    component: DetailHouseComponent
+    component: DetailHouseComponent,
+    loadChildren:()=> import('../booking-active/booking-active.module').then(module => module.BookingActiveModule)
   },
   {
     path: 'create',

@@ -3,32 +3,34 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {HouseModule} from './house/house.module';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {AngularFireDatabaseModule} from '@angular/fire/database';
-import {AngularFireStorageModule} from '@angular/fire/storage';
-import {AngularFireModule} from '@angular/fire';
+import { LoginComponent } from './login/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AuthenticationService} from './service/authentication.service';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule, HttpHandler} from '@angular/common/http';
+import {JwtInterceptor} from './helper/jwt-interceptor';
+import {LoginModule} from './login/login.module';
+import {RegisterModule} from './register/register.module';
+import {RegisterComponent} from './register/register.component';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireStorageModule} from '@angular/fire/storage';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {environment} from '../environments/environment';
-import {HouseService} from './service/house/house.service';
+import {HouseModule} from './house/house.module';
 import {BookingActiveModule} from './booking-active/booking-active.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {BookingServiceService} from './service/booking/bookingservice.service';
-import {NotifyServiceService} from './service/notify/notify-service.service';
-import {BookingModuleModule} from './booking-module/booking-module.module';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { MyHouseComponent } from './house/my-house/my-house.component';
-import { GeneralPopupComponent } from './general-popup/general-popup.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HouseService} from './service/house/house.service';
+import {CommonModule} from '@angular/common';
+import {GeneralPopupComponent} from './general-popup/general-popup.component';
+import {MatDialogModule} from '@angular/material';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    GeneralPopupComponent,
+    GeneralPopupComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -39,14 +41,23 @@ import { GeneralPopupComponent } from './general-popup/general-popup.component';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
+    HouseModule,
     BookingActiveModule,
     BrowserAnimationsModule,
-    BookingModuleModule,
-    HouseModule
-
+    AppRoutingModule,
+    RegisterModule,
+    LoginModule,
+    MatDialogModule
   ],
-  providers: [HttpClient,
-    HouseService , BookingServiceService, NotifyServiceService],
+  providers: [
+    HttpClient,
+    HouseService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

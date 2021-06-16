@@ -1,0 +1,32 @@
+// @ts-ignore
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators,AbstractControl} from '@angular/forms';
+import {AuthenticationService} from '../service/authentication.service';
+import {Router} from '@angular/router';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent implements OnInit {
+  loginForm: FormGroup= new FormGroup({
+    username: new FormControl('', Validators.required && Validators.minLength(6)),
+    password: new FormControl('', Validators.required)
+  });
+
+  constructor(private authenticationService: AuthenticationService,
+              private router: Router) {
+  }
+
+  ngOnInit() {
+  }
+
+  login() {
+    this.authenticationService.login(this.loginForm.value).subscribe(user => {
+      localStorage.setItem('ACCESS_TOKEN', user.token);
+      this.router.navigateByUrl('/');
+    });
+  }
+
+}
