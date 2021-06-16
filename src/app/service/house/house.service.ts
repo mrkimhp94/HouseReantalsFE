@@ -32,4 +32,7 @@ export class HouseService {
   findByHouseId(houseId: number): Observable<House> {
     return this.http.get<House>(`${API_URL}/houses/detail/${houseId}`);
   }
+  getSearchHouse(search: string, checkin: Date, checkout: Date): Observable<House[]> {
+    return this.http.get<House[]>(`${API_URL}/houses/search?search=${search}&checkin=${checkin}&checkout=${checkout}`);
+  }
 }

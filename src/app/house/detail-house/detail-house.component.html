@@ -48,11 +48,11 @@
 
               <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
                 <div class="carousel-inner" >
-                  <div class="carousel-item active"  >
-                    <img src="{{house.imageList[0].linkImage}}"  class="d-block w-100" style="width:400px;height:500px;">
+                  <div class="carousel-item active"   >
+                    <img src="{{images[0]}}"  class="d-block w-100" style="width:400px;height:500px;">
                   </div>
-                  <div class="carousel-item" *ngFor = " let image of listImage | slice:1; let i = index " >
-                    <img style= "width:400px;height:500px;" src="{{image.linkImage}}" class="d-block w-100" >
+                  <div class="carousel-item" *ngFor = " let image of images | slice:1; let i = index " >
+                    <img style= "width:400px;height:500px;" src="{{image}}" class="d-block w-100" >
                   </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
@@ -72,7 +72,7 @@
         <div class="single-property-wrapper">
           <div class="single-property-header">
             <h1 class="property-title pull-left">{{house.houseName}}</h1> <br>
-            <span class="property-price pull-right">{{house.pricePerDay}}</span>
+            <span class="property-price pull-right">$ {{house.pricePerDay}}</span>
 
           </div>
 
@@ -157,12 +157,12 @@
                 <div class="clear">
                   <div class="col-xs-4 col-sm-4 dealer-face">
                     <a href="">
-                      <img src="assets/img/client-face1.png" class="img-circle">
+                      <img src="{{house.users.avatarUrl}}" class="img-circle">
                     </a>
                   </div>
                   <div class="col-xs-8 col-sm-8 ">
                     <h3 class="dealer-name">
-                      <a href="">Nathan James</a>
+                      <a href="">{{house.users.fullname}}</a>
                       <span>Real Estate Agent</span>
                     </h3>
                     <div class="dealer-social-media">
@@ -188,9 +188,9 @@
 
                 <div class="clear">
                   <ul class="dealer-contacts">
-                    <li><i class="pe-7s-map-marker strong"> </i> 9089 your adress her</li>
-                    <li><i class="pe-7s-mail strong"> </i> email@yourcompany.com</li>
-                    <li><i class="pe-7s-call strong"> </i> +1 908 967 5906</li>
+                    <li><i class="pe-7s-map-marker strong"> </i> {{house.users.userAddress}}</li>
+                    <li><i class="pe-7s-mail strong"> </i> {{house.users.email}}</li>
+                    <li><i class="pe-7s-call strong"> </i> {{house.users.phone}}</li>
                   </ul>
                   <p>Duis mollis blandit tempus porttitor curabiturDuis mollis blandit tempus porttitor curabitur , est
                     non…</p>

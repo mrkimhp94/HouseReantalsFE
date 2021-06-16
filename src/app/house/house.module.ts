@@ -7,6 +7,7 @@ import {HouseCreateComponent} from './house-create/house-create.component';
 import {ListHouseComponent} from './list-house/list-house.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HouseRoutingModule} from './house-routing.module';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -14,12 +15,13 @@ import {HouseRoutingModule} from './house-routing.module';
         DetailHouseComponent,
         HouseCreateComponent
     ],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        FormsModule,
-        HouseRoutingModule
-    ],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HouseRoutingModule,
+    SharedModule
+  ],
     exports: [
         ListHouseComponent
     ],

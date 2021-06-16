@@ -70,6 +70,21 @@ export class ListHouseComponent implements OnInit {
     const search = this.searchForm.value.search;
     const checkin = this.searchForm.value.checkin;
     const checkout = this.searchForm.value.checkout;
-    this.router.navigate(['/houses/search'], {queryParams: {search: search, checkin: checkin, checkout: checkout}});
+    this.houseService.getSearchHouse(search, checkin, checkout).subscribe(listHouse => {
+      this.listHouse = listHouse;
+      this.addImageToHouse(this.listHouse);
+      this.router.navigate(['/houses'], {queryParams: {search: search, checkin: checkin, checkout: checkout}});
+  });
+  }
+
+  private addImageToHouse(listHouse: House[]) {
+    listHouse.map(async house => {
+      house.imagesList = await this.getAllImageByProduct(house);
+    });
+  }
+
+  private async getAllImageByProduct(house: House) {
+    return this.houseService.getAllImageByHouse(house.houseId).toPromise();
+
   }
 }

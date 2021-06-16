@@ -1,3 +1,6 @@
+<app-head></app-head>
+<app-nav></app-nav>
+<app-header></app-header>
 <div class="content-area submit-property" style="background-color: #FCFCFC;">&nbsp;
   <div class="container">
     <div class="clearfix">
@@ -6,8 +9,8 @@
         <div class="wizard-card ct-wizard-orange" id="wizardProperty">
           <form [formGroup]="houseForm" (ngSubmit)="createImage()" id="product-form">
             <div class="wizard-header">
-              <h3>
-                <b>Submit</b> YOUR PROPERTY <br>
+              <h3 style="text-align: center">
+                <b>Create</b> YOUR HOUSE <br>
               </h3>
             </div>
             <div class="col-sm-12" style="margin-top: 20px">
@@ -93,12 +96,12 @@
             <div class="col-sm-12">
               <div class="col-sm-6">
                 <div class="form-group">
-                  <a routerLink="/" class="btn btn-secondary " style="text-align: center">Hủy</a>
+                  <a routerLink="/" class="btn btn-danger " style="text-align: center">Cancel</a>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
-                  <input type="submit" value="Tạo mới" class="btn btn-success float-right">
+                  <input type="submit" value="Create new House" class="btn btn-success float-right">
                 </div>
               </div>
             </div>
@@ -109,4 +112,4 @@
     </div>
   </div>
 </div>
-
+<app-footer></app-footer>

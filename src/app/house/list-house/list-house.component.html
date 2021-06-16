@@ -1,13 +1,7 @@
-<div class="page-head">
-  <div class="container">
-    <div class="row">
-      <div class="page-head-content">
-        <h1 class="page-title">List Layout With Sidebar</h1>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- End page header -->
+<app-head></app-head>
+<app-nav></app-nav>
+<app-header></app-header>
+
 
 <!-- property area -->
 <div class="properties-area recent-property" style="background-color: #FFF;">
@@ -46,7 +40,7 @@
                 <fieldset >
                   <div class="row">
                     <div class="col-xs-12">
-                      <input class="button btn largesearch-btn" value="Search">
+                      <input class="button btn largesearch-btn" value="Search" type="submit">
                     </div>
                   </div>
                 </fieldset>
@@ -163,11 +157,11 @@
             <div class="col-sm-6 col-md-4 p0" *ngFor="let house of filteredListHouse; index as i">
               <div class="box-two proerty-item">
                 <div class="item-thumb">
-                  <a  ><img src="{{house.imageList[0].linkImage}}"></a>
+                  <a [routerLink]="['/houses/detail',house.houseId]" ><img style= "width:400px;height:500px;" src="{{house.imagesList[0].linkImage}}"></a>
                 </div>
 
                 <div class="item-entry overflow">
-                  <h5><a [routerLink]="['detail',house.houseId]"> {{house.houseName}} </a></h5>
+                  <h5><a href="property-1.html"> {{house.houseName}} </a></h5>
                   <div class="dot-hr"></div>
                   <span class="pull-left"><b> Area :</b> {{house.area}} </span>
                   <span class="proerty-price pull-right"> {{house.pricePerDay}}</span>
@@ -204,3 +198,4 @@
     </div>
   </div>
 </div>
+<app-footer></app-footer>

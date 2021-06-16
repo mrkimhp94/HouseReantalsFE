@@ -16,7 +16,7 @@ import {House} from '../../model/house';
 export class DetailHouseComponent implements OnInit {
   houseId?: any;
   house: House;
-  listImage: Image[] = [];
+  images :string[] =[];
   public style: 'width:500px;height:600px;' ;
 
   constructor(private houseService: HouseService,
@@ -27,8 +27,13 @@ export class DetailHouseComponent implements OnInit {
 
   getHouse(houseId: number) {
     return this.houseService.findByHouseId(houseId).subscribe(house => {
+      console.log(house)
       this.house = house;
-      this.listImage = house.imageList;
+      // for(let i =0;i<house.imagesList.length;i++){
+      //   this.images.push(house.imageList[i])
+      // }
+      this.images = house.imagesList;
+      console.log(this.images)
     });
   }
 
