@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Output,OnInit} from '@angular/core';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {config} from 'rxjs';
-import {NotifyServiceService} from '../../notify-service.service';
+import {NotifyServiceService} from '../../service/notify/notify-service.service';
 import {element} from 'protractor';
 
 @Component({

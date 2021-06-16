@@ -1,8 +1,8 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
 import * as moment from 'moment';
-import {BookingServiceService} from '../../bookingservice.service';
+import {BookingServiceService} from '../../service/booking/bookingservice.service';
 import {Booking} from '../../model/booking';
-import {NotifyServiceService} from '../../notify-service.service';
+import {NotifyServiceService} from '../../service/notify/notify-service.service';
 
 @Component({
   selector: 'booking-active',

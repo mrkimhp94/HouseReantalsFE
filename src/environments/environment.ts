@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api_url : "http://localhost:8081/bookings",
+  api_url : "http://localhost:8082",
   firebaseConfig : {
     apiKey: 'AIzaSyBrzdKSVfCjHaWjHtpUYucmpChrhAMnoGM',
     authDomain: 'houserentals-fc046.firebaseapp.com',

@@ -13,10 +13,20 @@ import {environment} from '../environments/environment';
 import {HouseService} from './service/house/house.service';
 import {BookingActiveModule} from './booking-active/booking-active.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BookingServiceService} from './service/booking/bookingservice.service';
+import {NotifyServiceService} from './service/notify/notify-service.service';
+import {BookingModuleModule} from './booking-module/booking-module.module';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { MyHouseComponent } from './house/my-house/my-house.component';
+import { GeneralPopupComponent } from './general-popup/general-popup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
+    FooterComponent,
+    GeneralPopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,12 +39,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    HouseModule,
     BookingActiveModule,
     BrowserAnimationsModule,
+    BookingModuleModule,
+    HouseModule
+
   ],
   providers: [HttpClient,
-    HouseService],
+    HouseService , BookingServiceService, NotifyServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
 export interface Booking {
-  bookingId?: number;
+  bookingId?: any;
   checkinDate?: any;
   checkoutDate?: any;
   total?: any;

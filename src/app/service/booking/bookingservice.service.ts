@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../environments/environment';
+
 import {Observable} from 'rxjs';
+import {environment} from '../../../environments/environment';
 
 const API_URL = `${environment.api_url}`;
 
@@ -12,15 +13,18 @@ export class BookingServiceService {
 
   constructor(private http: HttpClient) {
   }
-
-
   public getAll(): Observable<any> {
-    return this.http.get(API_URL);
+    return this.http.get(API_URL+'/bookings');
   }
   public getBookingByHouseId(houseId:any): Observable<any>{
-    return  this.http.get(API_URL+"/house/"+houseId)
+    console.log(API_URL+`bookings/house/${houseId}`)
+    return  this.http.get(API_URL+`bookings/house/${houseId}`)
   }
   public doBooking(booking : any) : Observable<any>{
-    return  this.http.post(API_URL,booking)
+    return  this.http.post(API_URL+`/bookings`,booking)
+  }
+  public deleteBooking(id:any):Observable<any>{
+    return  this.http.delete(API_URL+`/bookings/${id}`);
+
   }
 }

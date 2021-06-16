@@ -1,0 +1,94 @@
+
+<h2 mat-dialog-title>All Your House</h2>
+<mat-dialog-content class="mat-typography">
+
+  <div class="col-md-3 p0 padding-top-40">
+    <div class="blog-asside-right">
+      <div class="panel panel-default sidebar-menu wow fadeInRight animated" >
+        <div class="panel-heading">
+          <h3 class="panel-title">Hello Kimaro</h3>
+        </div>
+        <div class="panel-body search-widget">
+
+        </div>
+      </div>
+
+      <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+        <div class="panel-heading">
+          <h3 class="panel-title">Recommended</h3>
+        </div>
+        <div class="panel-body recent-property-widget">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-area recent-property" style="background-color: #FFF;">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-9 pr-30 padding-top-40 properties-page user-properties">
+
+          <div class="section">
+            <div class="page-subheader sorting pl0 pr-10">
+
+              <div class="section">
+                <div id="list-type" class="proerty-th-list">
+                  <div class="col-md-4 p0" *ngFor="let house of myHouses">
+                    <div class="box-two proerty-item">
+                      <div class="item-thumb">
+                        <a href="property-1.html" ><img src="assets/img/demo/property-3.jpg"></a>
+                      </div>
+                      <div class="item-entry overflow">
+                        <h5><a href="property-1.html"> {{house.houseName}} </a></h5>
+                        <div class="dot-hr"></div>
+                        <span class="pull-left"><b> Area :</b> {{house.area}} </span>
+                        <span class="proerty-price pull-right"> $ {{house.pricePerDay}}</span>
+                        <strong style="display: none">{{house.houseAddress}} </strong>
+                        <p style="display: none;">{{house.description}} </p>
+
+                        <div class="property-icon" style="margin : auto">
+                          <img src="assets/img/icon/bed.png">{{house.bedroomQuantity}}|
+                          <img src="assets/img/icon/shawer.png">{{house.bathroomQuantity}}|
+                          <img src="assets/img/icon/cars.png">(1)
+
+                          <div class="dealer-action " style="margin-top: auto">
+                            <a href="submit-property.html" class="button">Edit </a>
+                            <a href="#" class="button delete_user_car">Delete</a>
+                            <a href="property-1.html" class="button">View</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="section">
+                <div class="pull-right">
+                  <div class="pagination">
+                    <ul>
+                      <li><a href="#">Prev</a></li>
+                      <li><a href="#">1</a></li>
+                      <li><a href="#">2</a></li>
+                      <li><a href="#">3</a></li>
+                      <li><a href="#">4</a></li>
+                      <li><a href="#">Next</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

@@ -7,25 +7,32 @@ import {HouseCreateComponent} from './house-create/house-create.component';
 import {ListHouseComponent} from './list-house/list-house.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HouseRoutingModule} from './house-routing.module';
+import {MyHouseComponent, OpenListHouse} from './my-house/my-house.component';
+import {MatButtonModule} from '@angular/material';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 @NgModule({
-    declarations: [
-        ListHouseComponent,
-        DetailHouseComponent,
-        HouseCreateComponent
-    ],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        FormsModule,
-        HouseRoutingModule
-    ],
-    exports: [
-        ListHouseComponent
-    ],
-    // exports: [
-    //   HouseRoutingModule
-    // ]
+  declarations: [
+    ListHouseComponent,
+    DetailHouseComponent,
+    HouseCreateComponent,
+    MyHouseComponent,
+    OpenListHouse
+  ],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HouseRoutingModule,
+    MatButtonModule,
+    MatDialogModule
+  ],
+  exports: [
+    ListHouseComponent,
+    MyHouseComponent
+  ],
+  entryComponents:[OpenListHouse]
 })
 export class HouseModule {
 }

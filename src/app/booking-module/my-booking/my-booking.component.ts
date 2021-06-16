@@ -1,28 +1,21 @@
 import {Component, OnInit} from '@angular/core';
-import {BookingServiceService} from '../../bookingservice.service';
+
 import {Booking} from '../../model/booking';
 import {MatDialog} from '@angular/material/dialog';
+import {BookingServiceService} from '../../service/booking/bookingservice.service';
+import * as moment from 'moment';
+import {ActivatedRoute, ParamMap} from '@angular/router';
 
 @Component({
   selector: 'my-booking',
   templateUrl: './my-booking.component.html',
-  styleUrls: ['./my-booking.component.css']
+  // styleUrls: ['./my-booking.component.css']
 })
 export class MyBookingComponent implements OnInit {
-  bookingList: Booking[] = [];
-
   constructor(private bookingService: BookingServiceService, private dialog: MatDialog) {
   }
 
   ngOnInit() {
-    this.getAll();
-  }
-
-  getAll() {
-    this.bookingService.getAll().subscribe(data => {
-      this.bookingList = data;
-      console.log(this.bookingList);
-    });
   }
 
   open() {
@@ -35,7 +28,41 @@ export class MyBookingComponent implements OnInit {
   templateUrl: 'booking-list.html',
   styleUrls: ['./my-booking.component.css']
 })
-export class BookingList {
-  constructor() {
+export class BookingList implements OnInit {
+  bookingList: Booking[] = [];
+  bookingId: string;
+
+  constructor(private bookingService: BookingServiceService, private dialog: MatDialog, private activeRouter: ActivatedRoute) {
+
+  }
+  getAll() {
+    this.bookingService.getAll().subscribe(data => {
+      // this.bookingList = data;
+      for (let i = 0; i < data.length; i++) {
+        data[i].checkinDate = this.formatDate(data[i].checkinDate);
+        data[i].checkoutDate = this.formatDate(data[i].checkoutDate);
+        this.bookingList.push(data[i]);
+      }
+      console.log(this.bookingList);
+    });
+  }
+
+  ngOnInit(): void {
+    this.getAll();
+  }
+
+  formatDate(date: any): any {
+    return (moment(date)).format('yyyy-MM-DD');
+  }
+  deleteBooking(id: any) {
+    this.activeRouter.paramMap.subscribe((paramMap: ParamMap) => {
+      this.bookingId = paramMap.get('id');
+      console.log(this.bookingId)
+    });
+    this.bookingService.deleteBooking(id).subscribe(
+      () => {
+        console.log('delete success');
+      }
+    );
   }
 }
