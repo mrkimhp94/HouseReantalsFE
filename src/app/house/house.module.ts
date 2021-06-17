@@ -37,6 +37,7 @@ import {MatButtonModule, MatDialogModule} from '@angular/material';
     ListHouseComponent
   ],
   entryComponents: [
+    PopUp
   ]
 })
 export class HouseModule {

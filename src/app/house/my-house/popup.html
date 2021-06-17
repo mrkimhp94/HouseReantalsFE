@@ -1,13 +1,10 @@
-<h2 mat-dialog-title>BOOKING NOTIFICATION </h2>
-<i class="bi bi-arrow-right-circle-fill"></i>
+<h2 mat-dialog-title>HOUSE MANAGEMENT NOTIFICATION </h2>
 <mat-dialog-content class="mat-typography">
-  <!--<strong *ngIf="notify=='valid'"> :  </strong>-->
-  <p *ngIf="notify=='inValidInStartDate'">Please choose starting date</p>
-  <p *ngIf="notify=='inValidInEndDate'">Please choose end date</p>
-  <p *ngIf="notify=='valid'">Please confirm </p>
-  <p *ngIf="notify=='success'">Booking success</p>
+  <p *ngIf="notify==''"> Do you want to update ? </p>
+  <p *ngIf="notify=='success'">Update successfully</p>
+  <p *ngIf="notify=='notAllowed'">You cannot change the status of this property because it has already be rented</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>CANCEL</button>
-  <button *ngIf="notify=='valid'" mat-button [mat-dialog-close]="true" cdkFocusInitial>CONFIRM</button>
+  <button *ngIf="notify==''" mat-button [mat-dialog-close]="true" cdkFocusInitial>CONFIRM</button>
 </mat-dialog-actions>

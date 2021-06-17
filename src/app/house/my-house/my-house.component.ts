@@ -4,6 +4,7 @@ import {HouseService} from '../../service/house/house.service';
 import {House} from '../../model/House';
 import {UserServiceService} from '../../service/user-service.service';
 import {NotifyServiceService} from '../../service/notify/notify-service.service';
+import {DateServiceService} from '../../service/date/date-service.service';
 
 
 @Component({
@@ -13,14 +14,20 @@ import {NotifyServiceService} from '../../service/notify/notify-service.service'
 })
 export class OpenListHouse implements OnInit {
   myHouses: House[] = [];
+  myBooking=[]
   house: House;
+  isAllowToChangeToUpdate: boolean; //cho phep doi rent -> blank hay khong
 
   ngOnInit(): void {
     this.getAllMyHouse(this.userService.getCurrentUser().id);
+    this.notifyService.notify = '';
   }
 
   constructor(private houseService: HouseService,
-              private userService: UserServiceService) {
+              private userService: UserServiceService,
+              private dialog: MatDialog,
+              private notifyService: NotifyServiceService,
+              private dateService: DateServiceService) {
 
   }
 
@@ -31,33 +38,75 @@ export class OpenListHouse implements OnInit {
   }
 
   updateStatus(houseId: number, status: string) {
-    this.houseService.findByHouseId(houseId).subscribe((data) => {
-      data.houseStatus = status;
-      console.log(data);
-      this.houseService.upDateHouse(houseId, status).subscribe((data) => {
-        alert('Update Success');
+    if (this.isAllowToChangeToUpdate) {
+      this.houseService.findByHouseId(houseId).subscribe((data) => {
+        data.houseStatus = status;
+        this.houseService.upDateHouse(houseId, status).subscribe((data) => {
+          this.dialog.open(PopUp);
+          this.notifyService.notify = 'success';
+        });
+      });
+    } else {
+      this.notifyService.notify = 'notAllowed';
+      this.dialog.open(PopUp);
+    }
+
+  }
+
+  changeBlankStatus(houseId: number) {
+    this.notifyService.notify = '';
+    this.dialog.open(PopUp).afterClosed().subscribe(result => {
+      if (result == true) {
+        this.updateStatus(houseId, 'blank');
+      }
+    });
+
+  }
+
+//Su dung nhieu callBack nen e xu li = asysn/await
+  //Luong chay em da console ra
+  async changeRentStatus(houseId: number) {
+    await this.checkingHouse(houseId).then(r => {
+        console.log('2');
+      }
+    ).then(() => {
+      console.log('3');
+      this.notifyService.notify = '';
+      this.dialog.open(PopUp).afterClosed().subscribe(result => {
+        if (result == true) {
+          this.updateStatus(houseId, 'rent');
+        }
       });
     });
   }
 
-  changeBlankStatus(houseId: number): any {
-    return this.updateStatus(houseId, 'blank');
-  }
-
-  changeRentStatus(houseId: number) {
-    return this.updateStatus(houseId, 'rent');
-  }
-
   changeUpgradeStatus(houseId: number) {
-    return this.updateStatus(houseId, 'upgrade');
+    this.notifyService.notify = '';
+    this.dialog.open(PopUp).afterClosed().subscribe(result => {
+      if (result == true) {
+        this.updateStatus(houseId, 'upgrade');
+      }
+    });
   }
 
-  checkingHouse(houseId: any): boolean {
-    this.houseService.findByHouseId(houseId).subscribe((data) => {
-      this.house = data;
+  async checkingHouse(houseId: any) {
+     await this.dateService.setHouseId(houseId).then(
+      () => {
+        console.log('start');
+      }
+    ).then(() => {
+      console.log('1');
+      console.log(this.dateService.formatDate(Date.now()));
+      console.log(this.dateService.allBookingDate.indexOf(this.dateService.formatDate(Date.now())));
+      if (this.dateService.allBookingDate.indexOf(this.dateService.formatDate(Date.now()).trim()) != -1) {
+        this.isAllowToChangeToUpdate = false;
+      } else {
+        this.isAllowToChangeToUpdate = true;
+      }
     });
-    return false;
+
   }
+
 
 }
 
@@ -68,8 +117,14 @@ export class OpenListHouse implements OnInit {
 })
 export class PopUp implements OnInit {
   notify: any;
+
+  constructor(private notifyService: NotifyServiceService) {
+  }
+
   ngOnInit(): void {
+    this.notify = this.notifyService.notify;
+    console.log(this.notify);
   }
-  constructor(private notifyService : NotifyServiceService) {
-  }
+
+
 }
