@@ -24,6 +24,7 @@ export class DateServiceService {
   constructor(private bookingService: BookingServiceService,
               private houseService: HouseService) {
   }
+
   dateFilter = (d: Date) => {
     if (d < this.today) {
       return false;
@@ -33,21 +34,20 @@ export class DateServiceService {
   };
 
   async setHouseId(id: any) {
-   await this.bookingService.getBookingByHouseId(id).subscribe((data) => {
-      this.getListDisableDate(data);
+    console.log('start service');
+    return this.bookingService.getBookingByHouseId(id).subscribe((data) => {
     });
   }
 
-  getListDisableDate(data: any) {
-    console.log(data);
+  async getListDisableDate(data: any) {
     for (let i = 0; i < data.length; i++) {
       let start = new Date(data[i].checkinDate);
       let end = new Date(data[i].checkoutDate);
-      this.setListDisableDate(start, end);
+      await this.setListDisableDate(start, end);
     }
   }
 
-  setListDisableDate(start: any, end: any): any {
+  async setListDisableDate(start: any, end: any) {
     while (start <= end) {
       this.allBookingDate.push(this.formatDate(start));
       start = this.getNextDay(start);

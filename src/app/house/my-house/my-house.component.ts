@@ -98,7 +98,7 @@ export class OpenListHouse implements OnInit {
       console.log('1');
       console.log(this.dateService.formatDate(Date.now()));
       console.log(this.dateService.allBookingDate.indexOf(this.dateService.formatDate(Date.now())));
-      if (this.dateService.allBookingDate.indexOf(this.dateService.formatDate(Date.now()).trim()) != -1) {
+      if (this.dateService.allBookingDate.indexOf(this.dateService.formatDate(Date.now())) != -1) {
         this.isAllowToChangeToUpdate = false;
       } else {
         this.isAllowToChangeToUpdate = true;
