@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {HouseService} from '../../service/house/house.service';
 import {House} from '../../model/House';
+import {UserServiceService} from '../../user-service.service';
 
 @Component({
   selector: 'my-house',
@@ -30,10 +31,11 @@ export class OpenListHouse implements OnInit {
   myHouses: House[] = [];
 
   ngOnInit(): void {
-    this.getAllMyHouse(1);
+    this.getAllMyHouse(this.userService.getCurrentUser().id);
   }
 
-  constructor(private houseService: HouseService) {
+  constructor(private houseService: HouseService,
+              private userService: UserServiceService) {
 
   }
 
@@ -43,19 +45,26 @@ export class OpenListHouse implements OnInit {
     });
   }
 
-  changeBlankStatus(houseId: number) {
+  updateStatus(houseId: number, status: string) {
+    this.houseService.findByHouseId(houseId).subscribe((data) => {
+      data.houseStatus = status;
+      console.log(data)
+      this.houseService.upDateHouse(houseId,status).subscribe((data) => {
+        alert('Update Success');
+      });
+    });
+  }
 
+  changeBlankStatus(houseId: number): any {
+    return this.updateStatus(houseId, 'blank');
   }
 
   changeRentStatus(houseId: number) {
-
+    return this.updateStatus(houseId, 'rent');
   }
 
   changeUpgradeStatus(houseId: number) {
-
+    return this.updateStatus(houseId, 'upgrade');
   }
 
-  // checkingHouseStatus(): boolean {
-  //
-  // }
 }

@@ -1,12 +1,12 @@
-<h2 mat-dialog-title>Booking Notify</h2>
+<h2 mat-dialog-title>BOOKING NOTIFICATION</h2>
 <mat-dialog-content class="mat-typography">
-<strong *ngIf="notify=='valid'">Thông tin chi tiết :  </strong>
-<p *ngIf="notify=='inValidInStartDate'">Vui lòng chọn ngày bắt đầu</p>
-  <p *ngIf="notify=='inValidInEndDate'">Vui lòng chọn ngày kết thúc</p>
-  <p *ngIf="notify=='valid'">Bạn phải tuân thủ các bruh của phòng vì chủ nhà rất là bruh bruh</p>
+<!--<strong *ngIf="notify=='valid'"> :  </strong>-->
+<p *ngIf="notify=='inValidInStartDate'">Please choose starting date</p>
+  <p *ngIf="notify=='inValidInEndDate'">Please choose end date</p>
+  <p *ngIf="notify=='valid'">Please confirm </p>
   <p *ngIf="notify=='success'">Booking success</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button *ngIf="notify=='valid'" mat-button [mat-dialog-close]="true" cdkFocusInitial>Confirm</button>
+  <button mat-button mat-dialog-close>CANCEL</button>
+  <button *ngIf="notify=='valid'" mat-button [mat-dialog-close]="true" cdkFocusInitial>CONFIRM</button>
 </mat-dialog-actions>
