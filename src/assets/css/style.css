@@ -121,12 +121,14 @@ button,
 html input[type="button"],
 input[type="reset"],
 input[type="submit"] {
+
+
     -webkit-appearance: button;
     cursor: pointer;
 }
 button[disabled],
 html input[disabled] {
-    cursor: default;
+    cursor: pointer;
 }
 button::-moz-focus-inner,
 input::-moz-focus-inner {
@@ -453,7 +455,7 @@ input[type="search"]::-webkit-search-decoration {
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
     background-color: #EEEEEE;
     color: #999999;
-    cursor: not-allowed;
+    cursor: pointer;
 }
 .has-success .form-control,
 .has-error .form-control,
@@ -796,7 +798,7 @@ label small{
     border-style: solid;
     border-width: 4px;
     color: #666666;
-    cursor: default;
+    cursor: pointer;
     font-weight: 700;
     outline: none;
 }
@@ -1426,14 +1428,14 @@ Asside widgets CSS
 .pagination .active a,
 .pagination .active span {
     color: #999999;
-    cursor: default;
+    cursor: pointer;
 }
 
 .pagination .disabled span,
 .pagination .disabled a,
 .pagination .disabled a:hover {
     color: #999999;
-    cursor: default;
+    cursor: pointer;
     background-color: transparent;
 }
 

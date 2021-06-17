@@ -2,25 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {HouseService} from '../../service/house/house.service';
 import {House} from '../../model/House';
-import {UserServiceService} from '../../user-service.service';
+import {UserServiceService} from '../../service/user-service.service';
+import {NotifyServiceService} from '../../service/notify/notify-service.service';
 
-@Component({
-  selector: 'my-house',
-  templateUrl: './my-house.component.html',
-  styleUrls: ['./my-house.component.css']
-})
-export class MyHouseComponent implements OnInit {
-
-  constructor(private dialog: MatDialog) {
-  }
-
-  ngOnInit() {
-  }
-
-  showMyHouse() {
-    this.dialog.open(OpenListHouse);
-  }
-}
 
 @Component({
   selector: 'my-list-house',
@@ -29,6 +13,7 @@ export class MyHouseComponent implements OnInit {
 })
 export class OpenListHouse implements OnInit {
   myHouses: House[] = [];
+  house: House;
 
   ngOnInit(): void {
     this.getAllMyHouse(this.userService.getCurrentUser().id);
@@ -48,8 +33,8 @@ export class OpenListHouse implements OnInit {
   updateStatus(houseId: number, status: string) {
     this.houseService.findByHouseId(houseId).subscribe((data) => {
       data.houseStatus = status;
-      console.log(data)
-      this.houseService.upDateHouse(houseId,status).subscribe((data) => {
+      console.log(data);
+      this.houseService.upDateHouse(houseId, status).subscribe((data) => {
         alert('Update Success');
       });
     });
@@ -67,4 +52,24 @@ export class OpenListHouse implements OnInit {
     return this.updateStatus(houseId, 'upgrade');
   }
 
+  checkingHouse(houseId: any): boolean {
+    this.houseService.findByHouseId(houseId).subscribe((data) => {
+      this.house = data;
+    });
+    return false;
+  }
+
+}
+
+@Component({
+  selector: 'my-house-popup',
+  templateUrl: 'popup.html',
+  styleUrls: ['./my-house.component.css']
+})
+export class PopUp implements OnInit {
+  notify: any;
+  ngOnInit(): void {
+  }
+  constructor(private notifyService : NotifyServiceService) {
+  }
 }

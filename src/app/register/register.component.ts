@@ -4,6 +4,7 @@ import {AuthenticationService} from '../service/authentication.service';
 import {Router} from '@angular/router';
 import {first} from 'rxjs/operators';
 import {register} from 'ts-node';
+
 import firebase from 'firebase';
 import {User} from '../interface/user';
 
@@ -66,6 +67,7 @@ export class RegisterComponent implements OnInit {
 
   register() {
     if (this.registerForm.valid) {
+      console.log(this.user)
       this.authenticationserivce.register(this.user)
         .subscribe(
           next => {
@@ -75,9 +77,9 @@ export class RegisterComponent implements OnInit {
             this.router.navigateByUrl('/');
           }
         );
-    }else {
-      alert("Register false");
-      this.router.navigateByUrl('/register')
+    } else {
+      alert('Register false');
+      this.router.navigateByUrl('/register');
     }
   }
 

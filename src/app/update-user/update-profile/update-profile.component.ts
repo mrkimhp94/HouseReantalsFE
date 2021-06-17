@@ -3,7 +3,7 @@ import {User} from '../../interface/user';
 import {Form, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../service/authentication.service';
-import {UserServiceService} from '../../user-service.service';
+import {UserServiceService} from '../../service/user-service.service';
 
 @Component({
   selector: 'app-update-profile',

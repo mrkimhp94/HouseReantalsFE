@@ -10,14 +10,19 @@ import {HouseRoutingModule} from './house-routing.module';
 import {SharedModule} from '../shared/shared.module';
 import {SharedRoutingModule} from '../shared/shared-routing.module';
 import {BookingActiveModule} from '../booking-active/booking-active.module';
-import {OpenListHouse} from './my-house/my-house.component';
+import {OpenListHouse, PopUp} from './my-house/my-house.component';
+import {GeneralPopupComponent} from '../general-popup/general-popup.component';
+import {MatButtonModule, MatDialogModule} from '@angular/material';
 
 @NgModule({
-    declarations: [
-        ListHouseComponent,
-        DetailHouseComponent,
-        HouseCreateComponent
-    ],
+  declarations: [
+    ListHouseComponent,
+    DetailHouseComponent,
+    HouseCreateComponent,
+    GeneralPopupComponent,
+    OpenListHouse,
+    PopUp
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -25,13 +30,15 @@ import {OpenListHouse} from './my-house/my-house.component';
     HouseRoutingModule,
     SharedModule,
     BookingActiveModule,
+    MatDialogModule,
+    MatButtonModule,
   ],
-    exports: [
-        ListHouseComponent
-    ],
-  entryComponents:[
-    OpenListHouse
+  exports: [
+    ListHouseComponent
+  ],
+  entryComponents: [
   ]
 })
 export class HouseModule {
+
 }
