@@ -20,7 +20,6 @@ import {PopUpContent, PopUpFormComponent} from './popup-form/popup-form.componen
   declarations: [BookingActiveComponent, PopUpFormComponent,PopUpContent],
   imports: [
     CommonModule,
-    BrowserAnimationsModule,
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
@@ -30,9 +29,8 @@ import {PopUpContent, PopUpFormComponent} from './popup-form/popup-form.componen
     ReactiveFormsModule,
     MatDialogModule,
     // AppModule
-
   ],
-  exports: [BookingActiveComponent,PopUpFormComponent,PopUpContent],
+  exports: [BookingActiveComponent],
   providers:[{provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
   entryComponents:[PopUpContent]
 })

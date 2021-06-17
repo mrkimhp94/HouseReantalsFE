@@ -56,7 +56,7 @@ export class ListHouseComponent implements OnInit {
     }
   }
 
-  previous() {
+  previous(){
     if (this.currentPage > 0) {
       this.currentPage--;
     }

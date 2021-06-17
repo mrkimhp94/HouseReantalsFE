@@ -8,6 +8,9 @@ import {ListHouseComponent} from './list-house/list-house.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HouseRoutingModule} from './house-routing.module';
 import {SharedModule} from '../shared/shared.module';
+import {SharedRoutingModule} from '../shared/shared-routing.module';
+import {BookingActiveModule} from '../booking-active/booking-active.module';
+import {OpenListHouse} from './my-house/my-house.component';
 
 @NgModule({
     declarations: [
@@ -20,14 +23,15 @@ import {SharedModule} from '../shared/shared.module';
     ReactiveFormsModule,
     FormsModule,
     HouseRoutingModule,
-    SharedModule
+    SharedModule,
+    BookingActiveModule,
   ],
     exports: [
         ListHouseComponent
     ],
-    // exports: [
-    //   HouseRoutingModule
-    // ]
+  entryComponents:[
+    OpenListHouse
+  ]
 })
 export class HouseModule {
 }

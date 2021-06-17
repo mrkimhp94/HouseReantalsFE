@@ -1,8 +1,10 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
 import * as moment from 'moment';
-import {BookingServiceService} from '../../bookingservice.service';
+import {BookingServiceService} from '../../service/booking/bookingservice.service';
 import {Booking} from '../../model/booking';
-import {NotifyServiceService} from '../../notify-service.service';
+import {NotifyServiceService} from '../../service/notify/notify-service.service';
+import {UserServiceService} from '../../user-service.service';
+import {HouseService} from '../../service/house/house.service';
 
 @Component({
   selector: 'booking-active',
@@ -18,11 +20,14 @@ export class BookingActiveComponent implements OnInit, DoCheck {
   minDate: Date;
   maxDate: Date;
 
-  constructor(private bookingService: BookingServiceService, private notifyService: NotifyServiceService) {
+  constructor(private bookingService: BookingServiceService,
+              private notifyService: NotifyServiceService,
+              private userService: UserServiceService,
+              private houseService: HouseService) {
   }
 
   ngOnInit() {
-    this.getAllBookingByHouseId(1);
+    this.getAllBookingByHouseId(this.bookingService.currentId);
   }
 
   dateFilter = (d: Date) => {
@@ -45,6 +50,7 @@ export class BookingActiveComponent implements OnInit, DoCheck {
     for (let i = 0; i < data.length; i++) {
       let start = new Date(data[i].checkinDate);
       let end = new Date(data[i].checkoutDate);
+      console.log(start, end);
       this.setListDisableDate(start, end);
     }
   }
@@ -76,11 +82,22 @@ export class BookingActiveComponent implements OnInit, DoCheck {
         bookingStatus: -1,
         checkinDate: start,
         checkoutDate: end,
-        total: totalDay,
+        total: this.checkTotalMoney(this.checkInDate,this.checkOutDate),
+        house: {
+          houseId: this.bookingService.currentId
+        },
+        users: {
+          userId: this.userService.getCurrentUser().id
+        }
       };
+      console.log('data booking : ');
       console.log(booking);
-      this.bookingService.doBooking(booking).subscribe(() => {
-        console.log('success');
+      console.log('data booking : ');
+      this.bookingService.doBooking(booking).subscribe((data) => {
+        console.log(data);
+        // this.notifyService.notify = 'success';
+        alert('Booking Success');
+        window.location.reload();
       });
     }
   }
@@ -92,14 +109,16 @@ export class BookingActiveComponent implements OnInit, DoCheck {
     //Để tránh trường hợp chọn ngày bị ngắt quãng
 
     let start = this.checkInDate;
-    while (true) {
-      console.log(start)
-      let theDayAfterCheckInDay = this.formatDate(this.getNextDay(start));
-      if (this.listDisableDate.indexOf(theDayAfterCheckInDay) != -1) {
-        this.maxDate = start;
-        break;
+    if (this.listDisableDate.length != 0) {
+      let x = 1;
+      while (++x < 60) {
+        let theDayAfterCheckInDay = this.formatDate(this.getNextDay(start));
+        if (this.listDisableDate.indexOf(theDayAfterCheckInDay) != -1) {
+          this.maxDate = start;
+          break;
+        }
+        start = this.getNextDay(start);
       }
-      start = this.getNextDay(start);
     }
 
   }
@@ -113,4 +132,18 @@ export class BookingActiveComponent implements OnInit, DoCheck {
       this.notifyService.notify = 'valid';
     }
   }
+
+  checkTotalMoney(start: any, end: any): number {
+    let totalDays = 0;
+    let total;
+    let pricesPerDay = this.houseService.getCurrentHouse().pricePerDay;
+    while (start <= end) {
+      totalDays++;
+      start = this.getNextDay(start);
+    }
+    total = totalDays * pricesPerDay;
+    return total;
+  }
 }
+
+

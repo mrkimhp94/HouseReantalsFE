@@ -11,4 +11,7 @@ url =`${environment.api_url}`
   getUserInformation(id : any){
   return this.http.get(this.url + `/${id}`)
   }
+  getCurrentUser(){
+  return JSON.parse(window.localStorage.getItem('currentUser'))
+  }
 }
