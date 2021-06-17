@@ -4,50 +4,47 @@
   <form [formGroup]="updateForm" (ngSubmit)="updateProfile()" id="updateForm">
     <div class="form-group">
       <label for="username">username</label>
-      <input disabled type="text" formControlName="username" [(ngModel)]="user.username"  id="username">
+      <input style=" border: 2px solid #cdc2c2;" disabled type="text" formControlName="username" [(ngModel)]="user.username"  id="username">
     </div>
     <div class="form-group">
       <label for="fullname">Fullname</label>
-      <input  type="text" formControlName="fullname" [(ngModel)]="user.fullname" id="fullname">
+      <input style=" border: 2px solid #cdc2c2;"  type="text" formControlName="fullname" [(ngModel)]="user.fullname" id="fullname">
       <div
         *ngIf="updateForm.get('fullname').invalid && (updateForm.get('fullname').dirty || updateForm.get('fullname').touched)">
         <div *ngIf="updateForm.get('fullname').errors.required">
-          Không để trống dòng này!
+          Enter your fullName
         </div>
         <div *ngIf="updateForm.get('fullname').hasError('pattern')">
-          Tên không đúng định dạng
+
         </div>
       </div>
     </div>
     <div class="form-group">
       <label for="phone">Phone</label>
-      <input type="text" formControlName="phone" [(ngModel)]="user.phone" id="phone">
+      <input style=" border: 2px solid #cdc2c2;" type="text" formControlName="phone" [(ngModel)]="user.phone" id="phone">
       <div
-        *ngIf="updateForm.get('fullname').invalid && (updateForm.get('fullname').dirty || updateForm.get('fullname').touched)">
-        <div *ngIf="updateForm.get('fullname').errors.required">
-          Không để trống dòng này!
+        *ngIf="updateForm.get('phone').invalid && (updateForm.get('phone').dirty || updateForm.get('phone').touched)">
+        <div *ngIf="updateForm.get('phone').errors.required">
+          Enter your phoneNumber
         </div>
-        <div *ngIf="updateForm.get('fullname').hasError('pattern')">
-          Số điện thoại không đúng định dạng
+        <div *ngIf="updateForm.get('phone').hasError('pattern')">
+          Wrong your phone number. Please try again.
         </div>
       </div>
     </div>
     <div class="form-group">
       <label for="useraddress">Address</label>
-      <input type="text" formControlName="userAddress" [(ngModel)]="user.userAddress" id="useraddress">
+      <input style=" border: 2px solid #cdc2c2;" type="text" formControlName="userAddress" [(ngModel)]="user.userAddress" id="useraddress">
       <div
-        *ngIf="updateForm.get('fullname').invalid && (updateForm.get('fullname').dirty || updateForm.get('fullname').touched)">
-        <div *ngIf="updateForm.get('fullname').errors.required">
-          Không để trống dòng này!
-        </div>
-        <div *ngIf="updateForm.get('fullname').hasError('pattern')">
-          Địa chỉ không đúng định dạng
+        *ngIf="updateForm.get('useraddress').invalid && (updateForm.get('useraddress').dirty || updateForm.get('useraddress').touched)">
+        <div *ngIf="updateForm.get('useraddress').errors.required">
+          Enter Your Address
         </div>
       </div>
     </div>
     <div class="form-group">
       <label for="email">Email</label>
-      <input type="email" formControlName="email" [(ngModel)]="user.email" id="email">
+      <input style=" border: 2px solid #cdc2c2;" type="email" formControlName="email" [(ngModel)]="user.email" id="email">
       <div
         *ngIf="updateForm.get('email').invalid && (updateForm.get('email').dirty || updateForm.get('email').touched)">
         <div *ngIf="updateForm.get('email').errors.required">
