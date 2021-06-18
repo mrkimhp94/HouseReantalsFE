@@ -17,18 +17,18 @@
             </div>
             <div class="panel-body search-widget">
               <form [formGroup]="searchForm" (ngSubmit)="search()">
-                <mat-form-field style="width: 270px">
+                <mat-form-field>
                   <mat-label>Search</mat-label>
                   <input matInput placeholder="Enter house name or place" formControlName="search">
                 </mat-form-field>
-                <mat-form-field style="width: 270px">
+                <mat-form-field >
                   <input matInput [matDatepicker]="picker" (dateChange)="validateForCheckoutDate()" [min]="today" placeholder="Choose Checkin Date"
                          formControlName="checkin">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                   <mat-error *ngIf="searchForm.controls['checkin'].hasError( 'required')">This field is required</mat-error>
                 </mat-form-field>
-                <mat-form-field style="width: 270px">
+                <mat-form-field >
                   <input matInput [matDatepicker]="picker1" [min]="nextday" placeholder="Choose checkout date"
                          formControlName="checkout">
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
