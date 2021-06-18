@@ -133,6 +133,8 @@ export class BookingActiveComponent implements OnInit, DoCheck {
       this.notifyService.notify = 'inValidInStartDate';
     } else if (this.formatDate(this.checkOutDate) == this.formatDate(this.today)) {
       this.notifyService.notify = 'inValidInEndDate';
+    } else if (this.formatDate(this.checkOutDate) < this.formatDate(this.checkInDate)) {
+      this.notifyService.notify = 'inValidInStartDate2';
     } else {
       console.log('do check chay');
       this.notifyService.notify = 'valid';

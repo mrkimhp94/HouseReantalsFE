@@ -24,51 +24,15 @@
         <div class="row">
           <div class="light-slide-item">
             <div class="clearfix">
-<!--              <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel" >-->
-<!--                <div class="carousel-inner">-->
-<!--&lt;!&ndash;                  <div class="carousel-item active"  >&ndash;&gt;-->
-<!--&lt;!&ndash;                    <img src="{{listImage[0].linkImage}}" class="d-block w-100" alt="...">&ndash;&gt;-->
-<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                  <div class="carousel-item" *ngFor = " let image of listImage | slice:1; let i = index">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <img src="{{image.linkImage}} " alt="...">&ndash;&gt;-->
-<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
-
-<!--                </div>-->
-
-<!--                </div>-->
-<!--                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">-->
-<!--                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
-<!--                  <span class="visually-hidden">Previous</span>-->
-<!--                </button>-->
-<!--                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">-->
-<!--                  <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
-<!--                  <span class="visually-hidden">Next</span>-->
-<!--                </button>-->
-<!--              </div>-->
-
-              <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                <div class="carousel-inner" >
-                  <div class="carousel-item active"   >
-                    <img src="{{images[0]}}"  class="d-block w-100" style="width:400px;height:500px">
-                  </div>
-                  <div class="carousel-item" *ngFor = " let image of images | slice:1; let i = index " >
-                    <img style= "width:400px;height:500px;" src="{{image}}" class="d-block w-100" >
-                  </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-                </button>
-              </div>
-
+              <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
+                <li *ngFor=" let image of images">
+                  <img style="height: 377px;width: 650px" src="{{image}}"/>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-<br>
+        <br>
         <div class="single-property-wrapper">
           <div class="single-property-header">
             <h1 class="property-title pull-left">{{house.houseName}}</h1> <br>
@@ -108,7 +72,6 @@
                                         <span class="property-info-value">{{house.bedroomQuantity}}</span>
                                     </span>
             </div>
-
 
 
             <div class="col-xs-6 col-sm-3 col-md-3 p-b-15">
@@ -163,14 +126,14 @@
                   </div>
                   <div class="col-xs-8 col-sm-8 ">
                     <h3 class="dealer-name">
-                      <a >{{house.users.fullname}}</a>
+                      <a>{{house.users.fullname}}</a>
                       <span>Real Estate Agent</span>
                     </h3>
                     <div class="dealer-social-media">
                       <a class="twitter" target="_blank">
                         <i class="fa fa-twitter"></i>
                       </a>
-                      <a class="facebook" target="_blank" >
+                      <a class="facebook" target="_blank">
                         <i class="fa fa-facebook"></i>
                       </a>
                       <a class="gplus" target="_blank">
@@ -179,7 +142,7 @@
                       <a class="linkedin" target="_blank">
                         <i class="fa fa-linkedin"></i>
                       </a>
-                      <a class="instagram" target="_blank" >
+                      <a class="instagram" target="_blank">
                         <i class="fa fa-instagram"></i>
                       </a>
                     </div>
@@ -207,14 +170,14 @@
               <ul>
                 <li>
                   <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                    <a ><img src="assets/img/demo/small-property-2.jpg"></a>
+                    <a><img src="assets/img/demo/small-property-2.jpg"></a>
                     <span class="property-seeker">
                                                     <b class="b-1">A</b>
                                                     <b class="b-2">S</b>
                                                 </span>
                   </div>
                   <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                    <h6><a >Super nice villa </a></h6>
+                    <h6><a>Super nice villa </a></h6>
                     <span class="property-price">3000000$</span>
                   </div>
                 </li>
@@ -227,7 +190,7 @@
                                                 </span>
                   </div>
                   <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                    <h6><a >Super nice villa </a></h6>
+                    <h6><a>Super nice villa </a></h6>
                     <span class="property-price">3000000$</span>
                   </div>
                 </li>
@@ -240,14 +203,14 @@
                                                 </span>
                   </div>
                   <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                    <h6><a >Super nice villa </a></h6>
+                    <h6><a>Super nice villa </a></h6>
                     <span class="property-price">3000000$</span>
                   </div>
                 </li>
 
                 <li>
                   <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                    <a ><img src="assets/img/demo/small-property-2.jpg"></a>
+                    <a><img src="assets/img/demo/small-property-2.jpg"></a>
                     <span class="property-seeker">
                                                     <b class="b-1">A</b>
                                                     <b class="b-2">S</b>
@@ -271,10 +234,6 @@
 </div>
 
 
-
-
-
-
 <script>
   $(document).ready(function () {
 
@@ -292,9 +251,6 @@
     });
   });
 </script>
-
-
-
 
 
 </body>
