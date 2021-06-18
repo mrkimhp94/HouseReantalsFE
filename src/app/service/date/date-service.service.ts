@@ -5,6 +5,7 @@ import {UserServiceService} from '../user-service.service';
 import {HouseService} from '../house/house.service';
 import * as moment from 'moment';
 import {Booking} from '../../model/booking';
+import {resolve} from 'url';
 
 @Injectable({
   providedIn: 'root'
@@ -34,20 +35,31 @@ export class DateServiceService {
   };
 
   async setHouseId(id: any) {
-    console.log('start service');
-    return this.bookingService.getBookingByHouseId(id).subscribe((data) => {
-    });
+    // console.log('start service');
+    // return this.bookingService.getBookingByHouseId(id).subscribe((data) => {
+    // });
+
+    await this.bookingService.getBookingByHouseId(id).toPromise().then((data)=>{
+      console.log("start service")
+      console.log(data)
+      this.getListDisableDate(data);
+      }
+    )
+    // return await this.bookingService.getBookingByHouseId(id).toPromise();
+
   }
 
   async getListDisableDate(data: any) {
     for (let i = 0; i < data.length; i++) {
+      console.log('service 2');
       let start = new Date(data[i].checkinDate);
       let end = new Date(data[i].checkoutDate);
-      await this.setListDisableDate(start, end);
+       this.setListDisableDate(start, end);
     }
   }
 
-  async setListDisableDate(start: any, end: any) {
+   setListDisableDate(start: any, end: any) {
+    console.log('service 3');
     while (start <= end) {
       this.allBookingDate.push(this.formatDate(start));
       start = this.getNextDay(start);
@@ -55,13 +67,13 @@ export class DateServiceService {
     return this.allBookingDate;
   }
 
-  getNextDay(day: any): any {
+  getNextDay(day: any) {
     let nextDay = new Date(day);
     nextDay.setDate(day.getDate() + 1);
     return nextDay;
   }
 
-  formatDate(date: any): any {
+  formatDate(date: any) {
     return (moment(date)).format('yyyy-MM-DD');
   }
 

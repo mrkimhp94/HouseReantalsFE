@@ -23,7 +23,7 @@ function comparePassword(c: AbstractControl) {
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  avatarDefault = 'https://avi.edu.vn/wp-content/uploads/2019/11/london-2393098.jpg';
+  avatarDefault = 'https://image.flaticon.com/icons/png/512/4105/4105458.png';
   user: Partial<User>;
   success: boolean;
   message: string;
@@ -105,11 +105,11 @@ export class RegisterComponent implements OnInit {
               console.log(next);
               this.success = next.success;
               this.message = next.message;
-              alert('Register Success');
+              // alert('Register Success');
               this.router.navigateByUrl('/login');
             })
     } else {
-      alert('Register false');
+      // alert('Register false');
       this.router.navigateByUrl('/register');
     }
   }
@@ -120,4 +120,16 @@ export class RegisterComponent implements OnInit {
 //   this.user.avatar = imageUrls[0];
 // }
 
+}@Component({
+  selector: 'app-register',
+  templateUrl: './popup.html',
+  styleUrls: ['./register.component.css']
+})
+export class RegisterPopUp implements OnInit {
+  ngOnInit(): void {
+  }
+
+
 }
+
+

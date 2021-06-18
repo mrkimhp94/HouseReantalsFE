@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RegisterRoutingModule } from './register-routing.module';
-import { RegisterComponent } from './register.component';
+import {RegisterComponent, RegisterPopUp} from './register.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
 
 
 @NgModule({
-  declarations: [RegisterComponent],
+  declarations: [RegisterComponent,RegisterPopUp],
   imports: [
     CommonModule,
     RegisterRoutingModule,
@@ -20,5 +20,8 @@ import {HttpClientModule} from '@angular/common/http';
   exports: [
    RegisterComponent
   ],
+  entryComponents:[
+    RegisterPopUp
+  ]
 })
 export class RegisterModule { }
