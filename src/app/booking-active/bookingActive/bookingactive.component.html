@@ -1,6 +1,6 @@
 
 <div>
-  <mat-form-field appearance="fill" color="primary" class="datePicker1">
+  <mat-form-field appearance="fill" color="primary" class="datePicker1" style="width: 270px">
     <mat-label>Start Date</mat-label>
     <input matInput (dateChange)="validateForCheckoutDate()" [(ngModel)]="checkInDate" [matDatepicker]="picker1" [matDatepickerFilter]="dateFilter" >
     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>

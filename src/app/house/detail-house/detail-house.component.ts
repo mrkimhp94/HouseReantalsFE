@@ -29,12 +29,11 @@ export class DetailHouseComponent implements OnInit {
 
   getHouse(houseId: number) {
     return this.houseService.findByHouseId(houseId).subscribe(house => {
-      console.log('house-detail');
       console.log(house);
-      console.log('house-detail');
       this.houseService.currentHouse = house;
       this.house = house;
       this.images = house.imagesList;
+      console.log(this.images);
     });
   }
 

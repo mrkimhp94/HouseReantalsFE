@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {House} from '../../model/House';
+import {House} from '../../model/house';
 
 const API_URL = `${environment.api_url}`;
 

@@ -33,7 +33,7 @@
           </div>
         </div>
         <br>
-        <div class="single-property-wrapper">
+        <div class="single-property-wrapper" *ngIf="house">
           <div class="single-property-header">
             <h1 class="property-title pull-left">{{house.houseName}}</h1> <br>
             <span class="property-price pull-right">$ {{house.pricePerDay}}</span>
@@ -103,7 +103,7 @@
             <div class="s-property-content">
               <p>{{house.description}} </p>
             </div>
-<!--            <booking-active></booking-active>-->
+            <!--            <booking-active></booking-active>-->
           </div>
           <!-- End description area  -->
 
@@ -114,7 +114,7 @@
 
       <div class="col-md-4 p0">
         <aside class="sidebar sidebar-property blog-asside-right">
-          <div class="dealer-widget">
+          <div class="dealer-widget" *ngIf="house">
             <div class="dealer-content">
               <div class="inner-wrapper">
 
@@ -167,7 +167,7 @@
           <div class="panel panel-default sidebar-menu similar-property-wdg wow fadeInRight animated">
 
             <div class="panel-body recent-property-widget">
-<!--           s-->
+              <!--           s-->
               <booking-active></booking-active>
             </div>
           </div>
@@ -200,4 +200,3 @@
 
 
 </body>
-

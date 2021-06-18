@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {HouseService} from '../../service/house/house.service';
-import {House} from '../../model/House';
+import {House} from '../../model/house';
 import {UserServiceService} from '../../service/user-service.service';
 import {NotifyServiceService} from '../../service/notify/notify-service.service';
 import {DateServiceService} from '../../service/date/date-service.service';
