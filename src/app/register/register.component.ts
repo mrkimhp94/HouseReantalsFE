@@ -23,7 +23,7 @@ function comparePassword(c: AbstractControl) {
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  avatarDefault = 'https://avi.edu.vn/wp-content/uploads/2019/11/london-2393098.jpg';
+  avatarDefault = 'https://image.flaticon.com/icons/png/512/4105/4105458.png';
   user: Partial<User>;
   success: boolean;
   message: string;
