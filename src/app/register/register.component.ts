@@ -74,10 +74,10 @@ export class RegisterComponent implements OnInit {
         , [Validators.required, Validators.pattern('((0)+([0-9]{9})\\b)')]
       ],
       userAddress: [''
-        , [Validators.required, Validators.pattern('[A-Za-z ]+')]
+        , [Validators.required, Validators.pattern('[A-Za-z0-9 ]+')]
       ],
       fullname: [''
-        , [Validators.required, Validators.pattern('[A-Za-z ]+')]
+        , [Validators.required, Validators.pattern('[A-Za-z0-9 ]+')]
       ]
     });
 

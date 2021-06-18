@@ -7,4 +7,5 @@ export interface User {
   password?: string;
   userAddress?: string;
   avatarUrl?: any;
+
 }

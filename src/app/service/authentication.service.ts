@@ -41,10 +41,11 @@ export class AuthenticationService {
     return this.http.put<any>(`${API_URL}/edit-profile`, user);
   }
 
-  logout() {
+  logout(){
     localStorage.removeItem('currentUser');
     localStorage.clear();
     this.currentUserSubject.next(null);
+    // return this.http.get<any>(`${API_URL}/logout`);
   }
 
   confirmPasswordUser(password: string): Observable<any> {

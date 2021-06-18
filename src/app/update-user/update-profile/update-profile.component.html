@@ -12,10 +12,10 @@
       <div
         *ngIf="updateForm.get('fullname').invalid && (updateForm.get('fullname').dirty || updateForm.get('fullname').touched)">
         <div *ngIf="updateForm.get('fullname').errors.required">
-          Enter your fullName
+          Enter Your fullname
         </div>
         <div *ngIf="updateForm.get('fullname').hasError('pattern')">
-
+          Fullname does not contain special characters
         </div>
       </div>
     </div>
@@ -39,8 +39,8 @@
       <label for="useraddress">Address</label>
       <input style=" border: 2px solid #cdc2c2;" type="text" formControlName="userAddress" [(ngModel)]="user.userAddress" id="useraddress">
       <div
-        *ngIf="updateForm.get('useraddress').invalid && (updateForm.get('useraddress').dirty || updateForm.get('useraddress').touched)">
-        <div *ngIf="updateForm.get('useraddress').errors.required">
+        *ngIf="updateForm.get('userAddress').invalid && (updateForm.get('userAddress').dirty || updateForm.get('userAddress').touched)">
+        <div *ngIf="updateForm.get('userAddress').errors.required">
           Enter Your Address
         </div>
       </div>

@@ -6,7 +6,7 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
 import {House} from '../../model/house';
 import {BookingServiceService} from '../../service/booking/bookingservice.service';
 
-
+declare var $:any;
 @Component({
   selector: 'app-detail-house',
   templateUrl: './detail-house.component.html',
@@ -39,6 +39,20 @@ export class DetailHouseComponent implements OnInit {
   }
 
   ngOnInit() {
+    $(function () {
 
+      $('#image-gallery').lightSlider({
+        gallery: true,
+        item: 1,
+        thumbItem: 9,
+        slideMargin: 0,
+        speed: 500,
+        auto: true,
+        loop: true,
+        onSliderLoad: function () {
+          $('#image-gallery').removeClass('cS-hidden');
+        }
+      });
+    });
   }
 }

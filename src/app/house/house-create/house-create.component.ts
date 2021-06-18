@@ -216,10 +216,10 @@ export class HouseCreateComponent implements OnInit {
     }
     this.selectedImages = images;
   }
-  logout() {
-    this.authenticationService.logout();
-    this.router.navigate(['/login']);
-  }
+  // logout() {
+  //   this.authenticationService.logout();
+  //   this.router.navigate(['/login']);
+  // }
 
 
 }

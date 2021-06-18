@@ -21,6 +21,7 @@ export class UpdateProfileComponent implements OnInit {
   message: string;
   isEmailExists: boolean;
   isPhoneExists: boolean;
+  user1: Partial<User>;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,6 +39,7 @@ export class UpdateProfileComponent implements OnInit {
     });
     return this.isEmailExists;
   }
+
   checkPhone(field: string) {
     this.userService.checkPhone(field).subscribe(data => {
       this.isPhoneExists = data;
@@ -46,10 +48,12 @@ export class UpdateProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.user);
     let currentUser = JSON.parse(window.localStorage.getItem('currentUser'));
     this.userService.getUserInformation(currentUser.id).subscribe(data => {
       this.user = data;
     });
+    console.log(this.user);
     if (!currentUser.id) {
       this.router.navigateByUrl('/login');
       return;
@@ -57,19 +61,20 @@ export class UpdateProfileComponent implements OnInit {
     this.updateForm = this.formBuilder.group({
       id: currentUser.id,
       username: currentUser.username,
-      fullname: ['', [Validators.required]],
+      fullname: ['', [Validators.required, Validators.pattern('[A-Za-z0-9 ]+')]],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required]],
-      userAddress: ['', [Validators.required]]
+      phone: ['', [Validators.required, Validators.pattern('((0)+([0-9]{9})\\b)')]],
+      userAddress: ['', [Validators.required, Validators.pattern('[A-Za-z0-9 ]+')]]
     });
 
   }
 
   updateProfile() {
+    console.log(this.user);
     if (this.updateForm.valid) {
-      if( this.checkEmail(this.user.email)) {
+      if (this.checkEmail(this.user.email)) {
       }
-      if(this.checkPhone(this.user.phone)){
+      if (this.checkPhone(this.user.phone)) {
       }
       this.authentication.updateProfile(this.user)
         .subscribe(
