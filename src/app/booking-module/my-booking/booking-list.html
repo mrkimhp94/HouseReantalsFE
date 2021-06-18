@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Booking Notify</h2>
+<mat-dialog-content class="mat-typography">
+  <table>
+    <tr>
+<!--      <td>#</td>-->
+      <td style="padding-right: 20px">Start</td>
+      <td>End</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr *ngFor="let b  of bookingList">
+<!--      <td>{{b.bookingId}}</td>-->
+      <td style="padding-right: 20px">{{b.checkinDate}}</td>
+      <td style="padding-right: 20px">{{b.checkoutDate}}</td>
+   <td><button  style="padding-right: 20px" [disabled]="b.bookingStatus==0" [routerLink]="['/delete',b.bookingId]" (click)="deleteBooking(b.bookingId)">Delete</button></td>
+  </table>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close >Cancel</button>
+</mat-dialog-actions>

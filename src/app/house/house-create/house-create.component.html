@@ -1,0 +1,115 @@
+<app-head></app-head>
+<app-nav></app-nav>
+<app-header></app-header>
+<div class="content-area submit-property" style="background-color: #FCFCFC;">&nbsp;
+  <div class="container">
+    <div class="clearfix">
+      <div class="wizard-container">
+
+        <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+          <form [formGroup]="houseForm" (ngSubmit)="createImage()" id="product-form">
+            <div class="wizard-header">
+              <h3 style="text-align: center">
+                <b>Create</b> YOUR HOUSE <br>
+              </h3>
+            </div>
+            <div class="col-sm-12" style="margin-top: 20px">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label>House name <small>(required)</small></label>
+                  <input type="text" name="houseName" formControlName="houseName"
+                         class="form-control" placeholder="Super villa ...">
+                </div>
+
+                <div class="form-group">
+                  <label>House price <small>(required)</small></label>
+                  <input type="text" name="pricePerDay" formControlName="pricePerDay"
+                         class="form-control" placeholder="3330000">
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label>House Address :</label>
+                  <input name="houseAddress" formControlName="houseAddress"
+                         class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label>Bedroom Quantity :</label>
+                  <input name="bedroomQuantity" formControlName="bedroomQuantity"
+                         class="form-control">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label>Bathroom Quantity:</label>
+                  <input name="bathroomQuantity" formControlName="bathroomQuantity"
+                         class="form-control">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label>House Area :</label>
+                  <input name="area" formControlName="area"
+                         class="form-control">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label>House Type :</label>
+                  <input name="type" formControlName="type"
+                         class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label>Description :</label>
+                  <input name="description" formControlName="description"
+                         class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="image">Chose Images :</label>
+                  <input class="form-control" name="image" (change)="showPreview($event)" type="file"
+                         id="image" multiple>
+                  <p class="help-block">Select multiple images for your property .</p>
+                </div>
+                <div class="form-group" *ngFor="let image of selectedImages; index as i">
+                  <span class="col-11">{{image.name.split('.').slice(0, -1)}}</span>
+                  <button type="button" class="btn btn-sm btn-danger" style="float: right"
+                          (click)="removeImageFromPreview(i)">
+                    <i   class="fa fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <a routerLink="/" class="btn btn-danger " style="text-align: center">Cancel</a>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <input type="submit" value="Create new House" class="btn btn-success float-right">
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- End submit form -->
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

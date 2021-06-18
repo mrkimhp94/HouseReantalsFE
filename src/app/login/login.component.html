@@ -1,0 +1,48 @@
+<!--<h1>Login form</h1>-->
+<!--<form [formGroup]="loginForm" (ngSubmit)="login()">-->
+<!--  <div>-->
+<!--    <label for="username">Username:</label>-->
+<!--    <input type="text" formControlName="username" id="username">-->
+<!--  </div>-->
+<!--  <div>-->
+<!--    <label for="password">Password:</label>-->
+<!--    <input type="password" formControlName="password" id="password">-->
+<!--  </div>-->
+<!--  <div>-->
+<!--    <button>Login</button>-->
+<!--  </div>-->
+<!--</form>-->
+
+
+<div style="position: absolute;left: 50%;top: 0%;transform: translate(-40%, 0%);" class="col-md-4 col-xs-4 login-blocks">
+  <h2>Login </h2>
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input style=" border: 2px solid #cdc2c2;" type="text" formControlName="username" id="username" >
+      <ng-container *ngIf="loginForm.controls.username.touched">
+        <p *ngIf="loginForm.controls.username?.hasError('required')"> Enter your username </p>
+      </ng-container>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input style=" border: 2px solid #cdc2c2;" type="password" formControlName="password" id="password" required="">
+      <ng-container *ngIf="loginForm.controls.password.touched">
+        <p *ngIf="loginForm.controls.password?.hasError('required')"> Enter your password </p>
+      </ng-container>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-default" [disabled]="loginForm.invalid"> Log in</button>
+      <button class="btn btn-default" routerLink="/register" > Register</button>
+    </div>
+  </form>
+  <br>
+
+  <h2>Social login  </h2>
+
+  <p>
+    <a class="login-social" href="#"><i class="fa fa-facebook"></i>&nbsp;Facebook</a>
+    <a class="login-social" href="#"><i class="fa fa-google-plus"></i>&nbsp;Gmail</a>
+    <a class="login-social" href="#"><i class="fa fa-twitter"></i>&nbsp;Twitter</a>
+  </p>
+</div>
