@@ -5,7 +5,8 @@ import { UpdateUserRoutingModule } from './update-user-routing.module';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import {UpdateProfileComponent} from './update-profile/update-profile.component';
+import { UpdateProfileComponent} from './update-profile/update-profile.component';
+import {GeneralPopupComponent} from '../general-popup/general-popup.component';
 
 
 @NgModule({
@@ -20,5 +21,8 @@ import {UpdateProfileComponent} from './update-profile/update-profile.component'
   exports: [
     UpdateProfileComponent
   ],
+  entryComponents:[
+    // GeneralPopupComponent
+  ]
 })
 export class UpdateUserModule { }

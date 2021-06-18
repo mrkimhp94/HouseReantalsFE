@@ -1,11 +1,12 @@
-<h2 mat-dialog-title>BOOKING NOTIFICATION
-<span><img style="height: 20px" src="https://image.flaticon.com/icons/png/512/3602/3602136.png" alt=""> </span>
+<h2 mat-dialog-title>
+<span><img style="height: 30px" src="https://image.flaticon.com/icons/png/512/4909/4909636.png" alt=""> </span>
+  BOOKING NOTIFICATION
 </h2>
 
 <mat-dialog-content class="mat-typography">
 <!--<strong *ngIf="notify=='valid'"> :  </strong>-->
-<p *ngIf="notify=='inValidInStartDate'">Please choose starting date</p>
-  <p *ngIf="notify=='inValidInEndDate'">Please choose end date</p>
+<p *ngIf="notify=='inValidInStartDate'"><span><img style="height: 30px" src="https://image.flaticon.com/icons/png/512/2738/2738459.png" alt=""></span>Please choose starting date </p>
+  <p *ngIf="notify=='inValidInEndDate'"><span><img style="height: 30px" src="https://image.flaticon.com/icons/png/512/2738/2738459.png"> </span>Please choose end date</p>
   <p *ngIf="notify=='valid'">Please confirm </p>
   <p *ngIf="notify=='success'">Booking success</p>
 </mat-dialog-content>

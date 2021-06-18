@@ -1,11 +1,15 @@
 
-<h2 mat-dialog-title>Booking Notify</h2>
+<h2 mat-dialog-title> NOTIFICATION
+  <span><img style="height: 20px" src="https://image.flaticon.com/icons/png/512/3602/3602136.png" alt=""> </span>
+</h2>
 <mat-dialog-content class="mat-typography">
-<h3>Thanh cong </h3>
+  <p *ngIf="notify=='createUserSuccess'">Create account success <span><img style="height: 20px" src="https://image.flaticon.com/icons/png/512/934/934218.png" alt=""></span> </p>
+  <p *ngIf="notify=='createUserSuccess'">Hope you have best experience <span><img style="height: 20px" src="https://image.flaticon.com/icons/png/512/2107/2107845.png" alt=""></span> </p>
+  <p *ngIf="notify=='updateUserSuccess'"><span><img style="height: 20px" src="https://image.flaticon.com/icons/png/512/2107/2107845.png" alt=""></span>
+  Update successfully</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button  mat-button [mat-dialog-close]="true" cdkFocusInitial>Confirm</button>
+  <button mat-button color="primary" [mat-dialog-close]="true" >OK</button>
 </mat-dialog-actions>
 
 

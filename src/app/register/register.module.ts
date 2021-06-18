@@ -2,26 +2,30 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RegisterRoutingModule } from './register-routing.module';
-import {RegisterComponent, RegisterPopUp} from './register.component';
+import {RegisterComponent} from './register.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import {SharedModule} from '../shared/shared.module';
+import {MatButtonModule, MatDialogModule} from '@angular/material';
 
 
 
 @NgModule({
-  declarations: [RegisterComponent,RegisterPopUp],
+  declarations: [RegisterComponent],
   imports: [
     CommonModule,
     RegisterRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   exports: [
    RegisterComponent
   ],
   entryComponents:[
-    RegisterPopUp
   ]
 })
 export class RegisterModule { }

@@ -19,7 +19,6 @@ import {MatButtonModule, MatDialogModule} from '@angular/material';
     ListHouseComponent,
     DetailHouseComponent,
     HouseCreateComponent,
-    GeneralPopupComponent,
     OpenListHouse,
     PopUp
   ],

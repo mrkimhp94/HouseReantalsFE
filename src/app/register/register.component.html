@@ -1,6 +1,11 @@
+
+<app-head></app-head>
+<app-nav></app-nav>
+<app-header></app-header>
+<div class="register-area" style="background-color:rgb(249, 249, 249);">
 <div class="container">
-  <div style="position: absolute;left: 50%;top: 0%;transform: translate(-40%, 0%);"
-       class="col-md-4 col-xs-4 login-blocks">
+  <div class="col-md-3 col-xs-0"></div>
+  <div class="col-md-6 col-xs-12 login-blocks">
     <h2>New account </h2>
     <form [formGroup]="registerForm" (ngSubmit)="register()" id="registerForm">
       <div class="form-group">
@@ -114,10 +119,12 @@
           This email already exists
         </div>
       </div>
-      <div>
+      <div style="text-align: center">
         <button class="btn btn-default" type="submit" [disabled]="registerForm.invalid">Register</button>
       </div>
     </form>
   </div>
 </div>
+</div>
+<app-footer></app-footer>
 

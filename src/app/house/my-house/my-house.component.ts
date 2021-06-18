@@ -58,7 +58,7 @@ export class OpenListHouse implements OnInit {
     this.isAllowToChangeToUpdate = true;
     this.dialog.open(PopUp).afterClosed().subscribe(result => {
       if (result == true) {
-        this.updateStatus(houseId, 'blank');
+        this.updateStatus(houseId, 'rent');
       }
     });
 

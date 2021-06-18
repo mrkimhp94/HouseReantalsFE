@@ -5,6 +5,7 @@ import { LoginRoutingModule } from './login-routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {LoginComponent} from './login.component';
+import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import {LoginComponent} from './login.component';
     LoginRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
   exports: [
     LoginComponent,
