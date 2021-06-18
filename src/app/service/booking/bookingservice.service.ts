@@ -11,6 +11,7 @@ const API_URL = `${environment.api_url}`;
   providedIn: 'root'
 })
 export class BookingServiceService {
+  //lấy id house hiện tại
 currentId : number;
   constructor(private http: HttpClient) {
   }

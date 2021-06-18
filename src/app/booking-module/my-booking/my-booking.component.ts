@@ -5,7 +5,7 @@ import {MatDialog} from '@angular/material/dialog';
 import * as moment from 'moment';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {BookingServiceService} from '../../service/booking/bookingservice.service';
-import {UserServiceService} from '../../user-service.service';
+import {UserServiceService} from '../../service/user-service.service';
 
 @Component({
   selector: 'my-booking',

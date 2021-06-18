@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import {BookingServiceService} from '../../service/booking/bookingservice.service';
 import {Booking} from '../../model/booking';
 import {NotifyServiceService} from '../../service/notify/notify-service.service';
-import {UserServiceService} from '../../user-service.service';
+import {UserServiceService} from '../../service/user-service.service';
 import {HouseService} from '../../service/house/house.service';
 
 @Component({

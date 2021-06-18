@@ -32,8 +32,9 @@ export class AuthenticationService {
     }));
   }
 
-  register(user: Partial<User>): Observable<any> {
-    return this.http.post<any>(`${API_URL}/register`, user);
+  register(user:Partial<User>):Observable<any>{
+    return this.http.post<any>(`${API_URL}/register`,user).pipe(
+    )
   }
 
   updateProfile(user: Partial<User>): Observable<any> {
