@@ -11,6 +11,6 @@
   <p *ngIf="notify=='success'">Booking success</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>CANCEL</button>
+  <button mat-button mat-dialog-close [mat-dialog-close]="false">CANCEL</button>
   <button *ngIf="notify=='valid'" mat-button [mat-dialog-close]="true" cdkFocusInitial>CONFIRM</button>
 </mat-dialog-actions>

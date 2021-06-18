@@ -75,6 +75,7 @@ export class BookingActiveComponent implements OnInit, DoCheck {
   doBooking(data: any): boolean {
 
     if (data == true) {
+      this.notifyService.notify = 'success'
       let start = this.formatDate(this.checkInDate);
       let end = this.formatDate(this.checkOutDate);
       let booking: Booking = {
@@ -133,7 +134,7 @@ export class BookingActiveComponent implements OnInit, DoCheck {
     } else if (this.formatDate(this.checkOutDate) == this.formatDate(this.today)) {
       this.notifyService.notify = 'inValidInEndDate';
     } else {
-      console.log('docheck chay');
+      console.log('do check chay');
       this.notifyService.notify = 'valid';
     }
   }
