@@ -14,7 +14,7 @@ import {DateServiceService} from '../../service/date/date-service.service';
 })
 export class OpenListHouse implements OnInit {
   myHouses: House[] = [];
-  myBooking=[]
+  myBooking = [];
   house: House;
   isAllowToChangeToUpdate: boolean; //cho phep doi rent -> blank hay khong
 
@@ -53,8 +53,9 @@ export class OpenListHouse implements OnInit {
 
   }
 
-  changeBlankStatus(houseId: number) {
+  changeRentStatus(houseId: number) {
     this.notifyService.notify = '';
+    this.isAllowToChangeToUpdate = true;
     this.dialog.open(PopUp).afterClosed().subscribe(result => {
       if (result == true) {
         this.updateStatus(houseId, 'blank');
@@ -63,9 +64,18 @@ export class OpenListHouse implements OnInit {
 
   }
 
+  changeUpgradeStatus(houseId: number) {
+    this.isAllowToChangeToUpdate = true;
+    this.notifyService.notify = '';
+    this.dialog.open(PopUp).afterClosed().subscribe(result => {
+      if (result == true) {
+        this.updateStatus(houseId, 'upgrade');
+      }
+    });
+  }
 //Su dung nhieu callBack nen e xu li = asysn/await
   //Luong chay em da console ra
-  async changeRentStatus(houseId: number) {
+  async changeBlankStatus(houseId: number) {
     await this.checkingHouse(houseId).then(r => {
         console.log('2');
       }
@@ -74,28 +84,23 @@ export class OpenListHouse implements OnInit {
       this.notifyService.notify = '';
       this.dialog.open(PopUp).afterClosed().subscribe(result => {
         if (result == true) {
-          this.updateStatus(houseId, 'rent');
+          this.updateStatus(houseId, 'blank');
         }
       });
     });
   }
 
-  changeUpgradeStatus(houseId: number) {
-    this.notifyService.notify = '';
-    this.dialog.open(PopUp).afterClosed().subscribe(result => {
-      if (result == true) {
-        this.updateStatus(houseId, 'upgrade');
-      }
-    });
-  }
+
 
   async checkingHouse(houseId: any) {
-     await this.dateService.setHouseId(houseId).then(
+    this.dateService.allBookingDate=[]
+    await this.dateService.setHouseId(houseId).then(
       () => {
         console.log('start');
       }
     ).then(() => {
       console.log('1');
+      console.log(this.dateService.getAllBookingDate())
       console.log(this.dateService.formatDate(Date.now()));
       console.log(this.dateService.allBookingDate.indexOf(this.dateService.formatDate(Date.now())));
       if (this.dateService.allBookingDate.indexOf(this.dateService.formatDate(Date.now())) != -1) {

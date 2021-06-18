@@ -105,11 +105,11 @@ export class RegisterComponent implements OnInit {
               console.log(next);
               this.success = next.success;
               this.message = next.message;
-              alert('Register Success');
+              // alert('Register Success');
               this.router.navigateByUrl('/login');
             })
     } else {
-      alert('Register false');
+      // alert('Register false');
       this.router.navigateByUrl('/register');
     }
   }
@@ -120,4 +120,16 @@ export class RegisterComponent implements OnInit {
 //   this.user.avatar = imageUrls[0];
 // }
 
+}@Component({
+  selector: 'app-register',
+  templateUrl: './popup.html',
+  styleUrls: ['./register.component.css']
+})
+export class RegisterPopUp implements OnInit {
+  ngOnInit(): void {
+  }
+
+
 }
+
+

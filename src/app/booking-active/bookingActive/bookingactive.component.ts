@@ -73,6 +73,7 @@ export class BookingActiveComponent implements OnInit, DoCheck {
   }
 
   doBooking(data: any): boolean {
+
     if (data == true) {
       let start = this.formatDate(this.checkInDate);
       let end = this.formatDate(this.checkOutDate);
@@ -93,7 +94,9 @@ export class BookingActiveComponent implements OnInit, DoCheck {
       console.log('data booking : ');
       this.bookingService.doBooking(booking).subscribe((data) => {
         console.log("booking success")
-        // window.location.reload();
+       setTimeout( ()=>{
+         window.location.reload()
+       },1000);
       });
       return true;
     }

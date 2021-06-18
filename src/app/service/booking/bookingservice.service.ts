@@ -18,7 +18,7 @@ currentId : number;
   public getAllBookingByUserId(id:number): Observable<any> {
     return this.http.get(API_URL+`/bookings/${id}`);
   }
-  public getBookingByHouseId(houseId:number): Observable<any>{
+  public  getBookingByHouseId(houseId:number): Observable<any>{
     return  this.http.get(API_URL+`/bookings/house/${houseId}`)
   }
   public doBooking(booking : any) : Observable<any>{

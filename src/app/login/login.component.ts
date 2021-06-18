@@ -1,4 +1,4 @@
-// @ts-ignore
+
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators,AbstractControl} from '@angular/forms';
 import {AuthenticationService} from '../service/authentication.service';
@@ -20,13 +20,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
 
   login() {
     this.authenticationService.login(this.loginForm.value).subscribe(user => {
       localStorage.setItem('ACCESS_TOKEN', user.token);
-      alert('Login Success');
       this.router.navigateByUrl('/houses');
     });
   }
