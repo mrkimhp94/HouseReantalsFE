@@ -190,7 +190,7 @@ export class HouseCreateComponent implements OnInit {
       bathroomQuantity: this.houseForm.value.bathroomQuantity,
       description: this.houseForm.value.description,
       pricePerDay: this.houseForm.value.pricePerDay,
-      houseStatus: 'false',
+      houseStatus: 'blank',
     };
     if (isValidated) {
       return this.houseService.createHouse(house).toPromise();
@@ -216,10 +216,6 @@ export class HouseCreateComponent implements OnInit {
       images[i] = this.selectedImages[i + 1];
     }
     this.selectedImages = images;
-  }
-  logout() {
-    this.authenticationService.logout();
-    this.router.navigate(['/login']);
   }
 
 

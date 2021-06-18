@@ -6,6 +6,9 @@ import {first} from 'rxjs/operators';
 import {register} from 'ts-node';
 import firebase from 'firebase';
 import {User} from '../interface/user';
+import {UserServiceService} from '../service/user-service.service';
+import {MatDialog} from '@angular/material/dialog';
+import {GeneralPopupComponent} from '../general-popup/general-popup.component';
 
 
 function comparePassword(c: AbstractControl) {
@@ -22,34 +25,59 @@ function comparePassword(c: AbstractControl) {
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  avatarDefault = 'https://avi.edu.vn/wp-content/uploads/2019/11/london-2393098.jpg';
+  avatarDefault = 'https://image.flaticon.com/icons/png/512/4105/4105458.png';
   user: Partial<User>;
   success: boolean;
   message: string;
+  isUsernameExists: boolean;
+  isEmailExists: boolean;
+  isPhoneExists: boolean;
 
 
   constructor(
     private fb: FormBuilder,
     private authenticationserivce: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private usernameservice: UserServiceService,
+    private dialog : MatDialog
   ) {
   }
 
-  // @ts-ignore
+  checkUserName(field: string) {
+    this.usernameservice.checkUsername(field).subscribe(data => {
+      this.isUsernameExists = data;
+    });
+    return this.isUsernameExists;
+  }
+  checkEmail(field: string) {
+    this.usernameservice.checkEmail(field).subscribe(data => {
+      this.isEmailExists = data;
+    });
+    return this.isEmailExists;
+  }
+  checkPhone(field: string) {
+    this.usernameservice.checkPhone(field).subscribe(data => {
+      this.isPhoneExists = data;
+    });
+    return this.isPhoneExists;
+  }
+
   ngOnInit() {
+
+
     this.registerForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
-      confirmPassword: [''],
+      confirmPassword: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: [''
-        // , [Validators.required, Validators.pattern('((0)+([0-9]{9})\\b)')]
+        , [Validators.required, Validators.pattern('((0)+([0-9]{9})\\b)')]
       ],
       userAddress: [''
-        // , [Validators.required, Validators.pattern('[A-Za-z ]+')]
+        , [Validators.required, Validators.pattern('[A-Za-z0-9 ]+')]
       ],
       fullname: [''
-        // , [Validators.required, Validators.pattern('[A-Za-z ]+')]
+        , [Validators.required, Validators.pattern('[A-Za-z0-9 ]+')]
       ]
     });
 
@@ -60,27 +88,45 @@ export class RegisterComponent implements OnInit {
       email: '',
       phone: '',
       userAddress: '',
-      avatar: this.avatarDefault
+      avatarUrl: this.avatarDefault
     };
   }
 
+
   register() {
     if (this.registerForm.valid) {
-      this.authenticationserivce.register(this.user)
-        .subscribe(
-          next => {
-            this.success = next.success;
-            this.message = next.message;
-            alert('Register Success');
-            this.router.navigateByUrl('/login');
-          }
-        );
+      if (this.checkUserName(this.user.username)){
+      }
+      if( this.checkEmail(this.user.email)) {
+      }
+      if(this.checkPhone(this.user.phone)){
+
+      }
+        this.authenticationserivce.register(this.user)
+          .subscribe(
+            next => {
+              console.log(next);
+              this.success = next.success;
+              this.message = next.message;
+              // alert('Register Success');
+              this.dialog.open(GeneralPopupComponent).afterClosed().subscribe(()=>{
+                this.router.navigateByUrl('/login');
+              })
+            ;
+            })
+    } else {
+      // alert('Register false');
+      this.router.navigateByUrl('/register');
     }
   }
 
-  //
-  // getImageUrl(imageUrls: string[]) {
-  //   this.user.avatar = imageUrls[0];
-  // }
+
+//
+// getImageUrl(imageUrls: string[]) {
+//   this.user.avatar = imageUrls[0];
+// }
+
 
 }
+
+

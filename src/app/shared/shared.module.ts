@@ -6,19 +6,24 @@ import { NavComponent } from './nav/nav.component';
 import { HeadComponent } from './head/head.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+import {BookingModuleModule} from '../booking-module/booking-module.module';
+import {MatButtonModule} from '@angular/material';
+import {HouseModule} from '../house/house.module';
 
 
 @NgModule({
-    declarations: [ NavComponent, HeadComponent, FooterComponent, HeaderComponent],
+  declarations: [NavComponent, HeadComponent, FooterComponent, HeaderComponent],
   exports: [
     NavComponent,
     HeadComponent,
     FooterComponent,
     HeaderComponent
   ],
-    imports: [
-        CommonModule,
-        SharedRoutingModule
-    ]
+  imports: [
+    CommonModule,
+    SharedRoutingModule,
+    MatButtonModule,
+    BookingModuleModule,
+  ]
 })
 export class SharedModule { }

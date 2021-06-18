@@ -1,9 +1,9 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {LoginComponent} from './login/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AuthenticationService} from './service/authentication.service';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule, HttpHandler} from '@angular/common/http';
@@ -19,10 +19,19 @@ import {HouseModule} from './house/house.module';
 import {BookingActiveModule} from './booking-active/booking-active.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HouseService} from './service/house/house.service';
+import {CommonModule} from '@angular/common';
+import {GeneralPopupComponent} from './general-popup/general-popup.component';
+import {MatButtonModule, MatDialogModule} from '@angular/material';
+
+import {UpdateUserModule} from './update-user/update-user.module';
+import {SharedModule} from './shared/shared.module';
+import {HouseRoutingModule} from './house/house-routing.module';
+import {BookingModuleModule} from './booking-module/booking-module.module';
 
 @NgModule({
   declarations: [
     AppComponent,
+    GeneralPopupComponent
   ],
   imports: [
     LoginModule,
@@ -40,7 +49,14 @@ import {HouseService} from './service/house/house.service';
     BookingActiveModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    RegisterModule
+    RegisterModule,
+    LoginModule,
+    MatDialogModule,
+    RegisterModule,
+    UpdateUserModule,
+    HouseRoutingModule,
+    BookingModuleModule,
+    MatButtonModule,
   ],
   providers: [
     HttpClient,
@@ -51,6 +67,8 @@ import {HouseService} from './service/house/house.service';
       multi: true
     }
   ],
+  entryComponents:[GeneralPopupComponent],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

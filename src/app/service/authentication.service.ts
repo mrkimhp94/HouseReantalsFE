@@ -31,12 +31,24 @@ export class AuthenticationService {
       return user;
     }));
   }
-  register(user: Partial<User>): Observable<any> {
-    return this.http.post<any>(`${API_URL}/register`, user)
+
+  register(user:Partial<User>):Observable<any>{
+    return this.http.post<any>(`${API_URL}/register`,user).pipe(
+    )
   }
 
-  logout() {
+  updateProfile(user: Partial<User>): Observable<any> {
+    return this.http.put<any>(`${API_URL}/edit-profile`, user);
+  }
+
+  logout(){
     localStorage.removeItem('currentUser');
+    localStorage.clear();
     this.currentUserSubject.next(null);
+    // return this.http.get<any>(`${API_URL}/logout`);
+  }
+
+  confirmPasswordUser(password: string): Observable<any> {
+    return this.http.post<any>(`${API_URL}/confirmPassword`, password);
   }
 }

@@ -1,8 +1,11 @@
-import {Component, EventEmitter, Output,OnInit} from '@angular/core';
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {Component, EventEmitter, Output, OnInit} from '@angular/core';
+import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
 import {config} from 'rxjs';
-import {NotifyServiceService} from '../../notify-service.service';
+import {NotifyServiceService} from '../../service/notify/notify-service.service';
 import {element} from 'protractor';
+import {templateSourceUrl} from '@angular/compiler';
+import {getTemplateUrl} from 'codelyzer/util/ngQuery';
+import {GeneralPopupComponent} from '../../general-popup/general-popup.component';
 
 @Component({
   selector: 'popup-button',
@@ -21,12 +24,24 @@ export class PopUpFormComponent {
     if (this.notifyService.notify == 'valid') {
       const dialogRef = this.dialog.open(PopUpContent);
       dialogRef.afterClosed().subscribe(result => {
-        this.submitEvt.emit(result);
-      })
+        return new Promise(function(resolve, reject) {
+          resolve(result);
+          console.log('ket qua khi close' + result);
+        }).then((result) => {
+          this.submitEvt.emit(result);
+        }).then(() => {
+          console.log('sau khi goi ham booking');
+          console.log(this.notifyService.notify);
+        }).then((() => {
+          if (this.notifyService.notify == 'success') {
+            this.dialog.open(PopUpContent);
+          }
+        }));
+      });
 
-    }
-    else {
+    } else {
       this.dialog.open(PopUpContent);
+
     }
   }
 }
@@ -36,14 +51,15 @@ export class PopUpFormComponent {
   templateUrl: 'popup.html',
   styleUrls: ['popup-form.component.css']
 })
-export class PopUpContent implements OnInit{
+export class PopUpContent implements OnInit {
   notify: any;
 
-  constructor(private notify2 : NotifyServiceService){
+  constructor(private notify2: NotifyServiceService) {
   }
 
   ngOnInit(): void {
-    this.notify = this.notify2.notify
+    this.notify = this.notify2.notify;
+    console.log('notify : ' + this.notify);
   }
 
 }

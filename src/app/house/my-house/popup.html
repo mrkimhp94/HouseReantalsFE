@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>HOUSE MANAGEMENT NOTIFICATION
+  <span><img style="height: 20px" src="https://image.flaticon.com/icons/png/512/3602/3602136.png" alt=""> </span>
+</h2>
+<mat-dialog-content class="mat-typography">
+  <p *ngIf="notify==''"> Do you want to update ? </p>
+  <p *ngIf="notify=='success'">Update successfully</p>
+  <p *ngIf="notify=='notAllowed'">You cannot change the status of this property because it has already be rented</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>CANCEL</button>
+  <button *ngIf="notify==''" mat-button [mat-dialog-close]="true" cdkFocusInitial>CONFIRM</button>
+</mat-dialog-actions>

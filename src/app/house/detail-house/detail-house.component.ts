@@ -1,14 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {Image} from '../../model/image';
 import {HouseService} from '../../service/house/house.service';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {House} from '../../model/house';
-import {Subscription} from 'rxjs';
+import {BookingServiceService} from '../../service/booking/bookingservice.service';
 
-
-
-
+declare var $:any;
 @Component({
   selector: 'app-detail-house',
   templateUrl: './detail-house.component.html',
@@ -17,39 +15,43 @@ import {Subscription} from 'rxjs';
 export class DetailHouseComponent implements OnInit {
   houseId?: any;
   house: House;
-  images :Image[] =[];
-  public style: 'width:500px;height:600px;' ;
-  private imgUrl: any;
-  sub: Subscription;
+  images: string[] = [];
+  public style: 'width:500px;height:600px;';
 
-  constructor(private houseService: HouseService,
+  constructor(private houseService: HouseService, private bookingService: BookingServiceService,
               private activatedRoute: ActivatedRoute) {
-    this.sub = this.activatedRoute.paramMap.subscribe(async (paramMap: ParamMap) => {
-      this.houseId = +paramMap.get('houseId');
-      this.house = await this.getHouse(this.houseId);
-      this.getAllImageByHouse(this.house);
-    }); }
+    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
+      this.houseId = paramMap.get('houseId');
+      this.getHouse(+this.houseId);
+      this.bookingService.currentId = this.houseId;
+    });
+  }
 
   getHouse(houseId: number) {
-    return this.houseService.findByHouseId(houseId).toPromise()
-    // .subscribe(house => {
-    // console.log(house)
-    // this.house = house;
-    // // for(let i =0;i<house.imagesList.length;i++){
-    // //   this.images.push(house.imageList[i])
-    // // }
-    // this.images = house.imagesList;
-    // console.log(this.images)
-    // });
+    return this.houseService.findByHouseId(houseId).subscribe(house => {
+      console.log(house);
+      this.houseService.currentHouse = house;
+      this.house = house;
+      this.images = house.imagesList;
+      console.log(this.images);
+    });
   }
 
   ngOnInit() {
+    $(function () {
 
-  }
-  getAllImageByHouse(house: House) {
-    this.houseService.getAllImageByHouse(house.houseId).subscribe(listImage => {
-      this.images = listImage;
-      this.imgUrl = listImage[0].linkImage;
-    })
+      $('#image-gallery').lightSlider({
+        gallery: true,
+        item: 1,
+        thumbItem: 9,
+        slideMargin: 0,
+        speed: 500,
+        auto: true,
+        loop: true,
+        onSliderLoad: function () {
+          $('#image-gallery').removeClass('cS-hidden');
+        }
+      });
+    });
   }
 }

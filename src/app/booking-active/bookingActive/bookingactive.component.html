@@ -1,13 +1,14 @@
 
 <div>
-  <mat-form-field appearance="fill" color="primary" class="datePicker1">
+  <mat-form-field appearance="fill" color="primary" class="datePicker1" style="width: 270px">
     <mat-label>Start Date</mat-label>
     <input matInput (dateChange)="validateForCheckoutDate()" [(ngModel)]="checkInDate" [matDatepicker]="picker1" [matDatepickerFilter]="dateFilter" >
     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
     <mat-datepicker #picker1></mat-datepicker>
   </mat-form-field>
-
-  <mat-form-field appearance="fill" class="datePicker2">
+  </div>
+  <div>
+  <mat-form-field appearance="fill" class="datePicker1">
     <mat-label>End Date</mat-label>
     <input  matInput [matDatepicker]="picker2" [(ngModel)]="checkOutDate" [matDatepickerFilter]="dateFilter" [min]="minDate" [max]="maxDate">
     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
