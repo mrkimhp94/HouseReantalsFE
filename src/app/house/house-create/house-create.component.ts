@@ -60,6 +60,9 @@ export class HouseCreateComponent implements OnInit {
           houseName: {
             required: true
           },
+          pricePerDay: {
+            required: true
+          },
           houseAddress: {
             required: true
           },
@@ -76,36 +79,33 @@ export class HouseCreateComponent implements OnInit {
             required: true
           },
           description: {
-            required: true
-          },
-          image: {
             required: true
           }
         },
         messages: {
           houseName: {
-            required: 'Hãy nhập tên ngôi nhà của bạn'
+            required: 'Please enter your house name'
+          },
+          pricePerDay: {
+            required: 'Please enter rental price by day'
           },
           houseAddress: {
-            required: 'Hãy nhập địa chỉ cho ngôi nhà'
+            required: 'Please enter the address for the house'
           },
           area: {
-            required: 'Hãy nhập diện tích'
+            required: 'Please enter the area'
           },
           type: {
-            required: 'Hãy nhập kiểu nhà'
+            required: 'Please enter house type'
           },
           bedroomQuantity: {
-            required: 'Hãy nhập số phòng ngủ'
+            required: 'Please enter the bedroom number'
           },
           bathroomQuantity: {
-            required: 'Hãy nhập sô phong tắm'
+            required: 'Please enter the bathroom number'
           },
           description: {
-            required: 'Hãy nhập mô tả chi tiết cho ngôi nhà của bạn'
-          },
-          image: {
-            required: 'Chọn ảnh cho ngôi nhà'
+            required: 'Please enter a detailed description for your home'
           }
         },
         errorElement: 'span',
@@ -142,6 +142,7 @@ export class HouseCreateComponent implements OnInit {
                   }
                 };
                 this.imageService.createImage(image).subscribe(() => {
+                  this.router.navigateByUrl('/');
                 }, () => {
                 });
               });

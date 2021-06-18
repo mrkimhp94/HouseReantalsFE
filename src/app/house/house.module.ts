@@ -8,26 +8,29 @@ import {ListHouseComponent} from './list-house/list-house.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HouseRoutingModule} from './house-routing.module';
 import {SharedModule} from '../shared/shared.module';
+import {MatDatepickerModule, MatInputModule} from '@angular/material';
 
 @NgModule({
-    declarations: [
-        ListHouseComponent,
-        DetailHouseComponent,
-        HouseCreateComponent
-    ],
+  declarations: [
+    ListHouseComponent,
+    DetailHouseComponent,
+    HouseCreateComponent
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     HouseRoutingModule,
-    SharedModule
+    SharedModule,
+    MatInputModule,
+    MatDatepickerModule
   ],
-    exports: [
-        ListHouseComponent
-    ],
-    // exports: [
-    //   HouseRoutingModule
-    // ]
+  exports: [
+    ListHouseComponent
+  ],
+  // exports: [
+  //   HouseRoutingModule
+  // ]
 })
 export class HouseModule {
 }

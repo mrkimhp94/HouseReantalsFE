@@ -72,7 +72,7 @@ export class RegisterComponent implements OnInit {
             this.success = next.success;
             this.message = next.message;
             alert('Register Success');
-            this.router.navigateByUrl('/');
+            this.router.navigateByUrl('/login');
           }
         );
     }

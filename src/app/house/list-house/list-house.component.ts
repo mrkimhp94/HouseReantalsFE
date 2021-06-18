@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import {HouseService} from '../../service/house/house.service';
 import {House} from '../../model/house';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import * as moment from 'moment';
 
 
 
@@ -18,10 +19,13 @@ export class ListHouseComponent implements OnInit {
   public size = 9;
   private listHouse: House[] = [];
   private numberOfPage = 1;
+  today = new Date();
+  message : string;
+  nextday:Date;
   searchForm: FormGroup = new FormGroup({
     search: new FormControl(''),
-    checkin: new FormControl(''),
-    checkout: new FormControl('')
+    checkin: new FormControl('',Validators.required),
+    checkout: new FormControl('',Validators.required)
   });
 
 
@@ -29,7 +33,7 @@ export class ListHouseComponent implements OnInit {
     const startIndex = this.currentPage * this.size;
     const endIndex = (this.currentPage + 1) * this.size;
     return this.listHouse.slice(startIndex, endIndex);
-    }
+  }
 
 
   constructor(private houseService: HouseService,
@@ -42,11 +46,13 @@ export class ListHouseComponent implements OnInit {
 
   ngOnInit() {
     this.getAllHouse();
+
   }
 
   getAllHouse() {
     this.houseService.getAllHouse().subscribe(listHouse => {
       this.listHouse = listHouse;
+      this.addImageToHouse(this.listHouse);
       this.numberOfPage = Math.ceil(this.listHouse.length / this.size);
     });
   }
@@ -68,13 +74,17 @@ export class ListHouseComponent implements OnInit {
 
   search() {
     const search = this.searchForm.value.search;
-    const checkin = this.searchForm.value.checkin;
-    const checkout = this.searchForm.value.checkout;
+    const checkin = this.formatDate(this.searchForm.value.checkin);
+    const checkout =  this.formatDate(this.searchForm.value.checkout);
+
     this.houseService.getSearchHouse(search, checkin, checkout).subscribe(listHouse => {
       this.listHouse = listHouse;
+      if (listHouse.length==0){
+        this.message ='There are no suitable homes'
+      }
       this.addImageToHouse(this.listHouse);
       this.router.navigate(['/houses'], {queryParams: {search: search, checkin: checkin, checkout: checkout}});
-  });
+    });
   }
 
   private addImageToHouse(listHouse: House[]) {
@@ -86,5 +96,12 @@ export class ListHouseComponent implements OnInit {
   private async getAllImageByProduct(house: House) {
     return this.houseService.getAllImageByHouse(house.houseId).toPromise();
 
+  }
+  formatDate(date: any): any {
+    return (moment(date)).format('yyyy-MM-DD');
+  }
+
+  validateForCheckoutDate() {
+    this.nextday = this.formatDate(this.searchForm.value.checkin)
   }
 }
