@@ -7,6 +7,7 @@
 <!--<strong *ngIf="notify=='valid'"> :  </strong>-->
 <p *ngIf="notify=='inValidInStartDate'"><span><img style="height: 30px" src="https://image.flaticon.com/icons/png/512/2738/2738459.png" alt=""></span>Please choose starting date </p>
   <p *ngIf="notify=='inValidInEndDate'"><span><img style="height: 30px" src="https://image.flaticon.com/icons/png/512/2738/2738459.png"> </span>Please choose end date</p>
+  <p *ngIf="notify=='inValidInStartDate2'">Start date must be smaller than end date</p>
   <p *ngIf="notify=='valid'">Please confirm </p>
   <p *ngIf="notify=='success'">Booking success</p>
 </mat-dialog-content>
