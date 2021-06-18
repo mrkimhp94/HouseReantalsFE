@@ -24,11 +24,15 @@ export class PopUpFormComponent {
     if (this.notifyService.notify == 'valid') {
       const dialogRef = this.dialog.open(PopUpContent);
       dialogRef.afterClosed().subscribe(result => {
-        this.submitEvt.emit(result);
-        // if(this.notifyService.notify='success'){
-        //   this.dialog.open(PopUpContent)
-        // }
-
+       return new Promise(function(resolve, reject){
+         console.log("resoleve")
+         resolve(result)
+       }).then((result)=>{this.submitEvt.emit(result)}).then(()=>{
+         console.log("sau khi goi ham booking")
+         this.notifyService.notify = 'success'
+         console.log(this.notifyService.notify)
+       }).then((()=>{
+         this.dialog.open(PopUpContent)}))
       })
 
     }
@@ -52,6 +56,7 @@ export class PopUpContent implements OnInit{
 
   ngOnInit(): void {
     this.notify = this.notify2.notify
+    console.log("notify : " + this.notify)
   }
 
 }

@@ -68,7 +68,7 @@ export class BookingList implements OnInit {
     );
   }
 
-  reload() {
-    window.location.reload()
-  }
+  // reload() {
+  //   window.location.reload()
+  // }
 }

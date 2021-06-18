@@ -54,4 +54,8 @@ export class HouseService {
   getCurrentHouse() {
     return this.currentHouse;
   }
+
+  upDateHouse(id: number,status:string) {
+    return this.http.put(`${API_URL}/houses/${id}/${status}`,null)
+  }
 }

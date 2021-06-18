@@ -50,7 +50,6 @@ export class BookingActiveComponent implements OnInit, DoCheck {
     for (let i = 0; i < data.length; i++) {
       let start = new Date(data[i].checkinDate);
       let end = new Date(data[i].checkoutDate);
-      console.log(start, end);
       this.setListDisableDate(start, end);
     }
   }
@@ -73,16 +72,15 @@ export class BookingActiveComponent implements OnInit, DoCheck {
     return (moment(date)).format('yyyy-MM-DD');
   }
 
-  doBooking(data: any) {
+  doBooking(data: any): boolean {
     if (data == true) {
       let start = this.formatDate(this.checkInDate);
       let end = this.formatDate(this.checkOutDate);
-      let totalDay = (this.checkOutDate.getTime() - this.checkInDate.getTime()) / (1000 * 60 * 60 * 24) + 1;
       let booking: Booking = {
         bookingStatus: -1,
         checkinDate: start,
         checkoutDate: end,
-        total: this.checkTotalMoney(this.checkInDate,this.checkOutDate),
+        total: this.checkTotalMoney(this.checkInDate, this.checkOutDate),
         house: {
           houseId: this.bookingService.currentId
         },
@@ -94,12 +92,12 @@ export class BookingActiveComponent implements OnInit, DoCheck {
       console.log(booking);
       console.log('data booking : ');
       this.bookingService.doBooking(booking).subscribe((data) => {
-        console.log(data);
-        // this.notifyService.notify = 'success';
-        alert('Booking Success');
-        window.location.reload();
+        console.log("booking success")
+        // window.location.reload();
       });
+      return true;
     }
+    return false;
   }
 
   validateForCheckoutDate() {
@@ -124,11 +122,15 @@ export class BookingActiveComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck() {
+    if (this.notifyService.notify == 'success') {
+      return;
+    }
     if (this.formatDate(this.checkInDate) == this.formatDate(this.today)) {
       this.notifyService.notify = 'inValidInStartDate';
     } else if (this.formatDate(this.checkOutDate) == this.formatDate(this.today)) {
       this.notifyService.notify = 'inValidInEndDate';
     } else {
+      console.log('docheck chay');
       this.notifyService.notify = 'valid';
     }
   }

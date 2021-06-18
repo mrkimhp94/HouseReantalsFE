@@ -15,6 +15,8 @@ export class UpdateProfileComponent implements OnInit {
   updateForm: FormGroup;
   success: boolean;
   message: string;
+  isEmailExists: boolean;
+  isPhoneExists: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -22,6 +24,19 @@ export class UpdateProfileComponent implements OnInit {
     private authentication: AuthenticationService,
     private userService: UserServiceService
   ) {
+  }
+
+  checkEmail(field: string) {
+    this.userService.checkEmail(field).subscribe(data => {
+      this.isEmailExists = data;
+    });
+    return this.isEmailExists;
+  }
+  checkPhone(field: string) {
+    this.userService.checkPhone(field).subscribe(data => {
+      this.isPhoneExists = data;
+    });
+    return this.isPhoneExists;
   }
 
   ngOnInit() {
@@ -46,6 +61,10 @@ export class UpdateProfileComponent implements OnInit {
 
   updateProfile() {
     if (this.updateForm.valid) {
+      if( this.checkEmail(this.user.email)) {
+      }
+      if(this.checkPhone(this.user.phone)){
+      }
       this.authentication.updateProfile(this.user)
         .subscribe(
           next => {

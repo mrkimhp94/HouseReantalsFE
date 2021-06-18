@@ -79,7 +79,7 @@
             Enter your phonenumber
           </div>
           <div *ngIf="registerForm.get('phone').hasError('pattern')">
-            Wrong your phonenumber. Please try again.
+            Wrong your phonenumber, please try again.
           </div>
         </div>
         <div class="formError" *ngIf="isPhoneExists">

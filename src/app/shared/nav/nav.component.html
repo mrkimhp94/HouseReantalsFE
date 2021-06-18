@@ -15,19 +15,22 @@
     <div class="collapse navbar-collapse yamm" id="navigation">
       <div class="button navbar-right" *ngIf="!currentUser">
         <button class="navbar-btn nav-button wow bounceInRight login" routerLink="/login" data-wow-delay="0.4s">Login</button>
-        <button class="navbar-btn nav-button wow fadeInRight" routerLink="/login" data-wow-delay="0.5s">POST</button>
+        <button class="navbar-btn nav-button wow fadeInRight" routerLink="/register" data-wow-delay="0.5s">Register</button>
       </div>
       <div class="button navbar-right" *ngIf="currentUser">
         <a href="index.html" class="dropdown-toggle active" data-toggle="dropdown" data-hover="dropdown" data-delay="200">Hello {{userName}} <b class="caret"></b></a>
         <ul class="dropdown-menu navbar-nav">
           <li>
-            <my-house></my-house>
+            <button mat-button routerLink="/my-houses">My House</button>
           </li>
           <li>
             <my-booking></my-booking>
           </li>
           <li>
-            <button mat-button (click)="logout()">Đăng xuất</button>
+            <button mat-button routerLink="/edit">Profile</button>
+          </li>
+          <li>
+            <button mat-button  (click)="logout()">Đăng xuất</button>
           </li>
         </ul>
         <button class="navbar-btn nav-button wow fadeInRight" routerLink="/houses/create" data-wow-delay="0.5s">POST NEW HOUSE</button>
