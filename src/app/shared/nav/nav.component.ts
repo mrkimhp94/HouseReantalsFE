@@ -27,7 +27,7 @@ export class NavComponent implements OnInit {
   }
 
   logout() {
-    this.authenticationService.logout().subscribe();
+    this.authenticationService.logout();
     this.router.navigate(['/house']);
   }
 
