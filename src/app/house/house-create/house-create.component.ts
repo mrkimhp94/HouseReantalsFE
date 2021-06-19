@@ -53,7 +53,13 @@ export class HouseCreateComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.currentUser);
+    $.validator.addMethod(
+      "regex",
+      function(value, element, regexp) {
+        return this.optional(element) || regexp.test(value);
+      },
+      "Please check your input."
+    );
     $(document).ready(function() {
       $('#product-form').validate({
         rules: {
@@ -61,13 +67,15 @@ export class HouseCreateComponent implements OnInit {
             required: true
           },
           pricePerDay: {
-            required: true
+            required: true,
+            regex: /^[0-9]{6}$/
           },
           houseAddress: {
             required: true
           },
           area: {
-            required: true
+            required: true,
+            regex: /^[0-9]{6}$/
           },
           type: {
             required: true
@@ -79,7 +87,8 @@ export class HouseCreateComponent implements OnInit {
             required: true
           },
           description: {
-            required: true
+            required: true,
+            minLength:10
           }
         },
         messages: {
@@ -87,13 +96,15 @@ export class HouseCreateComponent implements OnInit {
             required: 'Please enter your house name'
           },
           pricePerDay: {
-            required: 'Please enter rental price by day'
+            required: 'Please enter rental price by day',
+            regex: 'Enter numbers only'
           },
           houseAddress: {
             required: 'Please enter the address for the house'
           },
           area: {
-            required: 'Please enter the area'
+            required: 'Please enter the area',
+            regex: 'Enter numbers only'
           },
           type: {
             required: 'Please enter house type'
@@ -105,7 +116,8 @@ export class HouseCreateComponent implements OnInit {
             required: 'Please enter the bathroom number'
           },
           description: {
-            required: 'Please enter a detailed description for your home'
+            required: 'Please enter a detailed description for your home',
+            minLength: 'Minimum 10 charaters vereist'
           }
         },
         errorElement: 'span',
