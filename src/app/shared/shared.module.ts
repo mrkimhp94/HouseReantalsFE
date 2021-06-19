@@ -23,7 +23,6 @@ import {HouseModule} from '../house/house.module';
     CommonModule,
     SharedRoutingModule,
     MatButtonModule,
-    BookingModuleModule,
   ]
 })
 export class SharedModule { }

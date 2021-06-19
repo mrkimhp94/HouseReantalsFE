@@ -5,6 +5,8 @@ import {ListHouseComponent} from './list-house/list-house.component';
 import {DetailHouseComponent} from './detail-house/detail-house.component';
 import {RouterModule, Routes} from '@angular/router';
 import {OpenListHouse} from './my-house/my-house.component';
+import * as path from 'path';
+import {BookingList} from '../booking-module/my-booking/my-booking.component';
 
 
 const routes: Routes = [
@@ -20,9 +22,14 @@ const routes: Routes = [
     component: DetailHouseComponent,
     loadChildren: () => import('../booking-active/booking-active.module').then(module => module.BookingActiveModule)
   },
+
   {
     path: 'create',
     component: HouseCreateComponent
+  },
+  {
+    path:'my-bookings',
+    component:BookingList
   }
 ];
 
