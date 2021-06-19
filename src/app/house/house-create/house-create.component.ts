@@ -31,7 +31,7 @@ export class HouseCreateComponent implements OnInit {
     bedroomQuantity: new FormControl(''),
     bathroomQuantity: new FormControl(''),
     description: new FormControl(''),
-    pricePerDay: new FormControl()
+    pricePerDay: new FormControl('')
   });
 
   selectedImages: any[] = [];
@@ -68,14 +68,14 @@ export class HouseCreateComponent implements OnInit {
           },
           pricePerDay: {
             required: true,
-            regex: /^[0-9]{6}$/
+            regex: /\d{1,5}/
           },
           houseAddress: {
             required: true
           },
           area: {
             required: true,
-            regex: /^[0-9]{6}$/
+            regex: /\d{1,5}/
           },
           type: {
             required: true
@@ -87,8 +87,7 @@ export class HouseCreateComponent implements OnInit {
             required: true
           },
           description: {
-            required: true,
-            minLength:10
+            required: true
           }
         },
         messages: {
@@ -116,11 +115,11 @@ export class HouseCreateComponent implements OnInit {
             required: 'Please enter the bathroom number'
           },
           description: {
-            required: 'Please enter a detailed description for your home',
-            minLength: 'Minimum 10 charaters vereist'
+            required: 'Please enter a detailed description for your home'
           }
         },
         errorElement: 'span',
+        errorClass: 'label label-danger',
         errorPlacement: function(error, element) {
           isValidated = false;
           error.addClass('invalid-feedback');
@@ -135,6 +134,7 @@ export class HouseCreateComponent implements OnInit {
       });
     });
   }
+
 
   async createImage() {
     const house = await this.createHouse();
