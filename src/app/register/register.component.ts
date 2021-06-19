@@ -9,6 +9,7 @@ import {User} from '../interface/user';
 import {UserServiceService} from '../service/user-service.service';
 import {MatDialog} from '@angular/material/dialog';
 import {GeneralPopupComponent} from '../general-popup/general-popup.component';
+import {NotifyServiceService} from '../service/notify/notify-service.service';
 
 
 function comparePassword(c: AbstractControl) {
@@ -39,7 +40,8 @@ export class RegisterComponent implements OnInit {
     private authenticationserivce: AuthenticationService,
     private router: Router,
     private usernameservice: UserServiceService,
-    private dialog : MatDialog
+    private dialog : MatDialog,
+    private  notifyService : NotifyServiceService
   ) {
   }
 
@@ -108,7 +110,8 @@ export class RegisterComponent implements OnInit {
               console.log(next);
               this.success = next.success;
               this.message = next.message;
-              // alert('Register Success');
+              this.notifyService.notify='createUserSuccess'
+
               this.dialog.open(GeneralPopupComponent).afterClosed().subscribe(()=>{
                 this.router.navigateByUrl('/login');
               })

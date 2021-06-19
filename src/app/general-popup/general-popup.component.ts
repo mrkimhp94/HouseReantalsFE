@@ -9,11 +9,11 @@ import {NotifyServiceService} from '../service/notify/notify-service.service';
 export class GeneralPopupComponent implements OnInit {
   notify: string;
 
-  constructor(private notifyService : NotifyServiceService) {
+  constructor(private notifyService: NotifyServiceService) {
   }
 
   ngOnInit() {
-    this.notifyService.notify = this.notify
+    this.notify = this.notifyService.notify;
   }
 
 }
