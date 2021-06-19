@@ -156,7 +156,7 @@
               <div class="box-two proerty-item">
                 <div class="item-thumb">
                   <a [routerLink]="['/houses/detail',house.houseId]"><img style="width:400px;height:500px;"
-                                                                          src="{{house.imagesList[0].linkImage}}"
+                                                                          src="{{house.imagesList[0]?.linkImage}}"
                                                                           alt=""></a>
                 </div>
 
@@ -164,7 +164,7 @@
                   <h5><a [routerLink]="['/houses/detail',house.houseId]"> {{house.houseName}} </a></h5>
                   <div class="dot-hr"></div>
                   <span class="pull-left"><b> Area :</b> {{house.area}} </span>
-                  <span class="proerty-price pull-right"> {{house.pricePerDay}}</span>
+                  <span class="proerty-price pull-right"> {{house.pricePerDay | currency}}</span>
                   <p style="display: none;">Suspendisse ultricies Suspendisse ultricies Nulla quis dapibus nisl.
                     Suspendisse ultricies commodo arcu nec pretium ...</p>
                   <br>
