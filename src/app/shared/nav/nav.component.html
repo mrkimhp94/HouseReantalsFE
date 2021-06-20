@@ -21,16 +21,16 @@
         <a class="dropdown-toggle active" data-toggle="dropdown" data-hover="dropdown" data-delay="200">Hello {{userName}} <b class="caret"></b></a>
         <ul class="dropdown-menu navbar-nav">
           <li>
-            <button mat-button routerLink="/my-houses">My House</button>
+            <button mat-button routerLink="/my-houses">My house</button>
           </li>
           <li>
-            <my-booking></my-booking>
+            <button mat-button routerLink="/my-bookings">My booking</button>
           </li>
           <li>
             <button mat-button routerLink="/edit">Profile</button>
           </li>
           <li>
-            <button mat-button  (click)="logout()">Đăng xuất</button>
+            <button mat-button  (click)="logout()">Logout</button>
           </li>
         </ul>
         <button class="navbar-btn nav-button wow fadeInRight" routerLink="/houses/create" data-wow-delay="0.5s">POST NEW HOUSE</button>

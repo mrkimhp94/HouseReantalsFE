@@ -10,8 +10,8 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path:"register",
-    loadChildren:()=> import('./register/register.module').then(module => module.RegisterModule)
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then(module => module.RegisterModule)
   },
   {
   path: '',
@@ -24,6 +24,10 @@ const routes: Routes = [
   {
     path : 'edit',
     loadChildren: () => import('./update-user/update-user.module').then(module => module.UpdateUserModule)
+  },
+  {
+    path: 'change-password',
+    loadChildren: () => import('./change-password/change-password.module').then(module => module.ChangePasswordModule)
   },
 
 ];

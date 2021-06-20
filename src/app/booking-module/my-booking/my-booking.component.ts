@@ -1,27 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-
-import {Booking} from '../../model/booking';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import * as moment from 'moment';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {BookingServiceService} from '../../service/booking/bookingservice.service';
 import {UserServiceService} from '../../service/user-service.service';
-
-@Component({
-  selector: 'my-booking',
-  templateUrl: './my-booking.component.html',
-  // styleUrls: ['./my-booking.component.css']
-})
-export class MyBookingComponent implements OnInit {
-  constructor(private bookingService: BookingServiceService, private dialog: MatDialog) {
-  }
-  ngOnInit() {
-  }
-
-  open() {
-    this.dialog.open(BookingList);
-  }
-}
+import {DateServiceService} from '../../service/date/date-service.service';
+import {MatTableDataSource} from '@angular/material';
+import {Booking} from '../../model/booking';
+import {GeneralPopupComponent} from '../../general-popup/general-popup.component';
+import {NotifyServiceService} from '../../service/notify/notify-service.service';
 
 @Component({
   selector: 'booking-list',
@@ -29,46 +15,54 @@ export class MyBookingComponent implements OnInit {
   styleUrls: ['./my-booking.component.css']
 })
 export class BookingList implements OnInit {
-  bookingList: Booking[] = [];
+  dataSource: Booking[] = [];
   bookingId: string;
 
   constructor(private bookingService: BookingServiceService,
               private dialog: MatDialog, private activeRouter: ActivatedRoute,
-              private userService : UserServiceService) {
+              private userService: UserServiceService,
+              private dateService: DateServiceService,
+              private notifyService: NotifyServiceService) {
 
   }
+
   getAllBookingListOfUser() {
     this.bookingService.getAllBookingByUserId(this.userService.getCurrentUser().id).subscribe(data => {
       // this.bookingList = data;
       for (let i = 0; i < data.length; i++) {
-        data[i].checkinDate = this.formatDate(data[i].checkinDate);
-        data[i].checkoutDate = this.formatDate(data[i].checkoutDate);
-        this.bookingList.push(data[i]);
+        data[i].checkinDate = this.dateService.formatDate(data[i].checkinDate);
+        data[i].checkoutDate = this.dateService.formatDate(data[i].checkoutDate);
+        this.dataSource.push(data[i]);
       }
-      console.log(this.bookingList);
+      console.log(this.dataSource);
     });
   }
 
   ngOnInit(): void {
     this.getAllBookingListOfUser();
+
   }
 
-  formatDate(date: any): any {
-    return (moment(date)).format('yyyy-MM-DD');
-  }
+
   deleteBooking(id: any) {
-    this.activeRouter.paramMap.subscribe((paramMap: ParamMap) => {
-      this.bookingId = paramMap.get('id');
-      console.log(this.bookingId)
-    });
-    this.bookingService.deleteBooking(id).subscribe(
-      () => {
-        console.log('delete success');
+    this.notifyService.notify = 'deleteBooking';
+    this.dialog.open(GeneralPopupComponent).afterClosed().subscribe(result => {
+        if (result == true) {
+          this.bookingService.deleteBooking(id).subscribe(
+            () => {
+              this.notifyService.notify = 'deleteSuccess';
+              this.dialog.open(GeneralPopupComponent);
+            }
+          );
+        }
       }
     );
+
   }
 
-  // reload() {
-  //   window.location.reload()
-  // }
+
+  cannotDelete() {
+    this.notifyService.notify = 'cannotDeleteBooking';
+    this.dialog.open(GeneralPopupComponent);
+  }
 }

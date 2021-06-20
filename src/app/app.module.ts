@@ -27,11 +27,14 @@ import {UpdateUserModule} from './update-user/update-user.module';
 import {SharedModule} from './shared/shared.module';
 import {HouseRoutingModule} from './house/house-routing.module';
 import {BookingModuleModule} from './booking-module/booking-module.module';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import {ChangePasswordModule} from './change-password/change-password.module';
+import {ChangePasswordRoutingModule} from "./change-password/change-password-routing.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    GeneralPopupComponent
+    GeneralPopupComponent,
   ],
   imports: [
     LoginModule,
@@ -57,6 +60,8 @@ import {BookingModuleModule} from './booking-module/booking-module.module';
     HouseRoutingModule,
     BookingModuleModule,
     MatButtonModule,
+    ChangePasswordModule,
+    ChangePasswordRoutingModule
   ],
   providers: [
     HttpClient,
@@ -67,7 +72,7 @@ import {BookingModuleModule} from './booking-module/booking-module.module';
       multi: true
     }
   ],
-  entryComponents:[GeneralPopupComponent],
+  entryComponents: [GeneralPopupComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

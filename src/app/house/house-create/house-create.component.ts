@@ -31,7 +31,7 @@ export class HouseCreateComponent implements OnInit {
     bedroomQuantity: new FormControl(''),
     bathroomQuantity: new FormControl(''),
     description: new FormControl(''),
-    pricePerDay: new FormControl()
+    pricePerDay: new FormControl('')
   });
 
   selectedImages: any[] = [];
@@ -53,7 +53,13 @@ export class HouseCreateComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.currentUser);
+    $.validator.addMethod(
+      "regex",
+      function(value, element, regexp) {
+        return this.optional(element) || regexp.test(value);
+      },
+      "Please check your input."
+    );
     $(document).ready(function() {
       $('#product-form').validate({
         rules: {
@@ -61,13 +67,15 @@ export class HouseCreateComponent implements OnInit {
             required: true
           },
           pricePerDay: {
-            required: true
+            required: true,
+            regex: /\d{1,5}/
           },
           houseAddress: {
             required: true
           },
           area: {
-            required: true
+            required: true,
+            regex: /\d{1,5}/
           },
           type: {
             required: true
@@ -87,13 +95,15 @@ export class HouseCreateComponent implements OnInit {
             required: 'Please enter your house name'
           },
           pricePerDay: {
-            required: 'Please enter rental price by day'
+            required: 'Please enter rental price by day',
+            regex: 'Enter numbers only'
           },
           houseAddress: {
             required: 'Please enter the address for the house'
           },
           area: {
-            required: 'Please enter the area'
+            required: 'Please enter the area',
+            regex: 'Enter numbers only'
           },
           type: {
             required: 'Please enter house type'
@@ -109,6 +119,7 @@ export class HouseCreateComponent implements OnInit {
           }
         },
         errorElement: 'span',
+        errorClass: 'label label-danger',
         errorPlacement: function(error, element) {
           isValidated = false;
           error.addClass('invalid-feedback');
@@ -123,6 +134,7 @@ export class HouseCreateComponent implements OnInit {
       });
     });
   }
+
 
   async createImage() {
     const house = await this.createHouse();

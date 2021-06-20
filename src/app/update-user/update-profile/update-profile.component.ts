@@ -28,8 +28,8 @@ export class UpdateProfileComponent implements OnInit {
     private router: Router,
     private authentication: AuthenticationService,
     private userService: UserServiceService,
-    private dialog : MatDialog,
-    private notifyService : NotifyServiceService
+    private dialog: MatDialog,
+    private notifyService: NotifyServiceService
   ) {
   }
 
@@ -49,7 +49,7 @@ export class UpdateProfileComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.user);
-    let currentUser = JSON.parse(window.localStorage.getItem('currentUser'));
+    const currentUser = JSON.parse(window.localStorage.getItem('currentUser'));
     this.userService.getUserInformation(currentUser.id).subscribe(data => {
       this.user = data;
     });
@@ -81,10 +81,10 @@ export class UpdateProfileComponent implements OnInit {
           next => {
             this.success = next.success;
             this.message = next.message;
-            this.notifyService.notify='updateUserSuccess' //set content thong bao
-            this.dialog.open(GeneralPopupComponent).afterClosed().subscribe(()=>{
+            this.notifyService.notify = 'updateUserSuccess'; // set content thong bao
+            this.dialog.open(GeneralPopupComponent).afterClosed().subscribe(() => {
               this.router.navigateByUrl('/');
-            })
+            });
 
           }
         );
