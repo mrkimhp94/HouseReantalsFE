@@ -4,6 +4,10 @@ import {Form, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../service/authentication.service';
 import {UserServiceService} from '../../service/user-service.service';
+import {MatDialog} from '@angular/material/dialog';
+import {PopUpContent} from '../../booking-active/popup-form/popup-form.component';
+import {GeneralPopupComponent} from '../../general-popup/general-popup.component';
+import {NotifyServiceService} from '../../service/notify/notify-service.service';
 
 @Component({
   selector: 'app-update-profile',
@@ -23,7 +27,9 @@ export class UpdateProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private authentication: AuthenticationService,
-    private userService: UserServiceService
+    private userService: UserServiceService,
+    private dialog : MatDialog,
+    private notifyService : NotifyServiceService
   ) {
   }
 
@@ -75,14 +81,16 @@ export class UpdateProfileComponent implements OnInit {
           next => {
             this.success = next.success;
             this.message = next.message;
-            alert('Update success');
-            this.router.navigateByUrl('/');
+            this.notifyService.notify='updateUserSuccess' //set content thong bao
+            this.dialog.open(GeneralPopupComponent).afterClosed().subscribe(()=>{
+              this.router.navigateByUrl('/');
+            })
+
           }
         );
     } else {
-      alert('Update false');
       this.router.navigateByUrl('/edit');
     }
   }
-
 }
+

@@ -1,7 +1,6 @@
 <app-head></app-head>
 <app-nav></app-nav>
-<app-header></app-header>
-<div class="content-area submit-property" style="background-color: #FCFCFC;">&nbsp;
+<div class="content-area submit-property" style="background-color: #FCFCFC">&nbsp;
   <div class="container">
     <div class="clearfix">
       <div class="wizard-container">
@@ -10,21 +9,21 @@
           <form [formGroup]="houseForm" (ngSubmit)="createImage()" id="product-form">
             <div class="wizard-header">
               <h3 style="text-align: center">
-                <b>Create</b> YOUR HOUSE <br>
+                <b>Create your house</b>
               </h3>
             </div>
             <div class="col-sm-12" style="margin-top: 20px">
               <div class="col-sm-12">
                 <div class="form-group">
-                  <label>House name <small>(required)</small></label>
-                  <input type="text" name="houseName" formControlName="houseName"
+                  <label>House name :</label>
+                  <input type="text" name="houseName" formControlName="houseName" style="border-radius: 10px"
                          class="form-control" placeholder="Super villa ...">
                 </div>
 
                 <div class="form-group">
-                  <label>House price <small>(required)</small></label>
-                  <input type="text" name="pricePerDay" formControlName="pricePerDay"
-                         class="form-control" placeholder="3330000">
+                  <label>House price <small>(usd per day)</small> :</label>
+                  <input type="text" name="pricePerDay" formControlName="pricePerDay" style="border-radius: 10px"
+                         class="form-control" placeholder="300">
                 </div>
               </div>
             </div>
@@ -32,7 +31,7 @@
               <div class="col-sm-12">
                 <div class="form-group">
                   <label>House Address :</label>
-                  <input name="houseAddress" formControlName="houseAddress"
+                  <input name="houseAddress" formControlName="houseAddress" style="border-radius: 10px"
                          class="form-control">
                 </div>
               </div>
@@ -41,29 +40,48 @@
               <div class="col-sm-3">
                 <div class="form-group">
                   <label>Bedroom Quantity :</label>
-                  <input name="bedroomQuantity" formControlName="bedroomQuantity"
-                         class="form-control">
+                  <select tabindex="1" name="bedroomQuantity"  formControlName="bedroomQuantity" id="bedroomQuantity" class="form-control" style="border-radius: 10px">
+                    <option value="0" selected="">Bed Min</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                  </select>
                 </div>
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
                   <label>Bathroom Quantity:</label>
-                  <input name="bathroomQuantity" formControlName="bathroomQuantity"
-                         class="form-control">
+                  <select tabindex="1" name="bathroomQuantity"  formControlName="bathroomQuantity" id="bathroomQuantity" class="form-control" style="border-radius: 10px">
+                    <option value="0" selected="">Bath Min</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                  </select>
                 </div>
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
-                  <label>House Area :</label>
+                  <label>House Area (m2) :</label>
                   <input name="area" formControlName="area"
-                         class="form-control">
+                         class="form-control" style="border-radius: 10px">
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="form-group">
+                <div class="form-group" >
                   <label>House Type :</label>
-                  <input name="type" formControlName="type"
-                         class="form-control">
+                  <select tabindex="1" name="type"  formControlName="type" id="houseType" class="form-control" style="border-radius: 10px">
+                    <option value="" selected="">House Type</option>
+                    <option value="Apartment">Apartment</option>
+                    <option value="Villa">Villa</option>
+                    <option value="Home Stay">Home Stay</option>
+
+                  </select>
                 </div>
               </div>
             </div>
@@ -72,7 +90,7 @@
                 <div class="form-group">
                   <label>Description :</label>
                   <input name="description" formControlName="description"
-                         class="form-control">
+                         class="form-control" style="border-radius: 10px">
                 </div>
               </div>
             </div>
@@ -81,7 +99,7 @@
                 <div class="form-group">
                   <label for="image">Chose Images :</label>
                   <input class="form-control" name="image" (change)="showPreview($event)" type="file"
-                         id="image" multiple>
+                         id="image" multiple style="border-radius: 10px">
                   <p class="help-block">Select multiple images for your property .</p>
                 </div>
                 <div class="form-group" *ngFor="let image of selectedImages; index as i">

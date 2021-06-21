@@ -3,22 +3,24 @@ import {CommonModule} from '@angular/common';
 
 import {BookingModuleRoutingModule} from './booking-module-routing.module';
 import {MatDialogModule} from '@angular/material/dialog';
-import {BookingList, MyBookingComponent} from './my-booking/my-booking.component';
-import {MatTableModule} from '@angular/material';
+import {BookingList} from './my-booking/my-booking.component';
+import {MatButtonModule, MatTableModule} from '@angular/material';
+import {SharedModule} from '../shared/shared.module';
 // import {OpenListHouse} from '../house/my-house/my-house.component';
 
 @NgModule({
-  declarations: [MyBookingComponent, BookingList],
+  declarations: [ BookingList],
   imports: [
     CommonModule,
     BookingModuleRoutingModule,
     MatDialogModule,
     MatTableModule,
+    MatButtonModule,
+    SharedModule,
   ],
   exports: [
-    MyBookingComponent
   ],
-  entryComponents: [BookingList]
+  entryComponents: []
 })
 export class BookingModuleModule {
 }

@@ -7,6 +7,9 @@ import {register} from 'ts-node';
 import firebase from 'firebase';
 import {User} from '../interface/user';
 import {UserServiceService} from '../service/user-service.service';
+import {MatDialog} from '@angular/material/dialog';
+import {GeneralPopupComponent} from '../general-popup/general-popup.component';
+import {NotifyServiceService} from '../service/notify/notify-service.service';
 
 
 function comparePassword(c: AbstractControl) {
@@ -36,7 +39,9 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private authenticationserivce: AuthenticationService,
     private router: Router,
-    private usernameservice: UserServiceService
+    private usernameservice: UserServiceService,
+    private dialog : MatDialog,
+    private  notifyService : NotifyServiceService
   ) {
   }
 
@@ -105,8 +110,12 @@ export class RegisterComponent implements OnInit {
               console.log(next);
               this.success = next.success;
               this.message = next.message;
-              // alert('Register Success');
-              this.router.navigateByUrl('/login');
+              this.notifyService.notify='createUserSuccess'
+
+              this.dialog.open(GeneralPopupComponent).afterClosed().subscribe(()=>{
+                this.router.navigateByUrl('/login');
+              })
+            ;
             })
     } else {
       // alert('Register false');
@@ -119,15 +128,6 @@ export class RegisterComponent implements OnInit {
 // getImageUrl(imageUrls: string[]) {
 //   this.user.avatar = imageUrls[0];
 // }
-
-}@Component({
-  selector: 'app-register',
-  templateUrl: './popup.html',
-  styleUrls: ['./register.component.css']
-})
-export class RegisterPopUp implements OnInit {
-  ngOnInit(): void {
-  }
 
 
 }

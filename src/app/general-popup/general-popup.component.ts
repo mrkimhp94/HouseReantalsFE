@@ -1,4 +1,5 @@
 import {Component, ContentChild, Input, OnInit, TemplateRef} from '@angular/core';
+import {NotifyServiceService} from '../service/notify/notify-service.service';
 
 @Component({
   selector: 'app-general-popup',
@@ -8,9 +9,11 @@ import {Component, ContentChild, Input, OnInit, TemplateRef} from '@angular/core
 export class GeneralPopupComponent implements OnInit {
   notify: string;
 
-  constructor() { }
+  constructor(private notifyService: NotifyServiceService) {
+  }
 
   ngOnInit() {
+    this.notify = this.notifyService.notify;
   }
 
 }

@@ -1,6 +1,11 @@
+
+<app-head></app-head>
+<app-nav></app-nav>
+<app-header></app-header>
+<div class="register-area" style="background-color:rgb(249, 249, 249);">
 <div class="container">
-  <div style="position: absolute;left: 50%;top: 0%;transform: translate(-40%, 0%);"
-       class="col-md-4 col-xs-4 login-blocks">
+  <div class="col-md-3 col-xs-0"></div>
+  <div class="col-md-6 col-xs-12 login-blocks">
     <h2>New account </h2>
     <form [formGroup]="registerForm" (ngSubmit)="register()" id="registerForm">
       <div class="form-group">
@@ -9,20 +14,20 @@
                id="username">
         <div
           *ngIf="registerForm.get('username').invalid && (registerForm.get('username').dirty || registerForm.get('username').touched)">
-          <div *ngIf="registerForm.get('username').errors.required">
+          <div *ngIf="registerForm.get('username').errors.required" style="color: red">
             Enter your username
           </div>
-          <div *ngIf="registerForm.get('username').errors.minlength">
+          <div *ngIf="registerForm.get('username').errors.minlength" style="color: red">
             Minimum 6 characters required
           </div>
-          <div *ngIf="registerForm.get('username').errors.maxlength">
+          <div *ngIf="registerForm.get('username').errors.maxlength" style="color: red">
             Maximum 6 characters required
           </div>
-          <div *ngIf="registerForm.get('username').errors.pattern">
+          <div *ngIf="registerForm.get('username').errors.pattern" style="color: red">
             Username does not contain special characters
           </div>
         </div>
-        <div class="formError" *ngIf="isUsernameExists">
+        <div class="formError" *ngIf="isUsernameExists" style="color: red">
           This username already exists
         </div>
         </div>
@@ -33,13 +38,13 @@
                [(ngModel)]="user.password" id="password">
         <div
           *ngIf="registerForm.get('password').invalid && (registerForm.get('password').dirty || registerForm.get('password').touched)">
-          <div *ngIf="registerForm.get('password').errors.required">
+          <div *ngIf="registerForm.get('password').errors.required" style="color: red">
             Enter your password
           </div>
-          <div *ngIf="registerForm.get('password').errors.minlength">
+          <div *ngIf="registerForm.get('password').errors.minlength" style="color: red">
             Minimum 6 characters required
           </div>
-          <div *ngIf="registerForm.get('password').errors.maxlength">
+          <div *ngIf="registerForm.get('password').errors.maxlength"style="color: red">
             Maximum 6 characters required
           </div>
         </div>
@@ -50,7 +55,7 @@
                id="confirmPassword">
         <div
           *ngIf="registerForm.get('confirmPassword').touched">
-          <div *ngIf="registerForm.get('confirmPassword').value != registerForm.get('password').value">
+          <div *ngIf="registerForm.get('confirmPassword').value != registerForm.get('password').value" style="color: red">
             Confirm password not match
           </div>
         </div>
@@ -61,10 +66,10 @@
                id="fullname">
         <div
           *ngIf="registerForm.get('fullname').invalid && (registerForm.get('fullname').dirty || registerForm.get('fullname').touched)">
-          <div *ngIf="registerForm.get('fullname').errors.required">
+          <div *ngIf="registerForm.get('fullname').errors.required" style="color: red">
             Enter Your fullname
           </div>
-          <div *ngIf="registerForm.get('fullname').hasError('pattern')">
+          <div *ngIf="registerForm.get('fullname').hasError('pattern')" style="color: red">
             Fullname does not contain special characters
           </div>
         </div>
@@ -75,14 +80,14 @@
                id="phone">
         <div
           *ngIf="registerForm.get('phone').invalid && (registerForm.get('phone').dirty || registerForm.get('phone').touched)">
-          <div *ngIf="registerForm.get('phone').errors.required">
+          <div *ngIf="registerForm.get('phone').errors.required" style="color: red">
             Enter your phonenumber
           </div>
-          <div *ngIf="registerForm.get('phone').hasError('pattern')">
+          <div *ngIf="registerForm.get('phone').hasError('pattern')" style="color: red">
             Wrong your phonenumber, please try again.
           </div>
         </div>
-        <div class="formError" *ngIf="isPhoneExists">
+        <div class="formError" *ngIf="isPhoneExists" style="color: red">
           This phone number already exists
         </div>
       </div>
@@ -92,7 +97,7 @@
                [(ngModel)]="user.userAddress" id="useraddress">
         <div
           *ngIf="registerForm.get('userAddress').invalid && (registerForm.get('userAddress').dirty || registerForm.get('userAddress').touched)">
-          <div *ngIf="registerForm.get('userAddress').errors.required">
+          <div *ngIf="registerForm.get('userAddress').errors.required" style="color: red">
             Enter your address
           </div>
         </div>
@@ -103,21 +108,23 @@
                id="email">
         <div
           *ngIf="registerForm.get('email').invalid && (registerForm.get('email').dirty || registerForm.get('email').touched)">
-          <div *ngIf="registerForm.get('email').errors.required">
+          <div *ngIf="registerForm.get('email').errors.required" style="color: red">
             Enter your enmail
           </div>
-          <div *ngIf="registerForm.get('email').errors.email">
+          <div *ngIf="registerForm.get('email').errors.email" style="color: red">
             Wrong email, please try again.
           </div>
         </div>
-        <div class="formError" *ngIf="isEmailExists">
+        <div class="formError" *ngIf="isEmailExists" style="color: red">
           This email already exists
         </div>
       </div>
-      <div>
+      <div style="text-align: center">
         <button class="btn btn-default" type="submit" [disabled]="registerForm.invalid">Register</button>
       </div>
     </form>
   </div>
 </div>
+</div>
+<app-footer></app-footer>
 

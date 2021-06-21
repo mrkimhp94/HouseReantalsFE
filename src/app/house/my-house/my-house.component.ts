@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {HouseService} from '../../service/house/house.service';
-import {House} from '../../model/House';
+import {House} from '../../model/house';
 import {UserServiceService} from '../../service/user-service.service';
 import {NotifyServiceService} from '../../service/notify/notify-service.service';
 import {DateServiceService} from '../../service/date/date-service.service';
+import {GeneralPopupComponent} from '../../general-popup/general-popup.component';
 
 
 @Component({
@@ -36,19 +37,18 @@ export class OpenListHouse implements OnInit {
       this.myHouses = data;
     });
   }
-
   updateStatus(houseId: number, status: string) {
     if (this.isAllowToChangeToUpdate) {
       this.houseService.findByHouseId(houseId).subscribe((data) => {
         data.houseStatus = status;
         this.houseService.upDateHouse(houseId, status).subscribe((data) => {
-          this.dialog.open(PopUp);
+          this.dialog.open(GeneralPopupComponent);
           this.notifyService.notify = 'success';
         });
       });
     } else {
       this.notifyService.notify = 'notAllowed';
-      this.dialog.open(PopUp);
+      this.dialog.open(GeneralPopupComponent);
     }
 
   }
@@ -56,9 +56,9 @@ export class OpenListHouse implements OnInit {
   changeRentStatus(houseId: number) {
     this.notifyService.notify = '';
     this.isAllowToChangeToUpdate = true;
-    this.dialog.open(PopUp).afterClosed().subscribe(result => {
+    this.dialog.open(GeneralPopupComponent).afterClosed().subscribe(result => {
       if (result == true) {
-        this.updateStatus(houseId, 'blank');
+        this.updateStatus(houseId, 'rent');
       }
     });
 
@@ -67,12 +67,13 @@ export class OpenListHouse implements OnInit {
   changeUpgradeStatus(houseId: number) {
     this.isAllowToChangeToUpdate = true;
     this.notifyService.notify = '';
-    this.dialog.open(PopUp).afterClosed().subscribe(result => {
+    this.dialog.open(GeneralPopupComponent).afterClosed().subscribe(result => {
       if (result == true) {
         this.updateStatus(houseId, 'upgrade');
       }
     });
   }
+
 //Su dung nhieu callBack nen e xu li = asysn/await
   //Luong chay em da console ra
   async changeBlankStatus(houseId: number) {
@@ -82,7 +83,7 @@ export class OpenListHouse implements OnInit {
     ).then(() => {
       console.log('3');
       this.notifyService.notify = '';
-      this.dialog.open(PopUp).afterClosed().subscribe(result => {
+      this.dialog.open(GeneralPopupComponent).afterClosed().subscribe(result => {
         if (result == true) {
           this.updateStatus(houseId, 'blank');
         }
@@ -91,9 +92,8 @@ export class OpenListHouse implements OnInit {
   }
 
 
-
   async checkingHouse(houseId: any) {
-    this.dateService.allBookingDate=[]
+    this.dateService.allBookingDate = []
     await this.dateService.setHouseId(houseId).then(
       () => {
         console.log('start');
@@ -111,25 +111,4 @@ export class OpenListHouse implements OnInit {
     });
 
   }
-
-
-}
-
-@Component({
-  selector: 'my-house-popup',
-  templateUrl: 'popup.html',
-  styleUrls: ['./my-house.component.css']
-})
-export class PopUp implements OnInit {
-  notify: any;
-
-  constructor(private notifyService: NotifyServiceService) {
-  }
-
-  ngOnInit(): void {
-    this.notify = this.notifyService.notify;
-    console.log(this.notify);
-  }
-
-
 }

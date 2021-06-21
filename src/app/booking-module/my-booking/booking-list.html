@@ -1,20 +1,34 @@
-<h2 mat-dialog-title>Booking Notify</h2>
-<mat-dialog-content class="mat-typography">
-  <table>
+
+<app-head></app-head>
+<app-nav></app-nav>
+<app-header></app-header>
+
+<div>
+  <div style="text-align: center">  <h3>YOUR BOOKING</h3></div>
+  <div *ngIf="dataSource.length==0" style="text-align: center">
+    <a style="color:red;">You havn't booked anything yet!</a>
+  </div>
+  <div *ngIf="dataSource.length!=0">
+  <table class="table" >
     <tr>
-<!--      <td>#</td>-->
-      <td style="padding-right: 20px">Start</td>
-      <td>End</td>
-      <td></td>
-      <td></td>
+      <th scope="col">#</th>
+      <th scope="col">Start</th>
+      <th scope="col">End</th>
+      <th scope="col">Total</th>
     </tr>
-    <tr *ngFor="let b  of bookingList">
-<!--      <td>{{b.bookingId}}</td>-->
-      <td style="padding-right: 20px">{{b.checkinDate}}</td>
-      <td style="padding-right: 20px">{{b.checkoutDate}}</td>
-   <td><button  style="padding-right: 20px" [disabled]="b.bookingStatus==0" [routerLink]="['/delete',b.bookingId]" (click)="deleteBooking(b.bookingId)">Delete</button></td>
+    <tbody>
+    <tr *ngFor="let booking of dataSource, let i = index">
+      <th scope="row">{{++i}}</th>
+      <td>{{booking.checkinDate}}</td>
+      <td>{{booking.checkoutDate}}</td>
+      <td>{{booking.total | currency : 'USD' :true : '1.0-3'}}</td>
+      <td *ngIf="booking.bookingStatus!=-1"><span><img (click)="cannotDelete()" style="height: 20px" src="https://image.flaticon.com/icons/png/512/3239/3239888.png" alt=""></span>
+      </td>
+      <td  *ngIf="booking.bookingStatus==-1"><span><img (click)="deleteBooking(booking.bookingId)" style="height: 20px" src="https://image.flaticon.com/icons/png/512/753/753345.png" alt=""></span>
+      </td>
+    </tr>
+    </tbody>
   </table>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close >Cancel</button>
-</mat-dialog-actions>
+  </div>
+</div>
+<app-footer></app-footer>

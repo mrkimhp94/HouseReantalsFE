@@ -1,11 +1,30 @@
 
-<h2 mat-dialog-title>Booking Notify</h2>
+<h2 mat-dialog-title>
+  <span><img style="height: 20px" src="https://image.flaticon.com/icons/png/512/1156/1156949.png" alt=""> </span>
+  NOTIFICATION
+</h2>
 <mat-dialog-content class="mat-typography">
-<h3>Thanh cong </h3>
+<!--  cua house -->
+  <p *ngIf="notify==''"> Do you want to update ? </p>
+  <p *ngIf="notify=='success'">Update successfully</p>
+  <p *ngIf="notify=='notAllowed'">You cannot change the status of this property because it has already be rented</p>
+<!--  house-->
+
+<!--  update-create user-->
+  <p *ngIf="notify=='createUserSuccess'"> <span><img style="height: 30px" src="https://image.flaticon.com/icons/png/512/934/934218.png" alt=""></span>Create account success </p>
+  <p *ngIf="notify=='createUserSuccess'"><span><img style="height: 25px" src="https://image.flaticon.com/icons/png/512/2107/2107845.png" alt=""></span>Hope you have best experience  </p>
+  <p *ngIf="notify=='updateUserSuccess'"><span><img style="height: 25px" src="https://image.flaticon.com/icons/png/512/1688/1688988.png" alt=""></span>Update successfully</p>
+  <!--  update-create user-->
+
+<!--  booking-->
+  <p *ngIf="notify=='deleteBooking'">Are you sure  you  want to cancel ?<span><img style="height: 25px" src="https://image.flaticon.com/icons/png/512/4471/4471184.png" alt=""></span></p>
+  <p *ngIf="notify=='deleteSuccess'">Your booking was cancelled successfully <span><img style="height: 25px" src="https://image.flaticon.com/icons/png/512/190/190411.png" alt=""></span></p>
+  <p *ngIf="notify=='cannotDeleteBooking'"> Sorry ! An booking can't not cancel on day before checkin day  </p>
+  <!--  booking-->
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button  mat-button [mat-dialog-close]="true" cdkFocusInitial>Confirm</button>
+  <button mat-button color="primary"  mat-dialog-close>Cancel</button>
+  <button mat-button color="primary" [mat-dialog-close]="true" >OK</button>
 </mat-dialog-actions>
 
 
