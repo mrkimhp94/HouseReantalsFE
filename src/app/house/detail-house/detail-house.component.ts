@@ -24,6 +24,13 @@ export class DetailHouseComponent implements OnInit {
   images: string[] = [];
   reviewList: Review[]=[];
   countReview:number;
+  oneStar :number =0;
+  twoStar :number =0;
+  threeStar :number =0;
+  fourStar :number =0;
+  fiveStar :number =0;
+  totalRate: string;
+  review: Review;
   public style: 'width:500px;height:600px;';
   reviewForm: FormGroup = new FormGroup({
     rating: new FormControl('',Validators.required),
@@ -151,6 +158,23 @@ export class DetailHouseComponent implements OnInit {
     this.reviewService.getAllReview(this.houseId).subscribe(listReview =>{
       this.reviewList = listReview;
       this.countReview = listReview.length
+      for(this.review of this.reviewList){
+        if(this.review.rating ==1){
+          this.oneStar +=1;
+        }if(this.review.rating ==2){
+          this.twoStar +=1;
+        }
+        if(this.review.rating ==3){
+          this.threeStar +=1;
+        }
+        if(this.review.rating ==4){
+          this.fourStar +=1;
+        }
+        if(this.review.rating ==5){
+          this.fiveStar +=1;
+        }
+      }
+      this.totalRate =((this.oneStar*1 + this.twoStar*2 +this.threeStar*3 +this.fiveStar*5 + this.fourStar*4)/this.countReview).toFixed(1)
     })
   }
   createNewReview(){

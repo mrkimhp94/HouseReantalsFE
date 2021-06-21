@@ -4,9 +4,12 @@
 <app-header></app-header>
 
 <div>
-  <div style="padding-left: 500px">  <h3>YOUR BOOKING</h3></div>
+  <div style="text-align: center">  <h3>YOUR BOOKING</h3></div>
+  <div *ngIf="dataSource.length==0" style="text-align: center">
+    <a style="color:red;">You havn't booked anything yet!</a>
+  </div>
+  <div *ngIf="dataSource.length!=0">
   <table class="table" >
-
     <tr>
       <th scope="col">#</th>
       <th scope="col">Start</th>
@@ -18,7 +21,7 @@
       <th scope="row">{{++i}}</th>
       <td>{{booking.checkinDate}}</td>
       <td>{{booking.checkoutDate}}</td>
-      <td>{{booking.total}}</td>
+      <td>{{booking.total | currency : 'USD' :true : '1.0-3'}}</td>
       <td *ngIf="booking.bookingStatus!=-1"><span><img (click)="cannotDelete()" style="height: 20px" src="https://image.flaticon.com/icons/png/512/3239/3239888.png" alt=""></span>
       </td>
       <td  *ngIf="booking.bookingStatus==-1"><span><img (click)="deleteBooking(booking.bookingId)" style="height: 20px" src="https://image.flaticon.com/icons/png/512/753/753345.png" alt=""></span>
@@ -26,5 +29,6 @@
     </tr>
     </tbody>
   </table>
+  </div>
 </div>
 <app-footer></app-footer>
