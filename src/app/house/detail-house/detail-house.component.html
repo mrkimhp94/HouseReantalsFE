@@ -2,7 +2,14 @@
 <app-head></app-head>
 <app-nav></app-nav>
 <!-- Body content -->
-
+<style>
+  div{
+    visibility: visible;
+  }
+  a {
+    visibility: visible;
+  }
+</style>
 <div class="page-head">
   <div class="container">
     <div class="row">
@@ -280,7 +287,7 @@
 
     <!--    Review   -->
 
-    <section id="comments" class="comments wow fadeInRight animated">
+    <section id="comments" class="comments wow " style="visibility: visible">
       <h4 class="text-uppercase wow fadeInLeft animated">{{countReview}} comments</h4>
 
 
@@ -359,24 +366,6 @@
 
   </div>
 </div>
-<script>
-  $(document).ready(function () {
-
-    $('#image-gallery').lightSlider({
-      gallery: true,
-      item: 1,
-      thumbItem: 9,
-      slideMargin: 0,
-      speed: 500,
-      auto: true,
-      loop: true,
-      onSliderLoad: function () {
-        $('#image-gallery').removeClass('cS-hidden');
-      }
-    });
-  });
-</script>
-
 </body>
 
 
