@@ -23,7 +23,7 @@
                 </mat-form-field>
                 <mat-form-field>
                   <input matInput [matDatepicker]="picker" (dateChange)="validateForCheckoutDate()" [min]="today"
-                         [max]="maxDate" placeholder="Choose Checkin Date" readonly
+                         [max]="maxDate" placeholder="Choose Checkin Date"
                          formControlName="checkin">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
@@ -32,7 +32,7 @@
                 </mat-form-field>
                 <mat-form-field>
                   <input matInput [matDatepicker]="picker1" (dateChange)="validateForCheckinDate()" [min]="nextday"
-                         placeholder="Choose checkout date" readonly
+                         placeholder="Choose checkout date"
                          formControlName="checkout">
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                   <mat-datepicker #picker1></mat-datepicker>
@@ -115,6 +115,7 @@
           </div>
         </div>
       </div>
+
       <div class="col-md-9  pr0 padding-top-40 properties-page">
         <div class="col-md-12 clear">
           <div class="col-xs-10 page-subheader sorting pl0">
@@ -140,6 +141,9 @@
                   <option value="9">9</option>
                   <option selected="selected" value="12">12</option>
                   <option value="15">15</option>
+                  <option value="30">30</option>
+                  <option value="45">45</option>
+                  <option value="60">60</option>
                 </select>
               </div><!--/ .sel-->
             </div><!--/ .items-per-page-->
@@ -172,16 +176,19 @@
                     <span class="pull-left"><b> Adress :</b> {{house.houseAddress}} </span>
                   </div>
                   <div class="property-icon">
-                    <div style="display:inline-block;width: 30%">
-                      <img src="assets/img/icon/bed.png">({{house.bedroomQuantity}})
+                    <div>
+                    <div style="display:inline-block;width: 50%">
+                      <img src="assets/img/icon/bed.png"> {{house.bedroomQuantity}}
                     </div>
-                    <div style="display:inline-block;width: 30%">
-                    <img src="assets/img/icon/shawer.png">({{house.bathroomQuantity}})
+                    <div style="display:inline-block;width: 50%">
+                    <img src="assets/img/icon/shawer.png"> {{house.bathroomQuantity}}
                     </div >
-                    <div style="display:inline-block;width: 30%">
-                      <img src="assets/img/icon/house-type.png">({{house.type}})
+                    </div>
+                    <div>
+                    <div style="display:inline-block;width: 50%">
+                      <img src="assets/img/icon/house-type.png"> {{house.type}}
                     </div >
-                    <div  *ngIf="house.houseStatus==='blank'">
+                    <div  *ngIf="house.houseStatus==='blank'" style="display:inline-block;width: 50%">
                     <img src="assets/img/icon/status-white.png">For rent
                     </div>
                     <div  *ngIf="house.houseStatus==='upgrade'">
@@ -189,6 +196,7 @@
                     </div>
                     <div *ngIf="house.houseStatus==='rent'">
                       <img src="assets/img/icon/status-white.png">For rent
+                    </div>
                     </div>
                   </div>
                 </div>
