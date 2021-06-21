@@ -11,7 +11,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 // import {SocketService} from '../../service/socket/socket.service';
 
 
-declare var $:any;
+declare var $: any;
 @Component({
   selector: 'app-detail-house',
   templateUrl: './detail-house.component.html',
