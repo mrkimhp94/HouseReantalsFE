@@ -29,12 +29,13 @@ import {HouseRoutingModule} from './house/house-routing.module';
 import {BookingModuleModule} from './booking-module/booking-module.module';
 
 import { BookingHistoryComponent } from './booking-module/booking-history/booking-history.component';
+import { TurnoverAllHouseComponent } from './turnover/turnover-all-house/turnover-all-house.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GeneralPopupComponent,
-    BookingHistoryComponent
+    BookingHistoryComponent,
   ],
   imports: [
     LoginModule,

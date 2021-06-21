@@ -18,7 +18,10 @@ import {BookingList} from '../booking-module/my-booking/my-booking.component';
 import {BookingModuleModule} from '../booking-module/booking-module.module';
 import {TurnoverModule} from '../turnover/turnover.module';
 import {TurnoverRoutingModule} from '../turnover/turnover-routing.module';
-import {MonthsComponent} from '../turnover/months/months.component';;
+import {MonthsComponent} from '../turnover/months/months.component';
+import {TurnoverAllHouseComponent} from '../turnover/turnover-all-house/turnover-all-house.component';
+
+;
 
 @NgModule({
   declarations: [
@@ -26,7 +29,8 @@ import {MonthsComponent} from '../turnover/months/months.component';;
     DetailHouseComponent,
     HouseCreateComponent,
     OpenListHouse,
-    MonthsComponent
+    MonthsComponent,
+    TurnoverAllHouseComponent
   ],
   imports: [
     CommonModule,

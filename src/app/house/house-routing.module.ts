@@ -8,6 +8,7 @@ import {OpenListHouse} from './my-house/my-house.component';
 import * as path from 'path';
 import {BookingList} from '../booking-module/my-booking/my-booking.component';
 import {MonthsComponent} from '../turnover/months/months.component';
+import {TurnoverAllHouseComponent} from '../turnover/turnover-all-house/turnover-all-house.component';
 
 
 const routes: Routes = [
@@ -33,8 +34,12 @@ const routes: Routes = [
     component:BookingList
   },
   {
-    path:"statics",
+    path:"statistics",
     component:MonthsComponent
+  },
+  {
+    path:"allHouseStatics",
+    component:TurnoverAllHouseComponent
   }
 ];
 

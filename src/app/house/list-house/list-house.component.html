@@ -13,7 +13,7 @@
 
           <div class="panel panel-default sidebar-menu wow fadeInRight animated">
             <div class="panel-heading" style="text-align: center">
-              <h3 class="panel-title" >Smart search</h3>
+              <h3 class="panel-title">Smart search</h3>
             </div>
             <div class="panel-body search-widget">
               <form [formGroup]="searchForm" (ngSubmit)="search()">
@@ -21,19 +21,23 @@
                   <mat-label>Search</mat-label>
                   <input matInput placeholder="Enter house name or place" formControlName="search">
                 </mat-form-field>
-                <mat-form-field >
-                  <input matInput [matDatepicker]="picker" (dateChange)="validateForCheckoutDate()" [min]="today" placeholder="Choose Checkin Date"
+                <mat-form-field>
+                  <input matInput [matDatepicker]="picker" (dateChange)="validateForCheckoutDate()" [min]="today"
+                         [max]="maxDate" placeholder="Choose Checkin Date" readonly
                          formControlName="checkin">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
-                  <mat-error *ngIf="searchForm.controls['checkin'].hasError( 'required')">This field is required</mat-error>
+                  <mat-error *ngIf="searchForm.controls['checkin'].hasError( 'required')">This field is required
+                  </mat-error>
                 </mat-form-field>
-                <mat-form-field >
-                  <input matInput [matDatepicker]="picker1" [min]="nextday" placeholder="Choose checkout date"
+                <mat-form-field>
+                  <input matInput [matDatepicker]="picker1" (dateChange)="validateForCheckinDate()" [min]="nextday"
+                         placeholder="Choose checkout date" readonly
                          formControlName="checkout">
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                   <mat-datepicker #picker1></mat-datepicker>
-                  <mat-error *ngIf="searchForm.controls['checkout'].hasError( 'required')">This field is required</mat-error>
+                  <mat-error *ngIf="searchForm.controls['checkout'].hasError( 'required')">This field is required
+                  </mat-error>
                 </mat-form-field>
                 <fieldset>
                   <div class="row">
@@ -61,7 +65,7 @@
                                                 </span>
                   </div>
                   <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                    <h6> <a >Super nice villa </a></h6>
+                    <h6><a>Super nice villa </a></h6>
                     <span class="property-price">3000000$</span>
                   </div>
                 </li>
@@ -74,7 +78,7 @@
                                                 </span>
                   </div>
                   <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                    <h6> <a >Super nice villa </a></h6>
+                    <h6><a>Super nice villa </a></h6>
                     <span class="property-price">3000000$</span>
                   </div>
                 </li>
@@ -87,21 +91,21 @@
                                                 </span>
                   </div>
                   <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                    <h6> <a>Super nice villa </a></h6>
+                    <h6><a>Super nice villa </a></h6>
                     <span class="property-price">3000000$</span>
                   </div>
                 </li>
 
                 <li>
                   <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                    <a ><img src="assets/img/demo/small-property-2.jpg"></a>
+                    <a><img src="assets/img/demo/small-property-2.jpg"></a>
                     <span class="property-seeker">
                                                     <b class="b-1">A</b>
                                                     <b class="b-2">S</b>
                                                 </span>
                   </div>
                   <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                    <h6> <a>Super nice villa </a></h6>
+                    <h6><a>Super nice villa </a></h6>
                     <span class="property-price">3000000$</span>
                   </div>
                 </li>
@@ -136,34 +140,31 @@
                   <option value="9">9</option>
                   <option selected="selected" value="12">12</option>
                   <option value="15">15</option>
-                  <option value="30">30</option>
-                  <option value="45">45</option>
-                  <option value="60">60</option>
                 </select>
               </div><!--/ .sel-->
             </div><!--/ .items-per-page-->
           </div>
 
-          <div class="col-xs-2 layout-switcher">
-            <a class="layout-list" href="javascript:void(0);"> <i class="fa fa-th-list"></i>  </a>
-            <a class="layout-grid active" href="javascript:void(0);"> <i class="fa fa-th"></i> </a>
-          </div><!--/ .layout-switcher-->
+<!--          <div class="col-xs-2 layout-switcher">-->
+<!--            <a class="layout-list" href="javascript:void(0);"> <i class="fa fa-th-list"></i> </a>-->
+<!--            <a class="layout-grid active" href="javascript:void(0);"> <i class="fa fa-th"></i> </a>-->
+<!--          </div>&lt;!&ndash;/ .layout-switcher&ndash;&gt;-->
         </div>
         <div class="col-md-12 clear">
           <div id="list-type" class="proerty-th">
             <div class="col-sm-6 col-md-4 p0" *ngFor="let house of filteredListHouse; index as i">
-              <div class="box-two proerty-item">
+              <div class="box-two proerty-item" style="border-radius: 5px">
                 <div class="item-thumb">
-                  <a [routerLink]="['/houses/detail',house.houseId]"><img style="width:400px;height:500px;"
-                                                                          src="{{house.imagesList[0].linkImage}}"
-                                                                          alt=""></a>
+                  <a [routerLink]="['/houses/detail',house.houseId]">
+                    <img style="width:400px;height:350px" src="{{house.imagesList&&house.imagesList[0]?.linkImage}}">
+                  </a>
                 </div>
 
                 <div class="item-entry overflow">
                   <h5><a [routerLink]="['/houses/detail',house.houseId]"> {{house.houseName}} </a></h5>
                   <div class="dot-hr"></div>
                   <span class="pull-left"><b> Area :</b> {{house.area}} </span>
-                  <span class="proerty-price pull-right"> {{house.pricePerDay}}</span>
+                  <span class="proerty-price pull-right"> {{house.pricePerDay | currency : 'USD' :true : '1.0-3'}}</span>
                   <p style="display: none;">Suspendisse ultricies Suspendisse ultricies Nulla quis dapibus nisl.
                     Suspendisse ultricies commodo arcu nec pretium ...</p>
                   <br>
@@ -171,8 +172,24 @@
                     <span class="pull-left"><b> Adress :</b> {{house.houseAddress}} </span>
                   </div>
                   <div class="property-icon">
-                    <img src="assets/img/icon/bed.png">({{house.bedroomQuantity}})|
-                    <img src="assets/img/icon/shawer.png">({{house.bathroomQuantity}})|
+                    <div style="display:inline-block;width: 30%">
+                      <img src="assets/img/icon/bed.png">({{house.bedroomQuantity}})
+                    </div>
+                    <div style="display:inline-block;width: 30%">
+                    <img src="assets/img/icon/shawer.png">({{house.bathroomQuantity}})
+                    </div >
+                    <div style="display:inline-block;width: 30%">
+                      <img src="assets/img/icon/house-type.png">({{house.type}})
+                    </div >
+                    <div  *ngIf="house.houseStatus==='blank'">
+                    <img src="assets/img/icon/status-white.png">For rent
+                    </div>
+                    <div  *ngIf="house.houseStatus==='upgrade'">
+                      <img src="assets/img/icon/status-white.png">Repair
+                    </div>
+                    <div *ngIf="house.houseStatus==='rent'">
+                      <img src="assets/img/icon/status-white.png">For rent
+                    </div>
                   </div>
                 </div>
               </div>

@@ -20,8 +20,9 @@ export class ListHouseComponent implements OnInit {
   private listHouse: House[] = [];
   private numberOfPage = 1;
   today = new Date();
+  maxDate : Date;
   message : string;
-  nextday:Date;
+  nextday= new Date();
   searchForm: FormGroup = new FormGroup({
     search: new FormControl(''),
     checkin: new FormControl('',Validators.required),
@@ -103,5 +104,8 @@ export class ListHouseComponent implements OnInit {
 
   validateForCheckoutDate() {
     this.nextday = this.formatDate(this.searchForm.value.checkin)
+  }
+  validateForCheckinDate() {
+    this.maxDate = this.formatDate(this.searchForm.value.checkout)
   }
 }

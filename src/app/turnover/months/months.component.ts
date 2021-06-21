@@ -1,8 +1,9 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewChildren} from '@angular/core';
 
 
-import {Chart,registerables} from 'chart.js';
+import {Chart, registerables} from 'chart.js';
 import {StatisticsService} from '../../service/statistics/statistics.service';
+import {HouseService} from '../../service/house/house.service';
 
 // @ts-ignore
 // @ts-ignore
@@ -12,43 +13,55 @@ import {StatisticsService} from '../../service/statistics/statistics.service';
   styleUrls: ['./months.component.css']
 })
 export class MonthsComponent implements OnInit {
+  currentYear = new Date(Date.now()).getFullYear();
   public canvas: any;
   public ctx: any;
   public labels: any = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
   public dataCases: any = {
-    chart1: [2000, 10000, 12000, 18000, 6000, 0, 0, 0, 0, 0, 0, 0],
-    chart2: [200, 1000, 1200, 1400, 600, 0, 0, 0, 0, 0, 0, 0]
+    chart1: [],
+    chart2: []
   };
 
-  constructor(private statisticService : StatisticsService) {
+  constructor(private statisticService: StatisticsService,
+              private houseService: HouseService) {
     Chart.register(...registerables);
   }
 
   ngOnInit(): void {
-   this.statisticService.getTurnOverPerEachMonth(1,2021).subscribe(result=>{
-     console.log(result)
-   })
-    this.createLineChart(this.labels, this.dataCases, 'myChart');
+    this.statisticService.getTurnOverPerEachMonth(this.houseService.currentHouse, this.currentYear).subscribe(
+      result => {
+        this.dataCases.chart1 = result;
+        this.statisticService.getTurnOverPerEachMonth(this.houseService.currentHouse, this.currentYear - 1).subscribe(
+          result2 => {
+            this.dataCases.chart2 = result2;
+            this.createLineChart(this.labels, this.dataCases, 'myChart');
+          }
+        );
+      }
+    );
+
+
   }
 
   private createLineChart(labels, dataCases, chartId) {
     this.canvas = document.getElementById(chartId);
     this.ctx = this.canvas.getContext('2d');
 
+    // @ts-ignore
     let chart = new Chart(this.ctx, {
       type: 'line',
       data: {
         labels: labels,
         datasets: [{
-          label: "2021",
+          label: '2021',
           data: dataCases.chart1,
           backgroundColor: '#ffbb33',
           borderColor: '#ffbb33',
           fill: false,
-          borderWidth: 2
+          borderWidth: 2,
         },
           {
-            label: "2020",
+            label: '2020',
             data: dataCases.chart2,
             backgroundColor: '#ff4444',
             borderColor: '#ff4444',
@@ -57,23 +70,25 @@ export class MonthsComponent implements OnInit {
           }]
       },
       options: {
-        title: {
-          display: true,
-          text: "First chart"
-        },
-        tooltips: {
-          mode: 'index',
-          intersect: true
-        },
-        hover: {
-          mode: 'nearest',
-          intersect: true
-        },
 
+        plugins: {
+          title: {
+            display: true,
+            text: 'The chart analyze  total earnings per each month ',
+            position: 'bottom'
+          },
+          tooltips: {
+            mode: 'index',
+            intersect: true
+          },
+          hover: {
+            mode: 'nearest',
+            intersect: true
+          },
+        }
       }
     });
   }
-
 
 
 }
