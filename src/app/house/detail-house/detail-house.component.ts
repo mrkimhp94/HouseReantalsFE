@@ -8,9 +8,15 @@ import {BookingServiceService} from '../../service/booking/bookingservice.servic
 import {ReviewService} from '../../service/review/review.service';
 import {Review} from '../../model/review';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
+import {environment} from '../../../environments/environment';
+import {UserToken} from '../../model/user-token';
+import {AuthenticationService} from '../../service/authentication.service';
+import {SocketService} from '../../service/socket/socket.service';
 // import {SocketService} from '../../service/socket/socket.service';
 
-
+const API_URL = `${environment.api_url}`;
 declare var $:any;
 @Component({
   selector: 'app-detail-house',
@@ -18,12 +24,13 @@ declare var $:any;
   styleUrls: ['./detail-house.component.css']
 })
 export class DetailHouseComponent implements OnInit {
-
+  stompClient: any;
   houseId?: any;
   house: House;
   images: string[] = [];
   reviewList: Review[]=[];
   countReview:number;
+  currentUser: UserToken = {};
   public style: 'width:500px;height:600px;';
   reviewForm: FormGroup = new FormGroup({
     rating: new FormControl('',Validators.required),
@@ -33,13 +40,18 @@ export class DetailHouseComponent implements OnInit {
   constructor(private houseService: HouseService,
               private bookingService: BookingServiceService,
               private reviewService: ReviewService,
-              private router: Router,
-              private activatedRoute: ActivatedRoute) {
+              private socketService: SocketService,
+              private activatedRoute: ActivatedRoute,
+              private authenticationService: AuthenticationService) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.houseId = paramMap.get('houseId');
       this.getHouse(+this.houseId);
       this.bookingService.currentId = this.houseId;
     });
+    this.authenticationService.currentUser.subscribe(value => {
+      this.currentUser = value;
+    })
+    this.getReviews();
   }
 
   getHouse(houseId: number) {
@@ -51,7 +63,8 @@ export class DetailHouseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getReviews();
+
+    this.socketService.connect(this.houseId);
     // this.socketService.connect(this.houseId);
     $(document).ready(function(){
 
@@ -136,14 +149,10 @@ export class DetailHouseComponent implements OnInit {
       }, 1000);
 
     });
-
-
     function responseMessage(msg) {
       $('.success-box').fadeIn(200);
       $('.success-box div.text-message').html("<span>" + msg + "</span>");
     }
-
-
   }
 
 
@@ -155,12 +164,17 @@ export class DetailHouseComponent implements OnInit {
   }
   createNewReview(){
     var value = parseInt($('#stars li.selected').last().data('value'), 10);
+
     const review : Review  = {
       rating: value,
-      comment: this.reviewForm.value.comment,
+      comment: this.reviewForm.value.comment
     };
-    this.reviewService.createReview(this.houseId,review).subscribe();
+    this.createReviewUsingSocket(review);
 }
+
+  createReviewUsingSocket(review) {
+    this.stompClient.send(`/app/houses/detail/${this.houseId}`, {}, JSON.stringify(review));
+  }
 
 
 
