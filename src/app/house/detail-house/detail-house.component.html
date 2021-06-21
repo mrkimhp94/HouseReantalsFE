@@ -1,6 +1,6 @@
 <body xmlns="http://www.w3.org/1999/html">
-
-
+<app-head></app-head>
+<app-nav></app-nav>
 <!-- Body content -->
 
 <div class="page-head">
@@ -103,9 +103,74 @@
             <div class="s-property-content">
               <p>{{house.description}} </p>
             </div>
-            <!--            <booking-active></booking-active>-->
           </div>
-          <!-- End description area  -->
+          <div class="section">
+            <h4 class="s-property-title">Rating</h4>
+
+            <div class="rating">
+              <span class="rating-num">4.0</span>
+              <div class="rating-stars">
+                <span><i class="active fa fa-star"></i></span>
+                <span><i class="active fa fa-star"></i></span>
+                <span><i class="active fa fa-star"></i></span>
+                <span><i class="active fa fa-star"></i></span>
+                <span><i class=" fa fa-star-o"></i></span>
+              </div>
+              <div class="rating-users">
+                <i class="pe-7s-add-user"></i> 1,014,004 total
+              </div>
+            </div>
+
+            <div class="histo">
+              <div class="five histo-rate">
+                <span class="histo-star"><i class="active fa fa-star-o"></i> 5</span>
+                <span class="bar-block">
+                      <span id="bar-five" class="bar">
+                        <span>566,784</span>&nbsp;
+                      </span>
+                    </span>
+              </div>
+
+              <div class="four histo-rate">
+                <span class="histo-star"><i class="active fa fa-star-o"></i> 4  </span>
+                <span class="bar-block">
+                      <span id="bar-four" class="bar">
+                      <span>171,298</span>&nbsp;
+                      </span>
+                    </span>
+              </div>
+
+              <div class="three histo-rate">
+                <span class="histo-star"><i class="active fa fa-star-o"></i> 3 </span>
+                <span class="bar-block">
+                      <span id="bar-three" class="bar">
+                        <span>94,940</span>&nbsp;
+                      </span>
+                    </span>
+              </div>
+
+              <div class="two histo-rate">
+                <span class="histo-star"><i class="active fa fa-star-o"></i> 2  </span>
+                <span class="bar-block">
+                    <span id="bar-two" class="bar">
+                      <span>44,525</span>&nbsp;
+                    </span>
+                  </span>
+              </div>
+
+              <div class="one histo-rate">
+                <span class="histo-star"><i class="active fa fa-star-o"></i> 1  </span>
+                <span class="bar-block">
+                    <span id="bar-one" class="bar">
+                      <span>136,457</span>&nbsp;
+                   </span>
+                  </span>
+              </div>
+            </div>
+
+          </div>
+          <!-- End description area  -->\
+          <br><br>
 
 
         </div>
@@ -127,7 +192,6 @@
                   <div class="col-xs-8 col-sm-8 ">
                     <h3 class="dealer-name">
                       <a>{{house.users.fullname}}</a>
-                      <span>Real Estate Agent</span>
                     </h3>
                     <div class="dealer-social-media">
                       <a class="twitter" target="_blank">
@@ -159,22 +223,106 @@
                   <p>Duis mollis blandit tempus porttitor curabiturDuis mollis blandit tempus porttitor curabitur , est
                     non…</p>
                 </div>
-
               </div>
             </div>
           </div>
 
           <div class="panel panel-default sidebar-menu similar-property-wdg wow fadeInRight animated">
-
             <div class="panel-body recent-property-widget">
               <booking-active></booking-active>
             </div>
           </div>
 
         </aside>
+
       </div>
     </div>
+    <br><br><br>
+
+
+    <!--    Review   -->
+
+    <section id="comments" class="comments wow fadeInRight animated">
+      <h4 class="text-uppercase wow fadeInLeft animated">{{countReview}} comments</h4>
+
+
+      <div class="row comment" *ngFor="let review of reviewList">
+        <div class="col-sm-3 col-md-2 text-center-xs">
+          <p>
+            <img src="{{review.user.avatarUrl}}" class="img-responsive img-circle" alt="">
+          </p>
+        </div>
+        <div class="col-sm-9 col-md-10">
+          <h5 class="text-uppercase">{{review.user.username}}</h5>
+          <p class="posted"><i class="fa fa-clock-o"></i> Post in {{review.postDate}}</p>
+          <p>{{review.comment}}</p>
+          <p> Rate : {{review.rating}} <i class="fa fa-star-o"></i>
+          </p>
+        </div>
+      </div>
+    </section>
+    <br><br><br>
+    <section id="comment-form" class="add-comments">
+      <h4 class="text-uppercase wow fadeInLeft animated">Review this house</h4>
+      <br><br>
+      <form [formGroup]="reviewForm" (ngSubmit)="createNewReview()" >
+        <div class="row wow fadeInLeft animated">
+          <div class="col-sm-12">
+            <label for="rating">Rating <span class="required">*</span>
+            </label>
+            <section class='rating-widget'>
+
+              <!-- Rating Stars Box -->
+              <div class='rating-stars text-center' id="rating">
+                <ul id='stars' formControl="rating" >
+                  <li class='star' title='Poor' data-value='1' value="1">
+                    <i class='fa fa-star fa-fw'></i>
+                  </li>
+                  <li class='star' title='Fair' data-value='2' value="2" >
+                    <i class='fa fa-star fa-fw'></i>
+                  </li>
+                  <li class='star' title='Good' data-value='3' value="3">
+                    <i class='fa fa-star fa-fw'></i>
+                  </li>
+                  <li class='star' title='Excellent' data-value='4' value="4" >
+                    <i class='fa fa-star fa-fw'></i>
+                  </li>
+                  <li class='star' title='WOW!!!' data-value='5' value="5">
+                    <i class='fa fa-star fa-fw'></i>
+                  </li>
+                </ul>
+              </div>
+
+              <div class='success-box text-center'>
+                <div class='text-message'></div>
+              </div>
+
+            </section>
+          </div>
+        </div>
+
+
+        <div class="row wow fadeInLeft animated">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="comment"> Your Comment </label>
+              <textarea class="form-control" id="comment" name="comment" rows="4" formControlName="comment"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="row wow fadeInLeft animated">
+          <div class="col-sm-12 text-right">
+            <button class="btn btn-primary" type="submit"><i class="fa fa-comment-o" ></i> Post review</button>
+          </div>
+        </div>
+      </form>
+    </section>
 
   </div>
 </div>
 </body>
+
+
+
+

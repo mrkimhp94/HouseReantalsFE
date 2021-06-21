@@ -28,8 +28,8 @@ const routes: Routes = [
     component: HouseCreateComponent
   },
   {
-    path: 'my-bookings',
-    component: BookingList
+    path:'my-bookings',
+    component:BookingList
   }
 ];
 

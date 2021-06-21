@@ -49,22 +49,22 @@ export class AuthenticationService {
     // return this.http.get<any>(`${API_URL}/logout`);
   }
 
-  confirmPasswordUser(password: string): Observable<any> {
-    return this.http.post<any>(`${API_URL}/confirmPassword`, password);
+  confirmPasswordUser(password: string): Observable<boolean> {
+    return this.http.get<boolean>(`${API_URL}/confirmPassword/${password}`);
   }
 
 // duoc
-  authenticate(users): Observable<any> {
-    return this.http.post<any>(`${API_URL}`, users);
-  }
-  confirmPasswordUser1(password: string): Observable<any> {
-    return this.http.post<any>(`${API_URL}/user/confirmPassword`, password);
-  }
-  getUserCurrent1(): Observable<any> {
-    return this.http.get<any>(`${API_URL}/user/current'}`);
-  }
-  updateUser(user: Partial<Users>): Observable<any> {
-    return this.http.put<any>(`${API_URL}/user/updateCurrent'}`, user);
+//   authenticate(users): Observable<any> {
+//     return this.http.post<any>(`${API_URL}`, users);
+//   }
+//   confirmPasswordUser1(password: string) {
+//     return this.http.get(`${API_URL}/user/confirmPassword/${password}`);
+//   }
+//   getUserCurrent1(): Observable<any> {
+//     return this.http.get<any>(`${API_URL}/user/current'}`);
+//   }
+  updateUser(user: Partial<Users>, password: string,newpassword: string): Observable<any> {
+    return this.http.put<any>(`${API_URL}/user/updateCurrent/${password}/${newpassword}`, user);
   }
   // -------------------------------------------------------------
 }

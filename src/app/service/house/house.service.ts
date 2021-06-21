@@ -19,7 +19,7 @@ export class HouseService {
               private router: Router) {
   }
 
-  createHouse(house): Observable<House> {
+  createHouse(house:House): Observable<House> {
     return this.http.post<House>(API_URL + '/houses', house);
   }
 
