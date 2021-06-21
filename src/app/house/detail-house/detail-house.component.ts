@@ -8,6 +8,8 @@ import {BookingServiceService} from '../../service/booking/bookingservice.servic
 import {ReviewService} from '../../service/review/review.service';
 import {Review} from '../../model/review';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AuthenticationService} from '../../service/authentication.service';
+import {UserServiceService} from '../../service/user-service.service';
 // import {SocketService} from '../../service/socket/socket.service';
 
 
@@ -19,7 +21,7 @@ declare var $: any;
   styleUrls: ['./detail-house.component.css']
 })
 export class DetailHouseComponent implements OnInit {
-
+  allowToReview: boolean;
   houseId?: any;
   house: House;
   images: string[] = [];
@@ -41,6 +43,7 @@ export class DetailHouseComponent implements OnInit {
   constructor(private houseService: HouseService,
               private bookingService: BookingServiceService,
               private reviewService: ReviewService,
+              private userService: UserServiceService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
@@ -50,7 +53,7 @@ export class DetailHouseComponent implements OnInit {
   }
 
   async getHouse(houseId: number) {
-    console.log(houseId)
+    console.log(houseId);
     await this.houseService.findByHouseId(houseId).toPromise().then((house) => {
       console.log('Function  lay ra list house');
       this.houseService.currentHouse = house;
@@ -59,112 +62,122 @@ export class DetailHouseComponent implements OnInit {
     });
   }
 
-   async ngOnInit() {
+  async ngOnInit() {
+    this.userService.checkRightForReview(this.userService.getCurrentUser().id, this.bookingService.currentId).subscribe(
+      result => {
+        if (result == 0) {
+          return this.allowToReview = false;
+        }
+        return this.allowToReview = true;
+      }
+    );
+    console.log('ON init RUN');
+    await this.getHouse(this.houseId).then(() => {
+      console.log('Sau Khi lay ra house');
 
-     console.log('ON init RUN');
-     await this.getHouse(this.houseId).then(() =>{
-       console.log('Sau Khi lay ra house');
+      //Load slide
+      $(function() {
+        $('#image-gallery').lightSlider({
+          gallery: true,
+          item: 1,
+          thumbItem: 9,
+          slideMargin: 0,
+          speed: 1000,
+          auto: true,
+          loop: true,
+          onSliderLoad: function() {
+            $('#image-gallery').removeClass('cS-hidden');
+          }
+        });
+      });
+    });
+    await this.getReviews().then(() => {
+      console.log('sau khi lay ra list review 1');
+    }).then(() => {
+      console.log('sau khi lay ra list review 2');
 
-       //Load slide
-        $(function() {
-         $('#image-gallery').lightSlider({
-           gallery: true,
-           item: 1,
-           thumbItem: 9,
-           slideMargin: 0,
-           speed: 1000,
-           auto: true,
-           loop: true,
-           onSliderLoad: function() {
-             $('#image-gallery').removeClass('cS-hidden');
-           }
-         });
-       });
-     })
-     await  this.getReviews().then(() => {
-       console.log('sau khi lay ra list review 1');
-     }).then(() => {
-       console.log('sau khi lay ra list review 2');
+      $(document).ready(function() {
 
-       $(document).ready(function() {
+        /* 1. Visualizing things on Hover - See next part for action on click */
+        $('#stars li').on('mouseover', function() {
+          var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
 
-         /* 1. Visualizing things on Hover - See next part for action on click */
-         $('#stars li').on('mouseover', function() {
-           var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+          // Now highlight all the stars that's not after the current hovered star
+          $(this).parent().children('li.star').each(function(e) {
+            if (e < onStar) {
+              $(this).addClass('hover');
+            } else {
+              $(this).removeClass('hover');
+            }
+          });
 
-           // Now highlight all the stars that's not after the current hovered star
-           $(this).parent().children('li.star').each(function(e) {
-             if (e < onStar) {
-               $(this).addClass('hover');
-             } else {
-               $(this).removeClass('hover');
-             }
-           });
+        }).on('mouseout', function() {
+          $(this).parent().children('li.star').each(function(e) {
+            $(this).removeClass('hover');
+          });
+        });
 
-         }).on('mouseout', function() {
-           $(this).parent().children('li.star').each(function(e) {
-             $(this).removeClass('hover');
-           });
-         });
+        /* 2. Action to perform on click */
+        $('#stars li').on('click', function() {
+          var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+          var stars = $(this).parent().children('li.star');
 
-         /* 2. Action to perform on click */
-         $('#stars li').on('click', function() {
-           var onStar = parseInt($(this).data('value'), 10); // The star currently selected
-           var stars = $(this).parent().children('li.star');
+          for (let i = 0; i < stars.length; i++) {
+            $(stars[i]).removeClass('selected');
+          }
 
-           for (let i = 0; i < stars.length; i++) {
-             $(stars[i]).removeClass('selected');
-           }
+          for (let i = 0; i < onStar; i++) {
+            $(stars[i]).addClass('selected');
+          }
 
-           for (let i = 0; i < onStar; i++) {
-             $(stars[i]).addClass('selected');
-           }
+          // JUST RESPONSE (Not needed)
+          var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+          var msg = '';
+          if (ratingValue > 1) {
+            msg = 'Thanks! You rated this ' + ratingValue + ' stars.';
+          } else {
+            msg = 'We will improve ourselves. You rated this ' + ratingValue + ' stars.';
+          }
+          responseMessage(msg);
 
-           // JUST RESPONSE (Not needed)
-           var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
-           var msg = '';
-           if (ratingValue > 1) {
-             msg = 'Thanks! You rated this ' + ratingValue + ' stars.';
-           } else {
-             msg = 'We will improve ourselves. You rated this ' + ratingValue + ' stars.';
-           }
-           responseMessage(msg);
-
-         });
+        });
 
 
-       });
-       $(document).ready(function() {
-         $('.bar span').hide();
-         $('#bar-five').animate({
-           width: '75px'
-         });
-         $('#bar-four').animate({
-           width: '35px'
-         });
-         $('#bar-three').animate({
-           width: '20px'
-         });
-         $('#bar-two').animate({
-           width: '15px'
-         });
-         $('#bar-one').animate({
-           width: '30px'
-         });
+      });
+      $(document).ready(function() {
+        $('.bar span').hide();
+        $('#bar-five').animate({
+          width: '75px'
+        });
+        $('#bar-four').animate({
+          width: '35px'
+        });
+        $('#bar-three').animate({
+          width: '20px'
+        });
+        $('#bar-two').animate({
+          width: '15px'
+        });
+        $('#bar-one').animate({
+          width: '30px'
+        });
 
-         setTimeout(function() {
-           console.log("run set time out")
-           $('.bar span').fadeIn('slow');
-         }, 1000);
+        setTimeout(function() {
+          console.log('run set time out');
+          $('.bar span').fadeIn('slow');
+        }, 1000);
 
-       });
+      });
 
-     });
-     function responseMessage(msg) {
-       $('.success-box').fadeIn(200);
-       $('.success-box div.text-message').html('<span>' + msg + '</span>');
-     }
+    });
+
+    function responseMessage(msg) {
+      $('.success-box').fadeIn(200);
+      $('.success-box div.text-message').html('<span>' + msg + '</span>');
+    }
+
     console.log('onInit chay xong');
+    console.log(this.allowToReview)
   }
 
 
@@ -202,11 +215,13 @@ export class DetailHouseComponent implements OnInit {
       rating: value,
       comment: this.reviewForm.value.comment,
     };
-    this.reviewService.createReview(this.houseId, review).subscribe((data)=>{
+    this.reviewService.createReview(this.houseId, review).subscribe((data) => {
       // window.location.reload()
       this.router.navigate([`/houses/detail/${this.bookingService.currentId}`]).then(
-        ()=>{console.log("thanh cong")}
-      )
+        () => {
+          console.log('thanh cong');
+        }
+      );
     });
   }
 }

@@ -307,7 +307,7 @@
       </div>
     </section>
     <br><br><br>
-    <section id="comment-form" class="add-comments">
+    <section id="comment-form" class="add-comments" [hidden]="allowToReview==false">
       <h4 class="text-uppercase wow fadeInLeft animated">Review this house</h4>
       <br><br>
       <form [formGroup]="reviewForm" (ngSubmit)="createNewReview()">
@@ -318,7 +318,7 @@
             <section class='rating-widget'>
 
               <!-- Rating Stars Box -->
-              <div class='rating-stars text-center' id="rating">
+              <div class='rating-stars text-center' id="rating" >
                 <ul id='stars' formControl="rating">
                   <li class='star' title='Poor' data-value='1' value="1">
                     <i class='fa fa-star fa-fw'></i>
@@ -347,7 +347,7 @@
         </div>
 
 
-        <div class="row wow fadeInLeft animated">
+        <div class="row wow fadeInLeft animated" >
           <div class="col-sm-12">
             <div class="form-group">
               <label for="comment"> Your Comment </label>
@@ -358,12 +358,12 @@
 
         <div class="row wow fadeInLeft animated">
           <div class="col-sm-12 text-right">
-            <button class="btn btn-primary" type="submit"><i class="fa fa-comment-o"></i> Post review</button>
+            <button  class="btn btn-primary" type="submit"><i class="fa fa-comment-o"></i> Post review</button>
           </div>
         </div>
       </form>
     </section>
-
+      <strong *ngIf="allowToReview==false">You can only rate when you have this home experience, wish you a good experience</strong>
   </div>
 </div>
 </body>
