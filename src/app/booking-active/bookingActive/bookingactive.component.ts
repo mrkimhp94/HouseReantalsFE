@@ -91,7 +91,7 @@ export class BookingActiveComponent implements OnInit, DoCheck {
         }
       };
       console.log('data booking : ');
-      console.log(booking);
+      // console.log(booking);
       console.log('data booking : ');
       this.bookingService.doBooking(booking).subscribe((data) => {
         console.log("booking success")

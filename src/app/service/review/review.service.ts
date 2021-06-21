@@ -19,7 +19,7 @@ export class ReviewService {
   getAllReview(houseId: number): Observable<Review[]> {
     return this.http.get<Review[]>(API_URL + `/houses/reviews/${houseId}`);
   }
-  createReview(houseId: number,review:Review): Observable<Review> {
-    return this.http.post<Review>(API_URL + `/houses/createReview/${houseId}`,review);
+  createReview(houseId: number,review: Review): Observable<Review> {
+    return this.http.post<Review>(`${API_URL}/houses/createReview/${houseId}`, review);
   }
 }

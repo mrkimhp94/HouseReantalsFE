@@ -37,7 +37,6 @@ export class OpenListHouse implements OnInit {
       this.myHouses = data;
     });
   }
-
   updateStatus(houseId: number, status: string) {
     if (this.isAllowToChangeToUpdate) {
       this.houseService.findByHouseId(houseId).subscribe((data) => {
