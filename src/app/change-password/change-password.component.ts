@@ -6,6 +6,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../service/authentication.service';
 import {UserServiceService} from '../service/user-service.service';
 import {Users} from '../model/users';
+import {MatDialog} from '@angular/material/dialog';
+import {NotifyServiceService} from '../service/notify/notify-service.service';
+import {GeneralPopupComponent} from '../general-popup/general-popup.component';
 
 function comparePassword(c: AbstractControl) {
   const v = c.value;
@@ -35,7 +38,10 @@ export class ChangePasswordComponent implements OnInit {
               private router: Router,
               private formBuilder: FormBuilder,
               private auth: AuthenticationService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private dialog: MatDialog,
+              private notifyService: NotifyServiceService,
+  ) {
   }
 
   ngOnInit(): void {
@@ -45,10 +51,10 @@ export class ChangePasswordComponent implements OnInit {
       this.user = data;
     });
     this.registerForm = this.fb.group({
-      confirm: ['', [Validators.required, Validators.minLength(6) , Validators.maxLength(20)]],
+      confirm: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
       pwGroup: this.fb.group({
-        password: ['', [Validators.required, Validators.minLength(6) , Validators.maxLength(20)]],
-        confirmPassword: ['', [Validators.required, Validators.minLength(6) , Validators.maxLength(20)]]
+        password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+        confirmPassword: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]]
       }, {validator: comparePassword}),
     });
   }
@@ -56,19 +62,27 @@ export class ChangePasswordComponent implements OnInit {
 
   updatePassword(): void {
     this.user.password = this.oldPassword;
-      this.auth.updateUser(this.user,this.user.password,this.newPassword)
-        .subscribe(data => {
-          alert('Update success!');
-
-          this.loginForm = this.formBuilder.group({
-            username: [data.fullname, Validators.required],
-            password: [this.oldPassword, Validators.required]
-          });
-          this.auth.login(this.loginForm.value).subscribe(
-            next1 => {
-              localStorage.setItem('token', next1.data.token);
-            });
+    this.auth.updateUser(this.user, this.user.password, this.newPassword)
+      .subscribe(data => {
+        console.log(data)
+        this.notifyService.notify = 'changePasswordSuccess';
+        this.dialog.open(GeneralPopupComponent).afterClosed().subscribe(
+          () => {
+                 this.router.navigate(['/houses'])
+          }
+        );
+        this.loginForm = this.formBuilder.group({
+          username: [data.fullname, Validators.required],
+          password: [this.oldPassword, Validators.required]
         });
-      return;
-    }
+        this.auth.login(this.loginForm.value).subscribe(
+          next1 => {
+            localStorage.setItem('token', next1.data.token);
+          });
+      },err=>{
+        this.notifyService.notify='changePasswordFail'
+        this.dialog.open(GeneralPopupComponent)
+      });
+    return;
+  }
 }

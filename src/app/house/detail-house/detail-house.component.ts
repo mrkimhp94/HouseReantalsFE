@@ -60,9 +60,26 @@ export class DetailHouseComponent implements OnInit {
   }
 
    async ngOnInit() {
+
      console.log('ON init RUN');
      await this.getHouse(this.houseId).then(() =>{
        console.log('Sau Khi lay ra house');
+
+       //Load slide
+        $(function() {
+         $('#image-gallery').lightSlider({
+           gallery: true,
+           item: 1,
+           thumbItem: 9,
+           slideMargin: 0,
+           speed: 1000,
+           auto: true,
+           loop: true,
+           onSliderLoad: function() {
+             $('#image-gallery').removeClass('cS-hidden');
+           }
+         });
+       });
      })
      await  this.getReviews().then(() => {
        console.log('sau khi lay ra list review 1');
@@ -115,20 +132,7 @@ export class DetailHouseComponent implements OnInit {
 
          });
 
-         $(function() {
-           $('#image-gallery').lightSlider({
-             gallery: true,
-             item: 1,
-             thumbItem: 9,
-             slideMargin: 0,
-             speed: 1000,
-             auto: true,
-             loop: true,
-             onSliderLoad: function() {
-               $('#image-gallery').removeClass('cS-hidden');
-             }
-           });
-         });
+
        });
        $(document).ready(function() {
          $('.bar span').hide();
@@ -198,6 +202,11 @@ export class DetailHouseComponent implements OnInit {
       rating: value,
       comment: this.reviewForm.value.comment,
     };
-    this.reviewService.createReview(this.houseId, review).subscribe();
+    this.reviewService.createReview(this.houseId, review).subscribe((data)=>{
+      // window.location.reload()
+      this.router.navigate([`/houses/detail/${this.bookingService.currentId}`]).then(
+        ()=>{console.log("thanh cong")}
+      )
+    });
   }
 }
