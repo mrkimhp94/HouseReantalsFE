@@ -7,6 +7,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {OpenListHouse} from './my-house/my-house.component';
 import * as path from 'path';
 import {BookingList} from '../booking-module/my-booking/my-booking.component';
+import {MonthsComponent} from '../turnover/months/months.component';
 
 
 const routes: Routes = [
@@ -30,6 +31,10 @@ const routes: Routes = [
   {
     path:'my-bookings',
     component:BookingList
+  },
+  {
+    path:"statics",
+    component:MonthsComponent
   }
 ];
 

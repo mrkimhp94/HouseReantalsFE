@@ -28,10 +28,13 @@ import {SharedModule} from './shared/shared.module';
 import {HouseRoutingModule} from './house/house-routing.module';
 import {BookingModuleModule} from './booking-module/booking-module.module';
 
+import { BookingHistoryComponent } from './booking-module/booking-history/booking-history.component';
+
 @NgModule({
   declarations: [
     AppComponent,
-    GeneralPopupComponent
+    GeneralPopupComponent,
+    BookingHistoryComponent
   ],
   imports: [
     LoginModule,
