@@ -24,14 +24,14 @@ let isValidated = true;
 })
 export class HouseCreateComponent implements OnInit {
   houseForm: FormGroup = new FormGroup({
-    houseName: new FormControl('',[Validators.required]),
-    houseAddress: new FormControl('',[Validators.required]),
-    area: new FormControl('',[Validators.required]),
-    type: new FormControl('',[Validators.required]),
-    bedroomQuantity: new FormControl('',[Validators.required]),
-    bathroomQuantity: new FormControl('',[Validators.required]),
-    description: new FormControl('',[Validators.required]),
-    pricePerDay: new FormControl('',[Validators.required])
+    houseName: new FormControl(),
+    houseAddress: new FormControl(),
+    area: new FormControl(),
+    type: new FormControl(),
+    bedroomQuantity: new FormControl(),
+    bathroomQuantity: new FormControl(),
+    description: new FormControl(),
+    pricePerDay: new FormControl()
   });
 
   selectedImages: any[] = [];

@@ -45,10 +45,6 @@ export class DetailHouseComponent implements OnInit {
   review: Review;
   currentUser: UserToken = {};
   public style: 'width:500px;height:600px;';
-  reviewForm: FormGroup = new FormGroup({
-    rating: new FormControl('', Validators.required),
-    comment: new FormControl('')
-  });
 
   constructor(private houseService: HouseService,
               private bookingService: BookingServiceService,
@@ -63,11 +59,10 @@ export class DetailHouseComponent implements OnInit {
       this.getHouse(+this.houseId);
       this.bookingService.currentId = this.houseId;
       this.createNewReview();
-    });
     this.authenticationService.currentUser.subscribe(value => {
       this.currentUser = value;
     });
-
+  })
   }
 
   getHouse(houseId: number) {
@@ -144,29 +139,29 @@ export class DetailHouseComponent implements OnInit {
         });
       });
     });
-    // $(document).ready(function() {
-    //   $('.bar span').hide();
-    //   $('#bar-five').animate({
-    //     width: '75px'
-    //   });
-    //   $('#bar-four').animate({
-    //     width: '35px'
-    //   });
-    //   $('#bar-three').animate({
-    //     width: '20px'
-    //   });
-    //   $('#bar-two').animate({
-    //     width: '15px'
-    //   });
-    //   $('#bar-one').animate({
-    //     width: '30px'
-    //   });
-    //
-    //   setTimeout(function() {
-    //     $('.bar span').fadeIn('slow');
-    //   }, 1000);
-    //
-    // });
+    $(document).ready(function() {
+      $('.bar span').hide();
+      $('#bar-five').animate({
+        width: '75px'
+      });
+      $('#bar-four').animate({
+        width: '35px'
+      });
+      $('#bar-three').animate({
+        width: '20px'
+      });
+      $('#bar-two').animate({
+        width: '15px'
+      });
+      $('#bar-one').animate({
+        width: '30px'
+      });
+
+      setTimeout(function() {
+        $('.bar span').fadeIn('slow');
+      }, 1000);
+
+    });
     function responseMessage(msg) {
       $('.success-box').fadeIn(200);
       $('.success-box div.text-message').html('<span>' + msg + '</span>');
@@ -175,7 +170,8 @@ export class DetailHouseComponent implements OnInit {
   }
 
   getReviews() {
-    return this.reviewService.getAllReview(this.houseId).subscribe(listReview =>{
+    return this.reviewService.getAllReview(this.houseId)
+      .subscribe(listReview =>{
       this.reviewList = listReview;
       this.countReview = listReview.length
       for(let review of this.reviewList){
