@@ -30,6 +30,9 @@ SYSTEM  NOTIFICATION
   <p *ngIf="notify=='loginFail'">It seem you put wrong account or password <span><img style="height: 30px" src="https://image.flaticon.com/icons/png/512/2622/2622292.png" alt=""></span></p>
   <!--  login-->
   <p *ngIf="notify=='comment'">Thanks for your review </p>
+
+  <p *ngIf="notify=='loginToBooking'">You must login before booking ?</p>
+
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button color="primary"  mat-dialog-close>Cancel</button>
