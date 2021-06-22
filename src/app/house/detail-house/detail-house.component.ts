@@ -54,10 +54,12 @@ export class DetailHouseComponent implements OnInit {
       this.houseService.currentHouse = house;
       this.house = house;
       this.images = house.imagesList;
+      console.log("get nhà")
     });
   }
 
   ngOnInit() {
+    console.log("bat dau init")
     this.getReviews();
     // this.socketService.connect(this.houseId);
     $(document).ready(function(){
@@ -150,14 +152,15 @@ export class DetailHouseComponent implements OnInit {
       $('.success-box div.text-message').html("<span>" + msg + "</span>");
     }
 
-
+console.log("ket thuc init")
   }
 
 
-  private getReviews() {
+  getReviews() {console.log("bat dat get review")
     this.reviewService.getAllReview(this.houseId).subscribe(listReview =>{
       this.reviewList = listReview;
       this.countReview = listReview.length
+      console.log("get lời nhắn nhủ thân thương")
       for(this.review of this.reviewList){
         if(this.review.rating ==1){
           this.oneStar +=1;
@@ -176,6 +179,7 @@ export class DetailHouseComponent implements OnInit {
       }
       this.totalRate =((this.oneStar*1 + this.twoStar*2 +this.threeStar*3 +this.fiveStar*5 + this.fourStar*4)/this.countReview).toFixed(1)
     })
+    console.log("ket thuc get review")
   }
   createNewReview(){
     var value = parseInt($('#stars li.selected').last().data('value'), 10);

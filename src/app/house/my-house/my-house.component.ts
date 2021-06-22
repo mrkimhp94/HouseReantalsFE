@@ -6,6 +6,7 @@ import {UserServiceService} from '../../service/user-service.service';
 import {NotifyServiceService} from '../../service/notify/notify-service.service';
 import {DateServiceService} from '../../service/date/date-service.service';
 import {GeneralPopupComponent} from '../../general-popup/general-popup.component';
+import {Image} from '../../model/image';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class OpenListHouse implements OnInit {
   myHouses: House[] = [];
   myBooking = [];
   house: House;
+  listImage : Image[];
   isAllowToChangeToUpdate: boolean; //cho phep doi rent -> blank hay khong
 
   ngOnInit(): void {
@@ -35,8 +37,16 @@ export class OpenListHouse implements OnInit {
   getAllMyHouse(id: number) {
     this.houseService.getAllHouseOfUser(id).subscribe(data => {
       this.myHouses = data;
+      this.addImageToHouse(this.myHouses);
+      console.log(this.myHouses);
     });
   }
+  private addImageToHouse(listHouse: House[]) {
+    listHouse.map(async house => {
+      house.imagesList = await this.houseService.getAllImageByHouse(house.houseId).toPromise();
+    });
+  }
+
   updateStatus(houseId: number, status: string) {
     if (this.isAllowToChangeToUpdate) {
       this.houseService.findByHouseId(houseId).subscribe((data) => {
