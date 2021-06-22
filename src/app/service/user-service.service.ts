@@ -31,4 +31,7 @@ export class UserServiceService {
   checkPhone(phone: string): Observable<boolean> {
     return this.http.get<boolean>(this.url + `/checkphone/${phone}`).pipe();
   }
+  checkRightForReview(userId : number, houseId: number){
+    return this.http.get(this.url+`/reviewChecking/${userId}/${houseId}`)
+  }
 }
