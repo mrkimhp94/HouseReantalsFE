@@ -88,9 +88,6 @@ export class HouseCreateComponent implements OnInit {
           },
           description: {
             required: true
-          },
-          image: {
-            required: true
           }
         },
         messages: {
@@ -119,9 +116,6 @@ export class HouseCreateComponent implements OnInit {
           },
           description: {
             required: 'Please enter a detailed description for your home'
-          },
-          image: {
-            required: 'Please post some image for your home'
           }
         },
         errorElement: 'span',
@@ -179,6 +173,31 @@ export class HouseCreateComponent implements OnInit {
             title: 'Tạo mới thành công'
           });
         });
+      }else {
+        const defaultImage:Image ={
+          linkImage : 'https://www.myistria.com/UserDocsImages/app/objekti/795/slika_hd/19082020034916_Villas-near-Rovinj-Villa-Prestige-2.jpg?preset=carousel-1-webp',
+          house: {
+            houseId: house.houseId
+          }
+        }
+        this.imageService.createImage(defaultImage).subscribe(() => {
+          this.router.navigateByUrl('/');
+      });
+        $(function() {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+          });
+
+          Toast.fire({
+            type: 'success',
+            title: 'Tạo mới thành công'
+          });
+
+        }, () => {
+        });
       }
     } else {
       $(function() {
@@ -208,6 +227,9 @@ export class HouseCreateComponent implements OnInit {
       description: this.houseForm.value.description,
       pricePerDay: this.houseForm.value.pricePerDay,
       houseStatus: 'blank',
+      users: {
+        userId: this.currentUser.id
+      }
     };
     if (isValidated) {
       return this.houseService.createHouse(house).toPromise();
