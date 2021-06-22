@@ -14,12 +14,21 @@ const API_URL = `${environment.api_url}`;
 })
 export class HouseService {
   currentHouse: any;
+  listHouseRecommend: any = [];
 
   constructor(private http: HttpClient,
               private router: Router) {
   }
 
-  createHouse(house:House): Observable<House> {
+  public getListHouseRecommend() {
+    this.getListRecommend().subscribe(data => {
+      console.log(data)
+      this.listHouseRecommend = data;
+    });
+  }
+
+
+  createHouse(house: House): Observable<House> {
     return this.http.post<House>(API_URL + '/houses', house);
   }
 
@@ -55,7 +64,11 @@ export class HouseService {
     return this.currentHouse;
   }
 
-  upDateHouse(id: number,status:string) {
-    return this.http.put(`${API_URL}/houses/${id}/${status}`,null)
+  upDateHouse(id: number, status: string) {
+    return this.http.put(`${API_URL}/houses/${id}/${status}`, null);
+  }
+
+  getListRecommend() {
+    return this.http.get<any>(`${API_URL}/houses/top5`);
   }
 }

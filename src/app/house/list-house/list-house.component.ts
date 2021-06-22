@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {HouseService} from '../../service/house/house.service';
 import {House} from '../../model/house';
@@ -16,6 +16,7 @@ import * as moment from 'moment';
 })
 export class ListHouseComponent implements OnInit {
   public currentPage = 0;
+  public recommendHouse;
   public size = 9;
   private listHouse: House[] = [];
   private numberOfPage = 1;
@@ -25,8 +26,8 @@ export class ListHouseComponent implements OnInit {
   nextday= new Date();
   searchForm: FormGroup = new FormGroup({
     search: new FormControl(''),
-    checkin: new FormControl('',Validators.required),
-    checkout: new FormControl('',Validators.required)
+    checkin: new FormControl('', Validators.required),
+    checkout: new FormControl('', Validators.required)
   });
 
 
@@ -47,7 +48,12 @@ export class ListHouseComponent implements OnInit {
 
   ngOnInit() {
     this.getAllHouse();
-
+    this.houseService.getListRecommend().subscribe(
+      result => {
+        this.recommendHouse = result;
+        console.log(this.recommendHouse)
+      }
+    );
   }
 
   getAllHouse() {
@@ -81,7 +87,7 @@ export class ListHouseComponent implements OnInit {
     this.houseService.getSearchHouse(search, checkin, checkout).subscribe(listHouse => {
       this.listHouse = listHouse;
       if (listHouse.length==0){
-        this.message ='There are no suitable homes'
+        this.message ='No result'
       }
       this.addImageToHouse(this.listHouse);
       this.router.navigate(['/houses'], {queryParams: {search: search, checkin: checkin, checkout: checkout}});

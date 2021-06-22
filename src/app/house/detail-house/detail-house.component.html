@@ -14,7 +14,7 @@
   <div class="container">
     <div class="row">
       <div class="page-head-content">
-        <h1 class="page-title">Super nice villa </h1>
+        <h1 class="page-title"> </h1>
       </div>
     </div>
   </div>
@@ -130,19 +130,8 @@
             <h4 class="s-property-title">Rating</h4>
 
             <div class="rating">
-              <span class="rating-num">{{totalRate}}</span>
-              <!--              <div class="rating-stars">-->
-              <!--                <span *ngIf="totalRate>=1"><i class="active fa fa-star"></i></span>-->
-              <!--                <span *ngIf="totalRate<1"><i class="fa fa-star-o"></i></span>-->
-              <!--                <span *ngIf="totalRate>=2"><i class="active fa fa-star"></i></span>-->
-              <!--                <span *ngIf="totalRate<2"><i class="fa fa-star-o"></i></span>-->
-              <!--                <span *ngIf="totalRate>=3"><i class="active fa fa-star"></i></span>-->
-              <!--                <span *ngIf="totalRate<3"><i class="fa fa-star-o"></i></span>-->
-              <!--                <span *ngIf="totalRate>=4"><i class="active fa fa-star"></i></span>-->
-              <!--                <span *ngIf="totalRate<=4"><i class="fa fa-star-o"></i></span>-->
-              <!--                <span *ngIf="totalRate==5"><i class="active fa fa-star"></i></span>-->
-              <!--                <span *ngIf="totalRate<5"><i class="fa fa-star-o"></i></span>-->
-              <!--              </div>-->
+              <span class="rating-num" *ngIf="totalRate!='NaN'">{{totalRate}}</span>
+              <span class="rating-num" *ngIf="totalRate=='NaN'">0</span>
               <div style="
               background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/2605/star-rating-sprite.png');
               font-size: 0;
@@ -158,13 +147,13 @@
                 float: left;
                 height: 21px;
                 display:block;
-                }
-"></span>
+                }"></span>
               </div>
               <div class="rating-users">
-                <i class="pe-7s-add-user"></i>{{countReview}} total
+                <i class="pe-7s-add-user"></i>{{countReview}} total vote
               </div>
             </div>
+
 
             <div class="histo">
               <div class="five histo-rate">
@@ -215,7 +204,7 @@
             </div>
 
           </div>
-          <!-- End description area  -->\
+          <!-- End description area  -->
           <br><br>
 
 
@@ -308,7 +297,7 @@
       </div>
     </section>
     <br><br><br>
-    <section id="comment-form" class="add-comments" [hidden]="allowToReview==false">
+    <section id="comment-form" class="add-comments"  [(ngModel)]="allowToReview" [hidden]="allowToReview==false">
       <h4 class="text-uppercase wow fadeInLeft animated">Review this house</h4>
       <br><br>
       <form (ngSubmit)="createNewReview()">
@@ -364,9 +353,6 @@
         </div>
       </form>
     </section>
-      <strong *ngIf="allowToReview==false">
-        You can only rate this room when you have a full experience of this house, wish you a good experience <span><img style="height: 40px"
-        src="https://www.flaticon.com/free-icon/lets-go_3159039?term=let%20go&page=1&position=3&page=1&position=3&related_id=3159039&origin=search" alt=""></span></strong>
   </div>
 </div>
 </body>
