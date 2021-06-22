@@ -224,7 +224,7 @@ export class DetailHouseComponent implements OnInit {
     const currentRoute = this.router.url;
 
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([`houses/detail/24`]); // navigate to same route
+      this.router.navigate([currentRoute]); // navigate to same route
     });
 
   }
