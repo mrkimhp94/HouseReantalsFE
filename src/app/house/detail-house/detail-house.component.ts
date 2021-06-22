@@ -18,8 +18,6 @@ import {SocketService} from '../../service/socket/socket.service';
 import {UserServiceService} from '../../service/user-service.service';
 
 
-
-
 const API_URL = `${environment.api_url}`;
 declare var $: any;
 
@@ -45,6 +43,10 @@ export class DetailHouseComponent implements OnInit {
   review: Review;
   currentUser: UserToken = {};
   public style: 'width:500px;height:600px;';
+  reviewForm: FormGroup = new FormGroup({
+    rating: new FormControl('', Validators.required),
+    comment: new FormControl('')
+  });
 
   constructor(private houseService: HouseService,
               private bookingService: BookingServiceService,
@@ -56,26 +58,58 @@ export class DetailHouseComponent implements OnInit {
               private router: Router) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.houseId = paramMap.get('houseId');
-      this.getHouse(+this.houseId);
       this.bookingService.currentId = this.houseId;
       this.createNewReview();
+    });
     this.authenticationService.currentUser.subscribe(value => {
       this.currentUser = value;
     });
-  })
+
   }
 
-  getHouse(houseId: number) {
-    return this.houseService.findByHouseId(houseId).subscribe(house => {
+  async getHouse(houseId: number) {
+    console.log(houseId);
+    await this.houseService.findByHouseId(houseId).toPromise().then((house) => {
+      console.log('Function  lay ra list house');
       this.houseService.currentHouse = house;
       this.house = house;
       this.images = house.imagesList;
     });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    if (this.userService.getCurrentUser() != null) {
+      this.userService.checkRightForReview(this.userService.getCurrentUser().id, this.bookingService.currentId).subscribe(
+        result => {
+          if (result == 0) {
+            return this.allowToReview = false;
+          }
+          return this.allowToReview = true;
+        }
+      );
+    }
+    await this.getHouse(this.houseId).then(() => {
+      console.log('Sau Khi lay ra house');
 
+      //Load slide
+      $(function() {
+        $('#image-gallery').lightSlider({
+          gallery: true,
+          item: 1,
+          thumbItem: 9,
+          slideMargin: 0,
+          speed: 1000,
+          auto: true,
+          loop: true,
+          onSliderLoad: function() {
+            $('#image-gallery').removeClass('cS-hidden');
+          }
+        });
+      });
+    });
     this.connect();
+
+
     $(document).ready(function() {
 
       /* 1. Visualizing things on Hover - See next part for action on click */
@@ -139,29 +173,29 @@ export class DetailHouseComponent implements OnInit {
         });
       });
     });
-    $(document).ready(function() {
-      $('.bar span').hide();
-      $('#bar-five').animate({
-        width: '75px'
-      });
-      $('#bar-four').animate({
-        width: '35px'
-      });
-      $('#bar-three').animate({
-        width: '20px'
-      });
-      $('#bar-two').animate({
-        width: '15px'
-      });
-      $('#bar-one').animate({
-        width: '30px'
-      });
-
-      setTimeout(function() {
-        $('.bar span').fadeIn('slow');
-      }, 1000);
-
-    });
+    // $(document).ready(function() {
+    //   $('.bar span').hide();
+    //   $('#bar-five').animate({
+    //     width: '75px'
+    //   });
+    //   $('#bar-four').animate({
+    //     width: '35px'
+    //   });
+    //   $('#bar-three').animate({
+    //     width: '20px'
+    //   });
+    //   $('#bar-two').animate({
+    //     width: '15px'
+    //   });
+    //   $('#bar-one').animate({
+    //     width: '30px'
+    //   });
+    //
+    //   setTimeout(function() {
+    //     $('.bar span').fadeIn('slow');
+    //   }, 1000);
+    //
+    // });
     function responseMessage(msg) {
       $('.success-box').fadeIn(200);
       $('.success-box div.text-message').html('<span>' + msg + '</span>');
@@ -170,35 +204,35 @@ export class DetailHouseComponent implements OnInit {
   }
 
   getReviews() {
-    return this.reviewService.getAllReview(this.houseId)
-      .subscribe(listReview =>{
+    return this.reviewService.getAllReview(this.houseId).subscribe(listReview => {
       this.reviewList = listReview;
-      this.countReview = listReview.length
-      for(let review of this.reviewList){
-        if(review.rating ==1){
+      this.countReview = listReview.length;
+      for (let review of this.reviewList) {
+        if (review.rating == 1) {
           this.oneStar++;
-        }if(review.rating ==2){
+        }
+        if (review.rating == 2) {
           this.twoStar++;
         }
-        if(review.rating ==3){
+        if (review.rating == 3) {
           this.threeStar++;
         }
-        if(review.rating ==4){
+        if (review.rating == 4) {
           this.fourStar++;
         }
-        if(review.rating ==5){
+        if (review.rating == 5) {
           this.fiveStar++;
         }
       }
-      this.totalRate =((this.oneStar + this.twoStar*2 +this.threeStar*3 +this.fiveStar*5 + this.fourStar*4)/listReview.length).toFixed(1)
-    })
+      this.totalRate = ((this.oneStar + this.twoStar * 2 + this.threeStar * 3 + this.fiveStar * 5 + this.fourStar * 4) / listReview.length).toFixed(1);
+    });
   }
 
   async createNewReview() {
-    await this.getReviews();
-    let rating =  parseInt($('#stars li.selected').last().data('value'), 10)
+
+    let rating = parseInt($('#stars li.selected').last().data('value'), 10);
     const review: Review = {
-      rating:rating,
+      rating: rating,
       comment: $('.textarea').val(),
       house: {
         houseId: this.houseId
@@ -208,6 +242,7 @@ export class DetailHouseComponent implements OnInit {
       }
     };
     this.createReviewUsingSocket(review);
+    await this.getReviews();
 
   }
 
