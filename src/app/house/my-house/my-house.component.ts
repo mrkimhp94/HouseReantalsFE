@@ -35,8 +35,23 @@ export class OpenListHouse implements OnInit {
   getAllMyHouse(id: number) {
     this.houseService.getAllHouseOfUser(id).subscribe(data => {
       this.myHouses = data;
+      this.addImageToHouse(this.myHouses);
+      for (this.house of this.myHouses){
+        console.log(this.house.imagesList)
+      }
     });
   }
+  private addImageToHouse(listHouse: House[]) {
+    listHouse.map(async house => {
+      house.imagesList = await this.getAllImageByHouse(house);
+    });
+  }
+
+  private async getAllImageByHouse(house: House) {
+    return this.houseService.getAllImageByHouse(house.houseId).toPromise();
+
+  }
+
   updateStatus(houseId: number, status: string) {
     if (this.isAllowToChangeToUpdate) {
       this.houseService.findByHouseId(houseId).subscribe((data) => {
@@ -61,7 +76,6 @@ export class OpenListHouse implements OnInit {
         this.updateStatus(houseId, 'rent');
       }
     });
-
   }
 
   changeUpgradeStatus(houseId: number) {
@@ -110,5 +124,8 @@ export class OpenListHouse implements OnInit {
       }
     });
 
+  }
+  setHouseId(houseId: number) {
+    this.houseService.currentHouse = houseId;
   }
 }
