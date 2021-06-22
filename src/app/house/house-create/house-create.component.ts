@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, NgForm} from '@angular/forms';
+import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {HouseService} from '../../service/house/house.service';
 
 import {ImageService} from '../../service/image/image.service';
@@ -24,14 +24,14 @@ let isValidated = true;
 })
 export class HouseCreateComponent implements OnInit {
   houseForm: FormGroup = new FormGroup({
-    houseName: new FormControl(''),
-    houseAddress: new FormControl(''),
-    area: new FormControl(''),
-    type: new FormControl(''),
-    bedroomQuantity: new FormControl(''),
-    bathroomQuantity: new FormControl(''),
-    description: new FormControl(''),
-    pricePerDay: new FormControl('')
+    houseName: new FormControl('',[Validators.required]),
+    houseAddress: new FormControl('',[Validators.required]),
+    area: new FormControl('',[Validators.required]),
+    type: new FormControl('',[Validators.required]),
+    bedroomQuantity: new FormControl('',[Validators.required]),
+    bathroomQuantity: new FormControl('',[Validators.required]),
+    description: new FormControl('',[Validators.required]),
+    pricePerDay: new FormControl('',[Validators.required])
   });
 
   selectedImages: any[] = [];
@@ -61,7 +61,7 @@ export class HouseCreateComponent implements OnInit {
       "Please check your input."
     );
     $(document).ready(function() {
-      $('#product-form').validate({
+      $('#house-form').validate({
         rules: {
           houseName: {
             required: true
@@ -70,7 +70,13 @@ export class HouseCreateComponent implements OnInit {
             required: true,
             regex: /\d{1,5}/
           },
-          houseAddress: {
+          houseAddress:{
+            required: true,
+          },
+          bedroomQuantity: {
+            required: true
+          },
+          bathroomQuantity: {
             required: true
           },
           area: {
@@ -80,13 +86,10 @@ export class HouseCreateComponent implements OnInit {
           type: {
             required: true
           },
-          bedroomQuantity: {
-            required: true
-          },
-          bathroomQuantity: {
-            required: true
-          },
           description: {
+            required: true
+          },
+          image: {
             required: true
           }
         },
@@ -101,6 +104,12 @@ export class HouseCreateComponent implements OnInit {
           houseAddress: {
             required: 'Please enter the address for the house'
           },
+          bedroomQuantity: {
+            required: 'Please enter the bedroom number'
+          },
+          bathroomQuantity: {
+            required: 'Please enter the bathroom number'
+          },
           area: {
             required: 'Please enter the area',
             regex: 'Enter numbers only'
@@ -108,14 +117,11 @@ export class HouseCreateComponent implements OnInit {
           type: {
             required: 'Please enter house type'
           },
-          bedroomQuantity: {
-            required: 'Please enter the bedroom number'
-          },
-          bathroomQuantity: {
-            required: 'Please enter the bathroom number'
-          },
           description: {
             required: 'Please enter a detailed description for your home'
+          },
+          image: {
+            required: 'Please post some image for your home'
           }
         },
         errorElement: 'span',
@@ -140,7 +146,6 @@ export class HouseCreateComponent implements OnInit {
     const house = await this.createHouse();
     if (house != null) {
       if (this.selectedImages.length !== 0) {
-        this.houseForm.reset();
         for (const selectedImage of this.selectedImages) {
           const filePath = `${house.houseName}/${selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
           const fileRef = this.storage.ref(filePath);
@@ -165,7 +170,7 @@ export class HouseCreateComponent implements OnInit {
           const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
-            showConfirmButton: true,
+            showConfirmButton: false,
             timer: 3000
           });
 

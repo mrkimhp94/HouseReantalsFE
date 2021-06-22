@@ -6,7 +6,7 @@
       <div class="wizard-container">
 
         <div class="wizard-card ct-wizard-orange" id="wizardProperty">
-          <form [formGroup]="houseForm" (ngSubmit)="createImage()" id="product-form">
+          <form [formGroup]="houseForm" (ngSubmit)="createImage()" id="house-form">
             <div class="wizard-header">
               <h3 style="text-align: center">
                 <b>Create your house</b>
@@ -15,14 +15,14 @@
             <div class="col-sm-12" style="margin-top: 20px">
               <div class="col-sm-12">
                 <div class="form-group">
-                  <label>House name :</label>
-                  <input type="text" name="houseName" formControlName="houseName" style="border-radius: 10px"
+                  <label for="houseName">House name :</label>
+                  <input type="text" name="houseName" formControlName="houseName"  id="houseName" style="border-radius: 10px"
                          class="form-control" placeholder="Super villa ...">
                 </div>
 
                 <div class="form-group">
-                  <label>House price <small>(usd per day)</small> :</label>
-                  <input type="text" name="pricePerDay" formControlName="pricePerDay" style="border-radius: 10px"
+                  <label for="pricePerDay">House price <small>(usd per day)</small> :</label>
+                  <input type="text" name="pricePerDay" formControlName="pricePerDay" id="pricePerDay" style="border-radius: 10px"
                          class="form-control" placeholder="300">
                 </div>
               </div>
@@ -30,8 +30,8 @@
             <div class="col-sm-12">
               <div class="col-sm-12">
                 <div class="form-group">
-                  <label>House Address :</label>
-                  <input name="houseAddress" formControlName="houseAddress" style="border-radius: 10px"
+                  <label for="houseAddress">House Address :</label>
+                  <input name="houseAddress" formControlName="houseAddress" id="houseAddress" style="border-radius: 10px"
                          class="form-control">
                 </div>
               </div>
@@ -39,10 +39,9 @@
             <div class="col-sm-12">
               <div class="col-sm-3">
                 <div class="form-group">
-                  <label>Bedroom Quantity :</label>
-                  <select tabindex="1" name="bedroomQuantity"  formControlName="bedroomQuantity" id="bedroomQuantity" class="form-control" style="border-radius: 10px">
-                    <option value="0" selected="">Bed Min</option>
-                    <option value="1">1</option>
+                  <label for="bedroomQuantity">Bedroom Quantity :</label>
+                  <select name="bedroomQuantity"  formControlName="bedroomQuantity"  id="bedroomQuantity" class="form-control" style="border-radius: 10px" >
+                    <option value="1" selected="selected">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
@@ -53,10 +52,9 @@
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
-                  <label>Bathroom Quantity:</label>
-                  <select tabindex="1" name="bathroomQuantity"  formControlName="bathroomQuantity" id="bathroomQuantity" class="form-control" style="border-radius: 10px">
-                    <option value="0" selected="">Bath Min</option>
-                    <option value="1">1</option>
+                  <label for="bathroomQuantity">Bathroom Quantity:</label>
+                  <select name="bathroomQuantity"  formControlName="bathroomQuantity"  id="bathroomQuantity" class="form-control " style="border-radius: 10px">
+                    <option value="1" selected="selected">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
@@ -67,16 +65,15 @@
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
-                  <label>House Area (m2) :</label>
-                  <input name="area" formControlName="area"
+                  <label for="area">House Area (m2) :</label>
+                  <input name="area" formControlName="area" id="area"
                          class="form-control" style="border-radius: 10px">
                 </div>
               </div>
               <div class="col-sm-3">
                 <div class="form-group" >
                   <label>House Type :</label>
-                  <select tabindex="1" name="type"  formControlName="type" id="houseType" class="form-control" style="border-radius: 10px">
-                    <option value="" selected="">House Type</option>
+                  <select name="type"  formControlName="type" class="form-control" style="border-radius: 10px">
                     <option value="Apartment">Apartment</option>
                     <option value="Villa">Villa</option>
                     <option value="Home Stay">Home Stay</option>
@@ -87,10 +84,10 @@
             </div>
             <div class="col-sm-12">
               <div class="col-sm-12">
-                <div class="form-group">
+                <div class="form-group pad">
                   <label>Description :</label>
-                  <input name="description" formControlName="description"
-                         class="form-control" style="border-radius: 10px">
+                  <textarea class="textarea" name="description" id="description" formControlName="description"
+                            style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                 </div>
               </div>
             </div>
@@ -98,7 +95,7 @@
               <div class="col-sm-12">
                 <div class="form-group">
                   <label for="image">Chose Images :</label>
-                  <input class="form-control" name="image" (change)="showPreview($event)" type="file"
+                  <input class="form-control" (change)="showPreview($event)" type="file"
                          id="image" multiple style="border-radius: 10px">
                   <p class="help-block">Select multiple images for your property .</p>
                 </div>

@@ -310,7 +310,7 @@
     <section id="comment-form" class="add-comments" [hidden]="allowToReview==false">
       <h4 class="text-uppercase wow fadeInLeft animated">Review this house</h4>
       <br><br>
-      <form [formGroup]="reviewForm" (ngSubmit)="createNewReview()">
+      <form (ngSubmit)="createNewReview()">
         <div class="row wow fadeInLeft animated">
           <div class="col-sm-12">
             <label for="rating">Rating <span class="required">*</span>
@@ -319,7 +319,7 @@
 
               <!-- Rating Stars Box -->
               <div class='rating-stars text-center' id="rating" >
-                <ul id='stars' formControl="rating">
+                <ul id='stars'>
                   <li class='star' title='Poor' data-value='1' value="1">
                     <i class='fa fa-star fa-fw'></i>
                   </li>
@@ -351,7 +351,7 @@
           <div class="col-sm-12">
             <div class="form-group">
               <label for="comment"> Your Comment </label>
-              <textarea class="form-control" id="comment" name="comment" rows="4" formControlName="comment"></textarea>
+              <textarea class="form-control textarea" id="comment" name="comment" rows="4" ></textarea>
             </div>
           </div>
         </div>
