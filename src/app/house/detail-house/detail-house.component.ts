@@ -164,29 +164,7 @@ export class DetailHouseComponent implements OnInit {
         });
       });
     });
-    // $(document).ready(function() {
-    //   $('.bar span').hide();
-    //   $('#bar-five').animate({
-    //     width: '75px'
-    //   });
-    //   $('#bar-four').animate({
-    //     width: '35px'
-    //   });
-    //   $('#bar-three').animate({
-    //     width: '20px'
-    //   });
-    //   $('#bar-two').animate({
-    //     width: '15px'
-    //   });
-    //   $('#bar-one').animate({
-    //     width: '30px'
-    //   });
-    //
-    //   setTimeout(function() {
-    //     $('.bar span').fadeIn('slow');
-    //   }, 1000);
-    //
-    // });
+
     function responseMessage(msg) {
       $('.success-box').fadeIn(200);
       $('.success-box div.text-message').html('<span>' + msg + '</span>');
