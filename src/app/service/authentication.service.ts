@@ -67,4 +67,5 @@ export class AuthenticationService {
     return this.http.put<any>(`${API_URL}/user/updateCurrent/${password}/${newpassword}`, user);
   }
   // -------------------------------------------------------------
+
 }

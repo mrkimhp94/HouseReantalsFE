@@ -17,10 +17,18 @@ SYSTEM  NOTIFICATION
   <!--  update-create user-->
 
 <!--  booking-->
-  <p *ngIf="notify=='deleteBooking'">Are you sure  you  want to cancel ?<span><img style="height: 25px" src="https://image.flaticon.com/icons/png/512/4471/4471184.png" alt=""></span></p>
+  <p *ngIf="notify=='deleteBooking'">Are you sure  you  want to cancel ?<span><img style="height: 25px" src="https://image.flaticon.com/icons/png/512/4108/4108476.png" alt=""></span></p>
   <p *ngIf="notify=='deleteSuccess'">Your booking was cancelled successfully <span><img style="height: 25px" src="https://image.flaticon.com/icons/png/512/190/190411.png" alt=""></span></p>
-  <p *ngIf="notify=='cannotDeleteBooking'"> Sorry ! An booking can't not cancel on day before checkin day  </p>
+  <p *ngIf="notify=='cannotDeleteBooking'"> Sorry ! An booking can't not cancel on day before checkin day <span><img style="height: 25px"
+    src="https://image.flaticon.com/icons/png/512/4522/4522205.png" alt=""></span> </p>
   <!--  booking-->
+<!--  changePassWord-->
+  <p *ngIf="notify=='changePasswordSuccess'">Update your password successful <span><img style="height: 27px" src="https://image.flaticon.com/icons/png/512/3064/3064211.png" alt=""></span></p>
+  <p *ngIf="notify=='changePasswordFail'">Please make sure you put old password correctly  <span><img style="height: 27px" src="https://image.flaticon.com/icons/png/512/2665/2665036.png" alt=""></span></p>
+  <!--  changePassWord-->
+<!--  login-->
+  <p *ngIf="notify=='loginFail'">It seem you put wrong account or password <span><img style="height: 30px" src="https://image.flaticon.com/icons/png/512/2622/2622292.png" alt=""></span></p>
+  <!--  login-->
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button color="primary"  mat-dialog-close>Cancel</button>

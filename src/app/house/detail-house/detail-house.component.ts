@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 
 
 import {HouseService} from '../../service/house/house.service';
-import {ActivatedRoute, ParamMap, Route, Router} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {House} from '../../model/house';
 import {BookingServiceService} from '../../service/booking/bookingservice.service';
 import {ReviewService} from '../../service/review/review.service';
@@ -14,8 +14,11 @@ import {environment} from '../../../environments/environment';
 import {UserToken} from '../../model/user-token';
 import {AuthenticationService} from '../../service/authentication.service';
 import {SocketService} from '../../service/socket/socket.service';
-import {any} from 'codelyzer/util/function';
-// import {SocketService} from '../../service/socket/socket.service';
+
+import {UserServiceService} from '../../service/user-service.service';
+
+
+
 
 const API_URL = `${environment.api_url}`;
 declare var $: any;
@@ -27,6 +30,7 @@ declare var $: any;
 })
 export class DetailHouseComponent implements OnInit {
   stompClient: any;
+  allowToReview: boolean;
   houseId?: any;
   house: House;
   images: string[] = [];
@@ -41,13 +45,19 @@ export class DetailHouseComponent implements OnInit {
   review: Review;
   currentUser: UserToken = {};
   public style: 'width:500px;height:600px;';
+  reviewForm: FormGroup = new FormGroup({
+    rating: new FormControl('', Validators.required),
+    comment: new FormControl('')
+  });
 
   constructor(private houseService: HouseService,
               private bookingService: BookingServiceService,
               private reviewService: ReviewService,
               private socketService: SocketService,
               private activatedRoute: ActivatedRoute,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private userService: UserServiceService,
+              private router: Router) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.houseId = paramMap.get('houseId');
       this.getHouse(+this.houseId);
@@ -134,29 +144,29 @@ export class DetailHouseComponent implements OnInit {
         });
       });
     });
-    $(document).ready(function() {
-      $('.bar span').hide();
-      $('#bar-five').animate({
-        width: '75px'
-      });
-      $('#bar-four').animate({
-        width: '35px'
-      });
-      $('#bar-three').animate({
-        width: '20px'
-      });
-      $('#bar-two').animate({
-        width: '15px'
-      });
-      $('#bar-one').animate({
-        width: '30px'
-      });
-
-      setTimeout(function() {
-        $('.bar span').fadeIn('slow');
-      }, 1000);
-
-    });
+    // $(document).ready(function() {
+    //   $('.bar span').hide();
+    //   $('#bar-five').animate({
+    //     width: '75px'
+    //   });
+    //   $('#bar-four').animate({
+    //     width: '35px'
+    //   });
+    //   $('#bar-three').animate({
+    //     width: '20px'
+    //   });
+    //   $('#bar-two').animate({
+    //     width: '15px'
+    //   });
+    //   $('#bar-one').animate({
+    //     width: '30px'
+    //   });
+    //
+    //   setTimeout(function() {
+    //     $('.bar span').fadeIn('slow');
+    //   }, 1000);
+    //
+    // });
     function responseMessage(msg) {
       $('.success-box').fadeIn(200);
       $('.success-box div.text-message').html('<span>' + msg + '</span>');
@@ -199,8 +209,7 @@ export class DetailHouseComponent implements OnInit {
       },
       user: {
         userId: this.currentUser.id
-      },
-      postDate: new Date()
+      }
     };
     this.createReviewUsingSocket(review);
 
