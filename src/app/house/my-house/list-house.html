@@ -35,6 +35,7 @@
             </ul><!--/ .sort-by-list-->
 
             <div class="items-per-page pull-right">
+              <button mat-button color="accent" routerLink="/allHouseStatics">Turnover</button>
               <label for="items_per_page"><b>Property per page :</b></label>
               <div class="sel">
                 <select id="items_per_page" name="per_page">
@@ -43,9 +44,6 @@
                   <option value="9">9</option>
                   <option selected="selected" value="12">12</option>
                   <option value="15">15</option>
-                  <option value="30">30</option>
-                  <option value="45">45</option>
-                  <option value="60">60</option>
                 </select>
               </div><!--/ .sel-->
             </div><!--/ .items-per-page-->
@@ -66,7 +64,7 @@
                     <a><img src="assets/img/demo/property-3.jpg"></a>
                   </div>
                   <div class="item-entry overflow">
-                    <h5><a> {{house.houseName}} </a></h5>
+                    <h5><a> {{house.houseName}} </a>  <button (click)="setHouseId(house.houseId)" mat-button routerLink="/statistics" color="accent">Analysis</button></h5>
                     <div class="dot-hr"></div>
                     <span class="pull-left"><b> Area :</b> {{house.area}} </span> m2
                     <span

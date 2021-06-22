@@ -1,0 +1,28 @@
+
+<div>
+  <div style="padding-left: 470px">  <h3>YOUR BOOKING HISTORY</h3></div>
+  <table class="table" >
+
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">House</th>
+      <th scope="col">Address</th>
+      <td scope="col">Prices</td>
+      <th scope="col">Check-in</th>
+      <th scope="col">Check-out</th>
+      <th scope="col">Total</th>
+
+    </tr>
+    <tbody>
+    <tr *ngFor="let booking of dataSource, let i = index">
+      <th scope="row">{{++i}}</th>
+      <td>{{booking.house.houseName}}</td>
+      <td>{{booking.house.houseAddress}}</td>
+      <td>{{booking.house.pricePerDay}}</td>
+      <td>{{booking.checkinDate}}</td>
+      <td>{{booking.checkoutDate}}</td>
+      <td>{{booking.total}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

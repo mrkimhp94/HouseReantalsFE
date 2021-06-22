@@ -59,7 +59,7 @@
 .inner {
   padding: 1em;
   background-color: white;
-  overflow: hidden;
+  overflow: visible;
   position: relative;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;

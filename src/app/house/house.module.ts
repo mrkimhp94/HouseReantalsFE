@@ -16,6 +16,12 @@ import {GeneralPopupComponent} from '../general-popup/general-popup.component';
 import {MatButtonModule, MatDialogModule} from '@angular/material';
 import {BookingList} from '../booking-module/my-booking/my-booking.component';
 import {BookingModuleModule} from '../booking-module/booking-module.module';
+import {TurnoverModule} from '../turnover/turnover.module';
+import {TurnoverRoutingModule} from '../turnover/turnover-routing.module';
+import {MonthsComponent} from '../turnover/months/months.component';
+import {TurnoverAllHouseComponent} from '../turnover/turnover-all-house/turnover-all-house.component';
+
+;
 
 @NgModule({
   declarations: [
@@ -23,6 +29,8 @@ import {BookingModuleModule} from '../booking-module/booking-module.module';
     DetailHouseComponent,
     HouseCreateComponent,
     OpenListHouse,
+    MonthsComponent,
+    TurnoverAllHouseComponent
   ],
   imports: [
     CommonModule,
@@ -34,10 +42,12 @@ import {BookingModuleModule} from '../booking-module/booking-module.module';
     MatDatepickerModule,
     BookingActiveModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    TurnoverRoutingModule,
+
   ],
   exports: [
-    ListHouseComponent,BookingModuleModule
+    ListHouseComponent, BookingModuleModule, MonthsComponent
   ],
   entryComponents: [
   ]

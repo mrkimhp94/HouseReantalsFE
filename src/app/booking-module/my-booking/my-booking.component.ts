@@ -52,11 +52,14 @@ export class BookingList implements OnInit {
             () => {
               this.notifyService.notify = 'deleteSuccess';
               this.dialog.open(GeneralPopupComponent);
+              window.location.reload();
             }
           );
         }
       }
+
     );
+
 
   }
 

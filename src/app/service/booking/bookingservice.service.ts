@@ -12,20 +12,28 @@ const API_URL = `${environment.api_url}`;
 })
 export class BookingServiceService {
   //lấy id house hiện tại
-currentId : number;
+  currentId: number;
+
   constructor(private http: HttpClient) {
   }
-  public getAllBookingByUserId(id:number): Observable<any> {
-    return this.http.get(API_URL+`/bookings/${id}`);
-  }
-  public  getBookingByHouseId(houseId:number): Observable<any>{
-    return  this.http.get(API_URL+`/bookings/house/${houseId}`)
-  }
-  public doBooking(booking : any) : Observable<any>{
-    return  this.http.post(API_URL+`/bookings`,booking)
-  }
-  public deleteBooking(id:any):Observable<any>{
-    return  this.http.delete(API_URL+`/bookings/${id}`);
 
+  public getAllBookingByUserId(id: number): Observable<any> {
+    return this.http.get(API_URL + `/bookings/${id}`);
+  }
+
+  public getBookingByHouseId(houseId: number): Observable<any> {
+    return this.http.get(API_URL + `/bookings/house/${houseId}`);
+  }
+
+  public doBooking(booking: any): Observable<any> {
+    return this.http.post(API_URL + `/bookings`, booking);
+  }
+
+  public deleteBooking(id: any): Observable<any> {
+    return this.http.delete(API_URL + `/bookings/${id}`);
+  }
+
+  public getBookingByStatus(statusId: number, userId: number): Observable<any> {
+    return this.http.get(API_URL + `/status/${statusId}/${userId}`);
   }
 }
