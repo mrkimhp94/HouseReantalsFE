@@ -130,7 +130,8 @@
             <h4 class="s-property-title">Rating</h4>
 
             <div class="rating">
-              <span class="rating-num">{{totalRate}}</span>
+              <span class="rating-num" *ngIf="totalRate!='NaN'">{{totalRate}}</span>
+              <span class="rating-num" *ngIf="totalRate=='NaN'">0</span>
               <!--              <div class="rating-stars">-->
               <!--                <span *ngIf="totalRate>=1"><i class="active fa fa-star"></i></span>-->
               <!--                <span *ngIf="totalRate<1"><i class="fa fa-star-o"></i></span>-->
@@ -165,6 +166,7 @@
                 <i class="pe-7s-add-user"></i>{{countReview}} total
               </div>
             </div>
+
 
             <div class="histo">
               <div class="five histo-rate">

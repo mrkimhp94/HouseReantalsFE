@@ -132,21 +132,21 @@
               </li>
             </ul><!--/ .sort-by-list-->
 
-            <div class="items-per-page">
-              <label for="items_per_page"><b>Property per page :</b></label>
-              <div class="sel">
-                <select id="items_per_page" name="per_page">
-                  <option value="3">3</option>
-                  <option value="6">6</option>
-                  <option value="9">9</option>
-                  <option selected="selected" value="12">12</option>
-                  <option value="15">15</option>
-                  <option value="30">30</option>
-                  <option value="45">45</option>
-                  <option value="60">60</option>
-                </select>
-              </div><!--/ .sel-->
-            </div><!--/ .items-per-page-->
+<!--            <div class="items-per-page">-->
+<!--              <label for="items_per_page"><b>Property per page :</b></label>-->
+<!--              <div class="sel">-->
+<!--                <select id="items_per_page" name="per_page">-->
+<!--                  <option value="3">3</option>-->
+<!--                  <option value="6">6</option>-->
+<!--                  <option value="9">9</option>-->
+<!--                  <option selected="selected" value="12">12</option>-->
+<!--                  <option value="15">15</option>-->
+<!--                  <option value="30">30</option>-->
+<!--                  <option value="45">45</option>-->
+<!--                  <option value="60">60</option>-->
+<!--                </select>-->
+<!--              </div>&lt;!&ndash;/ .sel&ndash;&gt;-->
+<!--            </div>&lt;!&ndash;/ .items-per-page&ndash;&gt;-->
           </div>
 
 <!--          <div class="col-xs-2 layout-switcher">-->
@@ -165,15 +165,15 @@
                 </div>
 
                 <div class="item-entry overflow">
-                  <h5><a [routerLink]="['/houses/detail',house.houseId]"> {{house.houseName}} </a></h5>
+                  <h5><a [routerLink]="['/houses/detail',house.houseId]" style="width: 235px;display: block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis"> {{house.houseName}} </a></h5>
                   <div class="dot-hr"></div>
                   <span class="pull-left"><b> Area :</b> {{house.area}} </span>
                   <span class="proerty-price pull-right"> {{house.pricePerDay | currency : 'USD' :true : '1.0-3'}}</span>
-                  <p style="display: none;">Suspendisse ultricies Suspendisse ultricies Nulla quis dapibus nisl.
-                    Suspendisse ultricies commodo arcu nec pretium ...</p>
+<!--                  <p style="display: none;">Suspendisse ultricies Suspendisse ultricies Nulla quis dapibus nisl.-->
+<!--                    Suspendisse ultricies commodo arcu nec pretium ...</p>-->
                   <br>
                   <div>
-                    <span class="pull-left"><b> Adress :</b> {{house.houseAddress}} </span>
+                    <span class="pull-left" style="width: 235px;display: block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis"><b> Adress :</b> {{house.houseAddress}} </span>
                   </div>
                   <div class="property-icon">
                     <div>
@@ -191,10 +191,10 @@
                     <div  *ngIf="house.houseStatus==='blank'" style="display:inline-block;width: 50%">
                     <img src="assets/img/icon/status-white.png">For rent
                     </div>
-                    <div  *ngIf="house.houseStatus==='upgrade'">
+                    <div  *ngIf="house.houseStatus==='upgrade'" style="display:inline-block;width: 50%">
                       <img src="assets/img/icon/status-white.png">Repair
                     </div>
-                    <div *ngIf="house.houseStatus==='rent'">
+                    <div *ngIf="house.houseStatus==='rent'" style="display:inline-block;width: 50%">
                       <img src="assets/img/icon/status-white.png">For rent
                     </div>
                     </div>

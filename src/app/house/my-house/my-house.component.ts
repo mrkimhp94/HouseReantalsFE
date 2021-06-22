@@ -37,7 +37,6 @@ export class OpenListHouse implements OnInit {
       this.myHouses = data;
     });
   }
-
   updateStatus(houseId: number, status: string) {
     if (this.isAllowToChangeToUpdate) {
       this.houseService.findByHouseId(houseId).subscribe((data) => {
@@ -94,14 +93,14 @@ export class OpenListHouse implements OnInit {
 
 
   async checkingHouse(houseId: any) {
-    this.dateService.allBookingDate = [];
+    this.dateService.allBookingDate = []
     await this.dateService.setHouseId(houseId).then(
       () => {
         console.log('start');
       }
     ).then(() => {
       console.log('1');
-      console.log(this.dateService.getAllBookingDate());
+      console.log(this.dateService.getAllBookingDate())
       console.log(this.dateService.formatDate(Date.now()));
       console.log(this.dateService.allBookingDate.indexOf(this.dateService.formatDate(Date.now())));
       if (this.dateService.allBookingDate.indexOf(this.dateService.formatDate(Date.now())) != -1) {
@@ -114,6 +113,6 @@ export class OpenListHouse implements OnInit {
   }
 
   setHouseId(houseId: number) {
-    this.houseService.currentHouse = houseId;
+    this.houseService.currentHouse=houseId;
   }
 }
