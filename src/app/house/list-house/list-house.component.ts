@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {HouseService} from '../../service/house/house.service';
 import {House} from '../../model/house';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import * as moment from 'moment';
-
-
 
 
 @Component({
@@ -16,17 +14,18 @@ import * as moment from 'moment';
 })
 export class ListHouseComponent implements OnInit {
   public currentPage = 0;
+  public recommendHouse;
   public size = 9;
   private listHouse: House[] = [];
   private numberOfPage = 1;
   today = new Date();
-  maxDate : Date;
-  message : string;
-  nextday= new Date();
+  maxDate: Date;
+  message: string;
+  nextday = new Date();
   searchForm: FormGroup = new FormGroup({
     search: new FormControl(''),
-    checkin: new FormControl('',Validators.required),
-    checkout: new FormControl('',Validators.required)
+    checkin: new FormControl('', Validators.required),
+    checkout: new FormControl('', Validators.required)
   });
 
 
@@ -38,7 +37,8 @@ export class ListHouseComponent implements OnInit {
 
 
   constructor(private houseService: HouseService,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   get pageArray() {
     const pages = [...Array(this.numberOfPage).keys()];
@@ -47,7 +47,12 @@ export class ListHouseComponent implements OnInit {
 
   ngOnInit() {
     this.getAllHouse();
-
+    this.houseService.getListRecommend().subscribe(
+      result => {
+        this.recommendHouse = result;
+        console.log(this.recommendHouse)
+      }
+    );
   }
 
   getAllHouse() {
@@ -57,13 +62,14 @@ export class ListHouseComponent implements OnInit {
       this.numberOfPage = Math.ceil(this.listHouse.length / this.size);
     });
   }
+
   next() {
     if (this.currentPage < this.numberOfPage - 1) {
       this.currentPage++;
     }
   }
 
-  previous(){
+  previous() {
     if (this.currentPage > 0) {
       this.currentPage--;
     }
@@ -76,12 +82,12 @@ export class ListHouseComponent implements OnInit {
   search() {
     const search = this.searchForm.value.search;
     const checkin = this.formatDate(this.searchForm.value.checkin);
-    const checkout =  this.formatDate(this.searchForm.value.checkout);
+    const checkout = this.formatDate(this.searchForm.value.checkout);
 
     this.houseService.getSearchHouse(search, checkin, checkout).subscribe(listHouse => {
       this.listHouse = listHouse;
-      if (listHouse.length==0){
-        this.message ='There are no suitable homes'
+      if (listHouse.length == 0) {
+        this.message = 'There are no suitable homes';
       }
       this.addImageToHouse(this.listHouse);
       this.router.navigate(['/houses'], {queryParams: {search: search, checkin: checkin, checkout: checkout}});
@@ -98,14 +104,16 @@ export class ListHouseComponent implements OnInit {
     return this.houseService.getAllImageByHouse(house.houseId).toPromise();
 
   }
+
   formatDate(date: any): any {
     return (moment(date)).format('yyyy-MM-DD');
   }
 
   validateForCheckoutDate() {
-    this.nextday = this.formatDate(this.searchForm.value.checkin)
+    this.nextday = this.formatDate(this.searchForm.value.checkin);
   }
+
   validateForCheckinDate() {
-    this.maxDate = this.formatDate(this.searchForm.value.checkout)
+    this.maxDate = this.formatDate(this.searchForm.value.checkout);
   }
 }
