@@ -1,4 +1,4 @@
-export interface Image {
+export interface Users {
   userId?: number;
   fullname?: string;
   password?: string;
@@ -6,6 +6,6 @@ export interface Image {
   userAddress?: string;
   email?: string;
   avatarUrl?: string;
-  bookingList? : [];
-  roles? :any;
+  bookingList?: [];
+  roles?: any;
 }

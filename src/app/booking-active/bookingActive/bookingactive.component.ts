@@ -153,5 +153,3 @@ export class BookingActiveComponent implements OnInit, DoCheck {
     return total;
   }
 }
-
-

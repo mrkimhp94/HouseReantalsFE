@@ -130,7 +130,8 @@
             <h4 class="s-property-title">Rating</h4>
 
             <div class="rating">
-              <span class="rating-num">{{totalRate}}</span>
+              <span class="rating-num" *ngIf="totalRate!='NaN'">{{totalRate}}</span>
+              <span class="rating-num" *ngIf="totalRate=='NaN'">0</span>
               <!--              <div class="rating-stars">-->
               <!--                <span *ngIf="totalRate>=1"><i class="active fa fa-star"></i></span>-->
               <!--                <span *ngIf="totalRate<1"><i class="fa fa-star-o"></i></span>-->
@@ -165,6 +166,7 @@
                 <i class="pe-7s-add-user"></i>{{countReview}} total
               </div>
             </div>
+
 
             <div class="histo">
               <div class="five histo-rate">
@@ -287,7 +289,7 @@
 
     <!--    Review   -->
 
-    <section id="comments" class="comments wow fadeInRight animated">
+    <section id="comments" class="comments wow " style="visibility: visible">
       <h4 class="text-uppercase wow fadeInLeft animated">{{countReview}} comments</h4>
 
 
@@ -307,7 +309,7 @@
       </div>
     </section>
     <br><br><br>
-    <section id="comment-form" class="add-comments">
+    <section id="comment-form" class="add-comments" [hidden]="allowToReview==false">
       <h4 class="text-uppercase wow fadeInLeft animated">Review this house</h4>
       <br><br>
       <form [formGroup]="reviewForm" (ngSubmit)="createNewReview()">
@@ -318,7 +320,7 @@
             <section class='rating-widget'>
 
               <!-- Rating Stars Box -->
-              <div class='rating-stars text-center' id="rating">
+              <div class='rating-stars text-center' id="rating" >
                 <ul id='stars' formControl="rating">
                   <li class='star' title='Poor' data-value='1' value="1">
                     <i class='fa fa-star fa-fw'></i>
@@ -347,7 +349,7 @@
         </div>
 
 
-        <div class="row wow fadeInLeft animated">
+        <div class="row wow fadeInLeft animated" >
           <div class="col-sm-12">
             <div class="form-group">
               <label for="comment"> Your Comment </label>
@@ -358,32 +360,16 @@
 
         <div class="row wow fadeInLeft animated">
           <div class="col-sm-12 text-right">
-            <button class="btn btn-primary" type="submit"><i class="fa fa-comment-o"></i> Post review</button>
+            <button  class="btn btn-primary" type="submit"><i class="fa fa-comment-o"></i> Post review</button>
           </div>
         </div>
       </form>
     </section>
-
+      <strong *ngIf="allowToReview==false">
+        You can only rate this room when you have a full experience of this house, wish you a good experience <span><img style="height: 40px"
+        src="https://www.flaticon.com/free-icon/lets-go_3159039?term=let%20go&page=1&position=3&page=1&position=3&related_id=3159039&origin=search" alt=""></span></strong>
   </div>
 </div>
-<script>
-  $(document).ready(function () {
-
-    $('#image-gallery').lightSlider({
-      gallery: true,
-      item: 1,
-      thumbItem: 9,
-      slideMargin: 0,
-      speed: 500,
-      auto: true,
-      loop: true,
-      onSliderLoad: function () {
-        $('#image-gallery').removeClass('cS-hidden');
-      }
-    });
-  });
-</script>
-
 </body>
 
 

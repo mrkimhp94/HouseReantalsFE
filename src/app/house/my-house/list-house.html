@@ -34,6 +34,21 @@
               </li>
             </ul><!--/ .sort-by-list-->
 
+            <div class="items-per-page pull-right">
+              <button mat-button color="accent" routerLink="/allHouseStatics">Turnover</button>
+              <label for="items_per_page"><b>Property per page :</b></label>
+              <div class="sel">
+                <select id="items_per_page" name="per_page">
+                  <option value="3">3</option>
+                  <option value="6">6</option>
+                  <option value="9">9</option>
+                  <option selected="selected" value="12">12</option>
+                  <option value="15">15</option>
+                </select>
+              </div><!--/ .sel-->
+            </div><!--/ .items-per-page-->
+          </div>
+
         </div>
 
         <div class="section">
@@ -49,26 +64,31 @@
                     <a><img src="{{house&&house.imagesList[0]?.linkImage}}"></a>
                   </div>
                   <div class="item-entry overflow">
-                    <h5><a> {{house.houseName}} </a></h5>
+                    <h5><a> {{house.houseName}} </a>
+                      <button (click)="setHouseId(house.houseId)" mat-button routerLink="/statistics" color="accent">
+                        Analysis
+                      </button>
+                    </h5>
                     <div class="dot-hr"></div>
                     <span class="pull-left"><b> Area :</b> {{house.area}} </span> m2
                     <span
                       class="proerty-price pull-right">{{house.pricePerDay | currency : 'USD' :true : '1.0-3'}}</span>
 
                     <p style="display: none;">{{house.description}} </p>
-<div class="container" style="position: absolute; bottom: 0px">
-                    <div class="property-icon" style="width: 80%" >
-                      <img src="assets/img/icon/bed.png"> {{house.bedroomQuantity}}|
-                      <img src="assets/img/icon/shawer.png"> {{house.bathroomQuantity}}|
-                      <img src="assets/img/icon/status-white.png"> {{house.houseStatus}}
+                    <div class="container" style="position: absolute; bottom: 0px">
+                      <div class="property-icon" style="width: 80%">
+                        <img src="assets/img/icon/bed.png"> {{house.bedroomQuantity}}|
+                        <img src="assets/img/icon/shawer.png"> {{house.bathroomQuantity}}|
+                        <img src="assets/img/icon/status-white.png"> {{house.houseStatus}}
 
-                      <div class="dealer-action pull-right " style="width: 50%;float: right">
-                        <button mat-button color="primary" (click)="changeBlankStatus(house.houseId)">Blank</button>
-                        <button mat-button color="warn" (click)="changeRentStatus(house.houseId)">Rent</button>
-                        <button style="color:saddlebrown;" (click)="changeUpgradeStatus(house.houseId)">Upgrade</button>
+                        <div class="dealer-action pull-right " style="width: 50%;float: right">
+                          <button mat-button color="primary" (click)="changeBlankStatus(house.houseId)">Blank</button>
+                          <button mat-button color="warn" (click)="changeRentStatus(house.houseId)">Rent</button>
+                          <button style="color:saddlebrown;" (click)="changeUpgradeStatus(house.houseId)">Upgrade
+                          </button>
+                        </div>
                       </div>
                     </div>
-</div>
                   </div>
                 </div>
               </div>
@@ -93,6 +113,5 @@
       </div>
     </div>
   </div>
-</div>
 </div>
 <app-footer></app-footer>

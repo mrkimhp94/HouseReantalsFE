@@ -6,7 +6,6 @@ import {UserServiceService} from '../../service/user-service.service';
 import {NotifyServiceService} from '../../service/notify/notify-service.service';
 import {DateServiceService} from '../../service/date/date-service.service';
 import {GeneralPopupComponent} from '../../general-popup/general-popup.component';
-import {Image} from '../../model/image';
 
 
 @Component({
@@ -18,7 +17,6 @@ export class OpenListHouse implements OnInit {
   myHouses: House[] = [];
   myBooking = [];
   house: House;
-  listImage : Image[];
   isAllowToChangeToUpdate: boolean; //cho phep doi rent -> blank hay khong
 
   ngOnInit(): void {
@@ -37,13 +35,6 @@ export class OpenListHouse implements OnInit {
   getAllMyHouse(id: number) {
     this.houseService.getAllHouseOfUser(id).subscribe(data => {
       this.myHouses = data;
-      this.addImageToHouse(this.myHouses);
-      console.log(this.myHouses);
-    });
-  }
-  private addImageToHouse(listHouse: House[]) {
-    listHouse.map(async house => {
-      house.imagesList = await this.houseService.getAllImageByHouse(house.houseId).toPromise();
     });
   }
 
@@ -103,14 +94,14 @@ export class OpenListHouse implements OnInit {
 
 
   async checkingHouse(houseId: any) {
-    this.dateService.allBookingDate = []
+    this.dateService.allBookingDate = [];
     await this.dateService.setHouseId(houseId).then(
       () => {
         console.log('start');
       }
     ).then(() => {
       console.log('1');
-      console.log(this.dateService.getAllBookingDate())
+      console.log(this.dateService.getAllBookingDate());
       console.log(this.dateService.formatDate(Date.now()));
       console.log(this.dateService.allBookingDate.indexOf(this.dateService.formatDate(Date.now())));
       if (this.dateService.allBookingDate.indexOf(this.dateService.formatDate(Date.now())) != -1) {
@@ -120,5 +111,9 @@ export class OpenListHouse implements OnInit {
       }
     });
 
+  }
+
+  setHouseId(houseId: number) {
+    this.houseService.currentHouse = houseId;
   }
 }
