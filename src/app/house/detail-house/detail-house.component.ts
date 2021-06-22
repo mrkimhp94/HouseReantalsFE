@@ -78,16 +78,16 @@ export class DetailHouseComponent implements OnInit {
   }
 
   async ngOnInit() {
-    if (this.userService.getCurrentUser() != null) {
-      this.userService.checkRightForReview(this.userService.getCurrentUser().id, this.bookingService.currentId).subscribe(
-        result => {
-          if (result == 0) {
-            return this.allowToReview = false;
-          }
-          return this.allowToReview = true;
-        }
-      );
-    }
+    // if (this.userService.getCurrentUser() != null) {
+    //   this.userService.checkRightForReview(this.userService.getCurrentUser().id, this.bookingService.currentId).subscribe(
+    //     result => {
+    //       if (result == 0) {
+    //         return this.allowToReview = false;
+    //       }
+    //       return this.allowToReview = true;
+    //     }
+    //   );
+    // }
     await this.getHouse(this.houseId).then(() => {
       console.log('Sau Khi lay ra house');
 
@@ -107,6 +107,7 @@ export class DetailHouseComponent implements OnInit {
         });
       });
     });
+    await this.getReviews()
     this.connect();
 
 
