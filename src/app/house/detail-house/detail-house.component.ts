@@ -29,7 +29,7 @@ declare var $: any;
 })
 export class DetailHouseComponent implements OnInit {
   stompClient: any;
-  allowToReview: boolean;
+  allowToReview:boolean= false;
   houseId?: any;
   house: House;
   images: string[] = [];

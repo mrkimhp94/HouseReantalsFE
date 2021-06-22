@@ -19,7 +19,6 @@ import {BookingModuleModule} from '../booking-module/booking-module.module';
 import {TurnoverModule} from '../turnover/turnover.module';
 import {TurnoverRoutingModule} from '../turnover/turnover-routing.module';
 import {MonthsComponent} from '../turnover/months/months.component';
-import {TurnoverAllHouseComponent} from '../turnover/turnover-all-house/turnover-all-house.component';
 
 ;
 
@@ -30,7 +29,6 @@ import {TurnoverAllHouseComponent} from '../turnover/turnover-all-house/turnover
     HouseCreateComponent,
     OpenListHouse,
     MonthsComponent,
-    TurnoverAllHouseComponent
   ],
   imports: [
     CommonModule,
