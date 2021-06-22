@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 
 
 import {HouseService} from '../../service/house/house.service';
@@ -17,6 +17,8 @@ import {SocketService} from '../../service/socket/socket.service';
 
 import {UserServiceService} from '../../service/user-service.service';
 import {DateServiceService} from '../../service/date/date-service.service';
+import {NotifyServiceService} from '../../service/notify/notify-service.service';
+import {DOCUMENT} from '@angular/common';
 
 
 const API_URL = `${environment.api_url}`;
@@ -29,7 +31,7 @@ declare var $: any;
 })
 export class DetailHouseComponent implements OnInit {
   stompClient: any;
-  allowToReview:boolean= false;
+  allowToReview: boolean = false;
   houseId?: any;
   house: House;
   images: string[] = [];
@@ -49,11 +51,13 @@ export class DetailHouseComponent implements OnInit {
   constructor(private houseService: HouseService,
               private bookingService: BookingServiceService,
               private reviewService: ReviewService,
+              @Inject(DOCUMENT) private document : Document,
               private socketService: SocketService,
               private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService,
               private userService: UserServiceService,
-              private  dateService : DateServiceService,
+              private dateService: DateServiceService,
+              private notifyService: NotifyServiceService,
               private router: Router) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.houseId = paramMap.get('houseId');
@@ -67,7 +71,6 @@ export class DetailHouseComponent implements OnInit {
   }
 
   async getHouse(houseId: number) {
-    console.log(houseId);
     await this.houseService.findByHouseId(houseId).toPromise().then((house) => {
       console.log('Function  lay ra list house');
       this.houseService.currentHouse = house;
@@ -97,7 +100,7 @@ export class DetailHouseComponent implements OnInit {
         });
       });
     });
-    await this.getReviews()
+    await this.getReviews();
     this.connect();
 
 
@@ -196,6 +199,10 @@ export class DetailHouseComponent implements OnInit {
 
   getReviews() {
     return this.reviewService.getAllReview(this.houseId).subscribe(listReview => {
+      for (let i = 0; i < listReview.length; i++) {
+        // @ts-ignore
+        listReview[i].postDate = this.dateService.formatDateTime(listReview[i].postDate);
+      }
       this.reviewList = listReview;
       this.countReview = listReview.length;
       for (let review of this.reviewList) {
@@ -233,8 +240,14 @@ export class DetailHouseComponent implements OnInit {
       }
     };
     this.createReviewUsingSocket(review);
-    this.checkAllowToReview()
-    await this.getReviews();
+    await this.checkAllowToReview();
+
+    // save current route first
+    const currentRoute = this.router.url;
+
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([`houses/detail/24`]); // navigate to same route
+    });
 
   }
 
@@ -267,6 +280,7 @@ export class DetailHouseComponent implements OnInit {
             return this.allowToReview = false;
           }
           return this.allowToReview = true;
+
         }
       );
     }
