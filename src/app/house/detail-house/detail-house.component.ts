@@ -258,7 +258,6 @@ export class DetailHouseComponent implements OnInit {
             return this.allowToReview = false;
           }
           return this.allowToReview = true;
-
         }
       );
     }
