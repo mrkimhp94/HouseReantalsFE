@@ -81,7 +81,7 @@ export class ListHouseComponent implements OnInit {
     this.houseService.getSearchHouse(search, checkin, checkout).subscribe(listHouse => {
       this.listHouse = listHouse;
       if (listHouse.length==0){
-        this.message ='There are no suitable homes'
+        this.message ='No result'
       }
       this.addImageToHouse(this.listHouse);
       this.router.navigate(['/houses'], {queryParams: {search: search, checkin: checkin, checkout: checkout}});
