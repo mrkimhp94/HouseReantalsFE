@@ -22,7 +22,7 @@
                   <input matInput placeholder="Enter house name or place" formControlName="search">
                 </mat-form-field>
                 <mat-form-field>
-                  <input matInput [matDatepicker]="picker" (dateChange)="validateForCheckoutDate()" [min]="today"
+                  <input matInput [matDatepicker]="picker" (dateChange)="validateForCheckoutDate()" [min]="today" readonly
                          [max]="maxDate" placeholder="Choose Checkin Date"
                          formControlName="checkin">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -31,7 +31,7 @@
                   </mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                  <input matInput [matDatepicker]="picker1" (dateChange)="validateForCheckinDate()" [min]="nextday"
+                  <input matInput [matDatepicker]="picker1" (dateChange)="validateForCheckinDate()" [min]="nextday" readonly
                          placeholder="Choose checkout date"
                          formControlName="checkout">
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>

@@ -16,6 +16,7 @@ import {AuthenticationService} from '../../service/authentication.service';
 import {SocketService} from '../../service/socket/socket.service';
 
 import {UserServiceService} from '../../service/user-service.service';
+import {DateServiceService} from '../../service/date/date-service.service';
 
 
 const API_URL = `${environment.api_url}`;
@@ -55,6 +56,7 @@ export class DetailHouseComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService,
               private userService: UserServiceService,
+              private  dateService : DateServiceService,
               private router: Router) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.houseId = paramMap.get('houseId');
@@ -78,16 +80,7 @@ export class DetailHouseComponent implements OnInit {
   }
 
   async ngOnInit() {
-    // if (this.userService.getCurrentUser() != null) {
-    //   this.userService.checkRightForReview(this.userService.getCurrentUser().id, this.bookingService.currentId).subscribe(
-    //     result => {
-    //       if (result == 0) {
-    //         return this.allowToReview = false;
-    //       }
-    //       return this.allowToReview = true;
-    //     }
-    //   );
-    // }
+    this.checkAllowToReview();
     await this.getHouse(this.houseId).then(() => {
       console.log('Sau Khi lay ra house');
 
@@ -107,7 +100,7 @@ export class DetailHouseComponent implements OnInit {
         });
       });
     });
-    await this.getReviews()
+    await this.getReviews();
     this.connect();
 
 
@@ -206,7 +199,10 @@ export class DetailHouseComponent implements OnInit {
 
   getReviews() {
     return this.reviewService.getAllReview(this.houseId).subscribe(listReview => {
-      this.reviewList = listReview;
+      for(let i =0;i<listReview.length;i++){
+        listReview[i].postDate=this.dateService.formatDateTime(listReview[i].postDate)
+      }
+      this.reviewList= listReview
       this.countReview = listReview.length;
       for (let review of this.reviewList) {
         if (review.rating == 1) {
@@ -243,6 +239,7 @@ export class DetailHouseComponent implements OnInit {
       }
     };
     this.createReviewUsingSocket(review);
+    this.checkAllowToReview()
     await this.getReviews();
 
   }
@@ -268,5 +265,17 @@ export class DetailHouseComponent implements OnInit {
     this.stompClient.send('/app/houses', {}, JSON.stringify(review));
   }
 
+  checkAllowToReview() {
+    if (this.userService.getCurrentUser() != null) {
+      this.userService.checkRightForReview(this.userService.getCurrentUser().id, this.bookingService.currentId).subscribe(
+        result => {
+          if (result == 0) {
+            return this.allowToReview = false;
+          }
+          return this.allowToReview = true;
+        }
+      );
+    }
+  }
 
 }
