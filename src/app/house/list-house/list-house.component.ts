@@ -15,6 +15,7 @@ import * as moment from 'moment';
 export class ListHouseComponent implements OnInit {
   public currentPage = 0;
   public recommendHouse;
+  public stars;
   public size = 9;
   private listHouse: House[] = [];
   private numberOfPage = 1;
@@ -50,7 +51,13 @@ export class ListHouseComponent implements OnInit {
     this.houseService.getListRecommend().subscribe(
       result => {
         this.recommendHouse = result;
-        console.log(this.recommendHouse)
+        console.log(this.recommendHouse);
+      }
+    );
+    this.houseService.getTop5Stars().subscribe(
+      result => {
+        console.log(result)
+        this.stars = result;
       }
     );
   }

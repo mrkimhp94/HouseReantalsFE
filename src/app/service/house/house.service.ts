@@ -71,4 +71,7 @@ export class HouseService {
   getListRecommend() {
     return this.http.get<any>(`${API_URL}/houses/top5`);
   }
+  getTop5Stars(){
+    return this.http.get(`${API_URL}/houses/stars`)
+  }
 }

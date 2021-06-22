@@ -56,11 +56,11 @@
             </div>
             <div class="panel-body recent-property-widget">
               <ul>
-                <li *ngFor=" let recommend of recommendHouse">
+                <li *ngFor=" let recommend of recommendHouse ; index as i">
                   <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
                     <a href="single.html"><img src="assets/img/demo/small-property-2.jpg"></a>
                     <span class="property-seeker">
-                                                    <b class="b-1">5*</b>
+                                                    <b class="b-1">{{stars[i]}}</b>
 <!--                                                    <b class="b-2">S</b>-->
                                                 </span>
                   </div>
