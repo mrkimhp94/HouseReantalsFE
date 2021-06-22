@@ -6,6 +6,7 @@ import {UserServiceService} from '../../service/user-service.service';
 import {NotifyServiceService} from '../../service/notify/notify-service.service';
 import {DateServiceService} from '../../service/date/date-service.service';
 import {GeneralPopupComponent} from '../../general-popup/general-popup.component';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class OpenListHouse implements OnInit {
               private userService: UserServiceService,
               private dialog: MatDialog,
               private notifyService: NotifyServiceService,
+              private router:Router,
               private dateService: DateServiceService) {
 
   }
@@ -59,6 +61,10 @@ export class OpenListHouse implements OnInit {
         this.houseService.upDateHouse(houseId, status).subscribe((data) => {
           this.dialog.open(GeneralPopupComponent);
           this.notifyService.notify = 'success';
+          const currentRoute = this.router.url;
+          this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+            this.router.navigate([currentRoute]); // navigate to same route
+          });
         });
       });
     } else {
