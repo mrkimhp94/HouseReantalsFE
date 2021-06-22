@@ -16,12 +16,12 @@
               <h3 class="panel-title">Smart search</h3>
             </div>
             <div class="panel-body search-widget">
-              <form [formGroup]="searchForm" (ngSubmit)="search()">
-                <mat-form-field>
+              <form [formGroup]="searchForm" (ngSubmit)="search()" style="text-align: center">
+                <mat-form-field style="width: 80%">
                   <mat-label>Search</mat-label>
-                  <input matInput placeholder="Enter house name or place" formControlName="search">
+                  <input matInput placeholder="Enter house name or place" formControlName="search" style="width: 80%">
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field style="width: 80%">
                   <input matInput [matDatepicker]="picker" (dateChange)="validateForCheckoutDate()" [min]="today" readonly
                          [max]="maxDate" placeholder="Choose Checkin Date"
                          formControlName="checkin">
@@ -30,7 +30,7 @@
                   <mat-error *ngIf="searchForm.controls['checkin'].hasError( 'required')">This field is required
                   </mat-error>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field style="width: 80%">
                   <input matInput [matDatepicker]="picker1" (dateChange)="validateForCheckinDate()" [min]="nextday" readonly
                          placeholder="Choose checkout date"
                          formControlName="checkout">
@@ -42,7 +42,7 @@
                 <fieldset>
                   <div class="row">
                     <div class="col-xs-12">
-                      <input class="button btn largesearch-btn" value="Search" type="submit">
+                      <input class="button btn largesearch-btn" style="width: 80%"  value="Search" type="submit">
                     </div>
                   </div>
                 </fieldset>
@@ -78,43 +78,22 @@
       </div>
 
       <div class="col-md-9  pr0 padding-top-40 properties-page">
-        <div class="col-md-12 clear">
-          <div class="col-xs-10 page-subheader sorting pl0">
-            <ul class="sort-by-list">
-              <li class="active">
-                <a href="javascript:void(0);" class="order_by_date" data-orderby="property_date" data-order="ASC">
-                  Property Date <i class="fa fa-sort-amount-asc"></i>
-                </a>
-              </li>
-              <li class="">
-                <a href="javascript:void(0);" class="order_by_price" data-orderby="property_price" data-order="DESC">
-                  Property Price <i class="fa fa-sort-numeric-desc"></i>
-                </a>
-              </li>
-            </ul><!--/ .sort-by-list-->
-
-<!--            <div class="items-per-page">-->
-<!--              <label for="items_per_page"><b>Property per page :</b></label>-->
-<!--              <div class="sel">-->
-<!--                <select id="items_per_page" name="per_page">-->
-<!--                  <option value="3">3</option>-->
-<!--                  <option value="6">6</option>-->
-<!--                  <option value="9">9</option>-->
-<!--                  <option selected="selected" value="12">12</option>-->
-<!--                  <option value="15">15</option>-->
-<!--                  <option value="30">30</option>-->
-<!--                  <option value="45">45</option>-->
-<!--                  <option value="60">60</option>-->
-<!--                </select>-->
-<!--              </div>&lt;!&ndash;/ .sel&ndash;&gt;-->
-<!--            </div>&lt;!&ndash;/ .items-per-page&ndash;&gt;-->
-          </div>
-
-<!--          <div class="col-xs-2 layout-switcher">-->
-<!--            <a class="layout-list" href="javascript:void(0);"> <i class="fa fa-th-list"></i> </a>-->
-<!--            <a class="layout-grid active" href="javascript:void(0);"> <i class="fa fa-th"></i> </a>-->
-<!--          </div>&lt;!&ndash;/ .layout-switcher&ndash;&gt;-->
-        </div>
+<!--        <div class="col-md-12 clear">-->
+<!--          <div class="col-xs-10 page-subheader sorting pl0">-->
+<!--            <ul class="sort-by-list">-->
+<!--              <li class="active">-->
+<!--                <a href="javascript:void(0);" class="order_by_date" data-orderby="property_date" data-order="ASC">-->
+<!--                  Property Date <i class="fa fa-sort-amount-asc"></i>-->
+<!--                </a>-->
+<!--              </li>-->
+<!--              <li class="">-->
+<!--                <a href="javascript:void(0);" class="order_by_price" data-orderby="property_price" data-order="DESC">-->
+<!--                  Property Price <i class="fa fa-sort-numeric-desc"></i>-->
+<!--                </a>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--        </div>-->
         <div class="col-md-12 clear">
           <div id="list-type" class="proerty-th">
             <div class="col-sm-6 col-md-4 p0" *ngFor="let house of filteredListHouse; index as i">
@@ -128,10 +107,9 @@
                 <div class="item-entry overflow">
                   <h5><a [routerLink]="['/houses/detail',house.houseId]" style="width: 235px;display: block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis"> {{house.houseName}} </a></h5>
                   <div class="dot-hr"></div>
-                  <span class="pull-left"><b> Area :</b> {{house.area}} </span>
+                  <span class="pull-left"><b> Area :</b> {{house.area}} m2 </span>
                   <span class="proerty-price pull-right"> {{house.pricePerDay | currency : 'USD' :true : '1.0-3'}}</span>
-<!--                  <p style="display: none;">Suspendisse ultricies Suspendisse ultricies Nulla quis dapibus nisl.-->
-<!--                    Suspendisse ultricies commodo arcu nec pretium ...</p>-->
+
                   <br>
                   <div>
                     <span class="pull-left" style="width: 235px;display: block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis"><b> Adress :</b> {{house.houseAddress}} </span>
@@ -168,7 +146,7 @@
         </div>
         <div style="text-align: center"><h3>{{message}}</h3></div>
 
-        <div class="col-md-12" *ngIf="!message">
+        <div class="col-md-12" *ngIf="!message &&listHouse.length>9">
           <div class="pull-right">
             <div class="pagination">
               <ul>

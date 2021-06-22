@@ -44,10 +44,7 @@ export class DetailHouseComponent implements OnInit {
   review: Review;
   currentUser: UserToken = {};
   public style: 'width:500px;height:600px;';
-  reviewForm: FormGroup = new FormGroup({
-    rating: new FormControl('', Validators.required),
-    comment: new FormControl('')
-  });
+
 
   constructor(private houseService: HouseService,
               private bookingService: BookingServiceService,
@@ -100,7 +97,7 @@ export class DetailHouseComponent implements OnInit {
         });
       });
     });
-    await this.getReviews();
+    await this.getReviews()
     this.connect();
 
 
@@ -199,10 +196,7 @@ export class DetailHouseComponent implements OnInit {
 
   getReviews() {
     return this.reviewService.getAllReview(this.houseId).subscribe(listReview => {
-      for(let i =0;i<listReview.length;i++){
-        listReview[i].postDate=this.dateService.formatDateTime(listReview[i].postDate)
-      }
-      this.reviewList= listReview
+      this.reviewList = listReview;
       this.countReview = listReview.length;
       for (let review of this.reviewList) {
         if (review.rating == 1) {

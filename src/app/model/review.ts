@@ -4,5 +4,5 @@ export interface Review {
   comment?: string;
   rating?:number;
   house?: any;
-  postDate?: any;
+  postDate?: Date;
 }

@@ -14,7 +14,7 @@
   <div class="container">
     <div class="row">
       <div class="page-head-content">
-        <h1 class="page-title">Super nice villa </h1>
+        <h1 class="page-title"> </h1>
       </div>
     </div>
   </div>
@@ -132,18 +132,6 @@
             <div class="rating">
               <span class="rating-num" *ngIf="totalRate!='NaN'">{{totalRate}}</span>
               <span class="rating-num" *ngIf="totalRate=='NaN'">0</span>
-              <!--              <div class="rating-stars">-->
-              <!--                <span *ngIf="totalRate>=1"><i class="active fa fa-star"></i></span>-->
-              <!--                <span *ngIf="totalRate<1"><i class="fa fa-star-o"></i></span>-->
-              <!--                <span *ngIf="totalRate>=2"><i class="active fa fa-star"></i></span>-->
-              <!--                <span *ngIf="totalRate<2"><i class="fa fa-star-o"></i></span>-->
-              <!--                <span *ngIf="totalRate>=3"><i class="active fa fa-star"></i></span>-->
-              <!--                <span *ngIf="totalRate<3"><i class="fa fa-star-o"></i></span>-->
-              <!--                <span *ngIf="totalRate>=4"><i class="active fa fa-star"></i></span>-->
-              <!--                <span *ngIf="totalRate<=4"><i class="fa fa-star-o"></i></span>-->
-              <!--                <span *ngIf="totalRate==5"><i class="active fa fa-star"></i></span>-->
-              <!--                <span *ngIf="totalRate<5"><i class="fa fa-star-o"></i></span>-->
-              <!--              </div>-->
               <div style="
               background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/2605/star-rating-sprite.png');
               font-size: 0;
@@ -159,11 +147,10 @@
                 float: left;
                 height: 21px;
                 display:block;
-                }
-"></span>
+                }"></span>
               </div>
               <div class="rating-users">
-                <i class="pe-7s-add-user"></i>{{countReview}} total
+                <i class="pe-7s-add-user"></i>{{countReview}} total vote
               </div>
             </div>
 
@@ -171,7 +158,8 @@
             <div class="histo">
               <div class="five histo-rate">
                 <span class="histo-star"><i class="active fa fa-star-o"></i> 5</span>
-                <span class="bar-block" [ngStyle]="{'width': ((fiveStar/countReview)*80) + '%'}">
+                <span class="
+                -block" [ngStyle]="{'width': ((fiveStar/countReview)*80) + '%'}">
                       <span id="bar-five" class="bar">
                           <span>{{fiveStar}}</span>&nbsp;
                       </span>
@@ -216,7 +204,7 @@
             </div>
 
           </div>
-          <!-- End description area  -->\
+          <!-- End description area  -->
           <br><br>
 
 
