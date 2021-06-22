@@ -68,7 +68,7 @@ export class HouseCreateComponent implements OnInit {
           },
           pricePerDay: {
             required: true,
-            regex: /\d{1,5}/
+            regex: /^-?(0|[1-9]\d*)?$/
           },
           houseAddress:{
             required: true,
@@ -81,7 +81,7 @@ export class HouseCreateComponent implements OnInit {
           },
           area: {
             required: true,
-            regex: /\d{1,5}/
+            regex:/^-?(0|[1-9]\d*)?$/
           },
           type: {
             required: true
@@ -125,10 +125,9 @@ export class HouseCreateComponent implements OnInit {
           }
         },
         errorElement: 'span',
-        errorClass: 'label label-danger',
         errorPlacement: function(error, element) {
           isValidated = false;
-          error.addClass('invalid-feedback');
+          error.addClass('text-danger');
           element.closest('.form-group').append(error);
         },
         highlight: function(element, errorClass, validClass) {
@@ -136,6 +135,7 @@ export class HouseCreateComponent implements OnInit {
         },
         unhighlight: function(element, errorClass, validClass) {
           $(element).removeClass('is-invalid');
+          isValidated=true;
         }
       });
     });

@@ -43,10 +43,7 @@ export class DetailHouseComponent implements OnInit {
   review: Review;
   currentUser: UserToken = {};
   public style: 'width:500px;height:600px;';
-  reviewForm: FormGroup = new FormGroup({
-    rating: new FormControl('', Validators.required),
-    comment: new FormControl('')
-  });
+
 
   constructor(private houseService: HouseService,
               private bookingService: BookingServiceService,
@@ -78,16 +75,16 @@ export class DetailHouseComponent implements OnInit {
   }
 
   async ngOnInit() {
-    // if (this.userService.getCurrentUser() != null) {
-    //   this.userService.checkRightForReview(this.userService.getCurrentUser().id, this.bookingService.currentId).subscribe(
-    //     result => {
-    //       if (result == 0) {
-    //         return this.allowToReview = false;
-    //       }
-    //       return this.allowToReview = true;
-    //     }
-    //   );
-    // }
+    if (this.userService.getCurrentUser() != null) {
+      this.userService.checkRightForReview(this.userService.getCurrentUser().id, this.bookingService.currentId).subscribe(
+        result => {
+          if (result == 0) {
+            return this.allowToReview = false;
+          }
+          return this.allowToReview = true;
+        }
+      );
+    }
     await this.getHouse(this.houseId).then(() => {
       console.log('Sau Khi lay ra house');
 
