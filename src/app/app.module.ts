@@ -32,8 +32,6 @@ import {ChangePasswordModule} from './change-password/change-password.module';
 import {ChangePasswordRoutingModule} from "./change-password/change-password-routing.module";
 
 import { BookingHistoryComponent } from './booking-module/booking-history/booking-history.component';
-import { TurnoverAllHouseComponent } from './turnover/turnover-all-house/turnover-all-house.component';
-
 @NgModule({
   declarations: [
     AppComponent,

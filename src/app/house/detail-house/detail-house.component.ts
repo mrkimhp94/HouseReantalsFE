@@ -16,6 +16,7 @@ import {AuthenticationService} from '../../service/authentication.service';
 import {SocketService} from '../../service/socket/socket.service';
 
 import {UserServiceService} from '../../service/user-service.service';
+import {DateServiceService} from '../../service/date/date-service.service';
 
 
 const API_URL = `${environment.api_url}`;
@@ -28,7 +29,7 @@ declare var $: any;
 })
 export class DetailHouseComponent implements OnInit {
   stompClient: any;
-  allowToReview: boolean;
+  allowToReview:boolean= false;
   houseId?: any;
   house: House;
   images: string[] = [];
@@ -55,6 +56,7 @@ export class DetailHouseComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService,
               private userService: UserServiceService,
+              private  dateService : DateServiceService,
               private router: Router) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.houseId = paramMap.get('houseId');
@@ -78,29 +80,7 @@ export class DetailHouseComponent implements OnInit {
   }
 
   async ngOnInit() {
-    if (this.userService.getCurrentUser()!=null) {
-      this.userService.checkRightForReview(this.userService.getCurrentUser().id, this.bookingService.currentId).subscribe(
-        result => {
-          if (result == 0) {
-            return this.allowToReview = false;
-          }
-          return this.allowToReview = true;
-        }
-      );
-    }else {
-      return this.allowToReview= false;
-    };
-    console.log('ON init RUN');
-    // if (this.userService.getCurrentUser() != null) {
-    //   this.userService.checkRightForReview(this.userService.getCurrentUser().id, this.bookingService.currentId).subscribe(
-    //     result => {
-    //       if (result == 0) {
-    //         return this.allowToReview = false;
-    //       }
-    //       return this.allowToReview = true;
-    //     }
-    //   );
-    // }
+    this.checkAllowToReview();
     await this.getHouse(this.houseId).then(() => {
       console.log('Sau Khi lay ra house');
 
@@ -120,7 +100,7 @@ export class DetailHouseComponent implements OnInit {
         });
       });
     });
-    await this.getReviews()
+    await this.getReviews();
     this.connect();
 
 
@@ -146,24 +126,6 @@ export class DetailHouseComponent implements OnInit {
       });
 
 
-      });
-      $(document).ready(function() {
-        $('.bar span').hide();
-        $('#bar-five').animate({
-          width: ((this.fiveStar / this.countReview) * 80) + '%'
-        });
-        $('#bar-four').animate({
-          width: ((this.fourStar / this.countReview) * 80) + '%'
-        });
-        $('#bar-three').animate({
-          width: ((this.threeStar / this.countReview) * 80) + '%'
-        });
-        $('#bar-two').animate({
-          width: ((this.twoStar / this.countReview) * 80) + '%'
-        });
-        $('#bar-one').animate({
-          width: ((this.oneStar / this.countReview) * 80) + '%'
-        });
       /* 2. Action to perform on click */
       $('#stars li').on('click', function() {
         var onStar = parseInt($(this).data('value'), 10); // The star currently selected
@@ -233,13 +195,14 @@ export class DetailHouseComponent implements OnInit {
       $('.success-box div.text-message').html('<span>' + msg + '</span>');
     }
 
-    console.log('onInit chay xong');
-    console.log(this.allowToReview);
   }
 
   getReviews() {
     return this.reviewService.getAllReview(this.houseId).subscribe(listReview => {
-      this.reviewList = listReview;
+      for(let i =0;i<listReview.length;i++){
+        listReview[i].postDate=this.dateService.formatDateTime(listReview[i].postDate)
+      }
+      this.reviewList= listReview
       this.countReview = listReview.length;
       for (let review of this.reviewList) {
         if (review.rating == 1) {
@@ -276,6 +239,7 @@ export class DetailHouseComponent implements OnInit {
       }
     };
     this.createReviewUsingSocket(review);
+    this.checkAllowToReview()
     await this.getReviews();
 
   }
@@ -299,7 +263,19 @@ export class DetailHouseComponent implements OnInit {
 
   createReviewUsingSocket(review) {
     this.stompClient.send('/app/houses', {}, JSON.stringify(review));
-}
+  }
 
+  checkAllowToReview() {
+    if (this.userService.getCurrentUser() != null) {
+      this.userService.checkRightForReview(this.userService.getCurrentUser().id, this.bookingService.currentId).subscribe(
+        result => {
+          if (result == 0) {
+            return this.allowToReview = false;
+          }
+          return this.allowToReview = true;
+        }
+      );
+    }
+  }
 
 }

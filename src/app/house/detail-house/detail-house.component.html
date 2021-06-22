@@ -309,7 +309,7 @@
       </div>
     </section>
     <br><br><br>
-    <section id="comment-form" class="add-comments" [hidden]="allowToReview==false">
+    <section id="comment-form" class="add-comments"  [(ngModel)]="allowToReview" [hidden]="allowToReview==false">
       <h4 class="text-uppercase wow fadeInLeft animated">Review this house</h4>
       <br><br>
       <form (ngSubmit)="createNewReview()">
@@ -365,9 +365,6 @@
         </div>
       </form>
     </section>
-      <strong *ngIf="allowToReview==false">
-        You can only rate this room when you have a full experience of this house, wish you a good experience <span><img style="height: 40px"
-        src="https://www.flaticon.com/free-icon/lets-go_3159039?term=let%20go&page=1&position=3&page=1&position=3&related_id=3159039&origin=search" alt=""></span></strong>
   </div>
 </div>
 </body>

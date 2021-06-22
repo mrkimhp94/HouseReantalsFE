@@ -76,6 +76,10 @@ export class DateServiceService {
   formatDate(date: any) {
     return (moment(date)).format('yyyy-MM-DD');
   }
+  formatDateTime(date: any) {
+    return (moment(date)).format('yyyy-MM-DD HH:mm:ss');
+  }
+
 
 
   checkTotalMoney(start: any, end: any): number {
