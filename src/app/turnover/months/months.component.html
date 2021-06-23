@@ -10,6 +10,7 @@
       <div style="text-align: center"><h3>Total booking per each month </h3>
         <!--        <span>Select month</span>-->
 <!--        <label for="month">Select month : </label>-->
+        <label>Select month :</label>
         <select [(ngModel)]="month" (change)="sort()" name="" id="month">
           <option [value]="1">JAN</option>
           <option [value]="2">FEB</option>
@@ -24,6 +25,7 @@
           <option [value]="11">NOV</option>
           <option [value]="12">DEC</option>
         </select>
+        <label>   Select year :</label>
         <select name="" [(ngModel)]="selectYear" id="" (change)="sort()">
           <option class="selected" [value]="2021">2021</option>
           <option [value]="2020">2020</option>

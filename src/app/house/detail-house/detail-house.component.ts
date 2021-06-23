@@ -36,6 +36,7 @@ export class DetailHouseComponent implements OnInit {
   house: House;
   images: string[] = [];
   reviewList: Review[] = [];
+  tempRvList=[]
   countReview: number;
   oneStar: number = 0;
   twoStar: number = 0;
@@ -192,6 +193,7 @@ export class DetailHouseComponent implements OnInit {
         listReview[i].postDate = this.dateService.formatDateTime(listReview[i].postDate);
       }
       this.reviewList = listReview;
+      this.tempRvList=listReview;
 
       this.countReview = listReview.length;
       for (let review of this.reviewList) {

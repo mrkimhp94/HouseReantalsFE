@@ -175,7 +175,7 @@ export class HouseCreateComponent implements OnInit {
         });
       }else {
         const defaultImage:Image ={
-          linkImage : 'https://www.myistria.com/UserDocsImages/app/objekti/795/slika_hd/19082020034916_Villas-near-Rovinj-Villa-Prestige-2.jpg?preset=carousel-1-webp',
+          linkImage : 'https://www.takadada.com/wp-content/uploads/2019/07/hinh-nen-nha-dep-42.jpg',
           house: {
             houseId: house.houseId
           }

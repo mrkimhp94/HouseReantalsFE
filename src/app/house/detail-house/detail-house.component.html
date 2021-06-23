@@ -371,7 +371,7 @@
         </div>
       </div>
     </section>
-    <div *ngIf="pageArray.length != 1 " class="pagination" >
+    <div *ngIf="tempRvList.length > 3 " class="pagination" >
       <ul>
         <li class="clickable" [class.disabled]="currentPage === 0"><a (click)="previous()">Prev</a></li>
         <li class="clickable" *ngFor="let page of pageArray" [class.active]="page === currentPage + 1"
