@@ -136,7 +136,7 @@
                 <div class="col-sm-12">
                   <label for="rating">Rating <span class="required">*</span>
                   </label>
-                  <section class='rating-widget'>
+                  <section class='rating-widget' (click)="alert()" >
                     <!-- Rating Stars Box -->
                     <div class='rating-stars text-center' id="rating">
                       <ul id='stars'>
@@ -329,29 +329,6 @@
       </div>
     </div>
     <br>
-
-
-    <!--    Review   -->
-
-<!--    <section id="comments" class="comments wow " style="visibility: visible">-->
-<!--      <h4 class="text-uppercase wow fadeInLeft animated">{{countReview}} comments</h4>-->
-
-
-<!--      <div class="row comment" *ngFor="let review of reviewList">-->
-<!--        <div class="col-sm-3 col-md-2 text-center-xs">-->
-<!--          <p>-->
-<!--            <img src="{{review.user.avatarUrl}}" class="img-responsive img-circle" alt="">-->
-<!--          </p>-->
-<!--        </div>-->
-<!--        <div class="col-sm-9 col-md-10">-->
-<!--          <h5 class="text-uppercase">{{review.user.username}}</h5>-->
-<!--          <p class="posted"><i class="fa fa-clock-o"></i> Post in {{review.postDate}}</p>-->
-<!--          <p>{{review.comment}}</p>-->
-<!--          <p> Rate : {{review.rating}} <i class="fa fa-star-o"></i>-->
-<!--          </p>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </section>-->
     <section id="comments" class="comments wow " style="visibility: visible">
       <h4 class="text-uppercase wow fadeInLeft animated">{{countReview}} comments</h4>
 
