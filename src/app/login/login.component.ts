@@ -14,7 +14,7 @@ import {GeneralPopupComponent} from '../general-popup/general-popup.component';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup= new FormGroup({
-    username: new FormControl('', Validators.required),
+    username: new FormControl('', [Validators.required,]),
     password: new FormControl('', Validators.required)
   });
 
