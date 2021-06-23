@@ -61,10 +61,11 @@ export class OpenListHouse implements OnInit {
         this.houseService.upDateHouse(houseId, status).subscribe((data) => {
           this.dialog.open(GeneralPopupComponent);
           this.notifyService.notify = 'success';
-          const currentRoute = this.router.url;
-          this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-            this.router.navigate([currentRoute]); // navigate to same route
-          });
+          // const currentRoute = this.router.url;
+          // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          //   this.router.navigate([currentRoute]); // navigate to same route
+          // });
+          location.reload()
         });
       });
     } else {
