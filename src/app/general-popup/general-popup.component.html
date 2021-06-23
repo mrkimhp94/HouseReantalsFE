@@ -35,7 +35,7 @@ SYSTEM  NOTIFICATION
 
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button color="primary"  mat-dialog-close>Cancel</button>
+  <button mat-button color="primary" *ngIf="!(notify=='deleteSuccess' || notify=='cannotDeleteBooking' || notify=='loginFail' || notify=='createUserSuccess'||notify=='changePasswordSuccess'|| notify=='changePasswordFail'||notify=='updateUserSuccess' || notify=='success'||notify=='notAllowed')"  mat-dialog-close>Cancel</button>
   <button mat-button color="primary" [mat-dialog-close]="true" >OK</button>
 </mat-dialog-actions>
 

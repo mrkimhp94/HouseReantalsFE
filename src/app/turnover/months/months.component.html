@@ -56,6 +56,7 @@
             </div>
             <div class="dot-hr"></div>
             <div class="row" *ngFor="let booking of listBookings, let i = index">
+
               <div class="proerty-th" >
                   <div class="col-sm-6 col-md-2 p0">
                     <div>{{i}}</div>
@@ -64,7 +65,8 @@
                     <div>{{booking.users.fullname}}</div>
                   </div>
                   <div class="col-sm-6 col-md-2 p0">
-                    <div>{{booking.users.phone}}</div>
+                    <div>{{booking.users.phone}}
+                    </div>
                   </div>
                   <div class="col-sm-6 col-md-2 p0">
                     <div class="clickable">

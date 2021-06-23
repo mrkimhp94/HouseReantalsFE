@@ -58,7 +58,11 @@ export class ListHouseComponent implements OnInit {
     this.houseService.getTop5Stars().subscribe(
       result => {
         console.log(result)
-        this.stars = result;
+        this.stars= result;
+        // @ts-ignore
+        for(let i =0;i<result.length;i++){
+          this.stars[i]=(result[i].substring(0,3))
+        }
       }
     );
   }

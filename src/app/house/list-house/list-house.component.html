@@ -57,16 +57,17 @@
             <div class="panel-body recent-property-widget">
               <ul>
                 <li *ngFor=" let recommend of recommendHouse ; index as i">
-                  <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                    <a routerLink="/houses/detail/{{recommend.houseId}}"><img src="{{recommend.imagesList[0]}}"></a>
+                  <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0" >
+                    <a  routerLink="/houses/detail/{{recommend.houseId}}"><img  style="height: 45px; width: 100%" src="{{recommend.imagesList[0]}}"></a>
                     <span class="property-seeker">
                                                     <b class="b-1">{{stars[i]}}</b>
-<!--                                                    <b class="b-2">S</b>-->
+                      <!--                                                    <b class="b-2">S</b>-->
                                                 </span>
                   </div>
                   <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                    <h6><a>{{recommend.houseName}} </a></h6>
-                    <span class="property-price">{{recommend.pricePerDay}}</span>
+                    <h6><a style="width: 100%;display: block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis">{{recommend.houseName}} </a></h6>
+                    <div style="display: inline-block;width: 50%" class="property-price">{{recommend.pricePerDay | currency : 'USD' :true : '1.0-3'}}</div>
+
                   </div>
                 </li>
 

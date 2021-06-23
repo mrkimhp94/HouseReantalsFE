@@ -85,13 +85,26 @@ export class OpenListHouse implements OnInit {
     });
   }
 
-  changeUpgradeStatus(houseId: number) {
-    this.isAllowToChangeToUpdate = true;
-    this.notifyService.notify = '';
-    this.dialog.open(GeneralPopupComponent).afterClosed().subscribe(result => {
-      if (result == true) {
-        this.updateStatus(houseId, 'upgrade');
+ async changeUpgradeStatus(houseId: number) {
+    // this.isAllowToChangeToUpdate = true;
+    // this.notifyService.notify = '';
+    // this.dialog.open(GeneralPopupComponent).afterClosed().subscribe(result => {
+    //   if (result == true) {
+    //     this.updateStatus(houseId, 'upgrade');
+    //   }
+    // });
+
+    await this.checkingHouse(houseId).then(r => {
+        console.log('2');
       }
+    ).then(() => {
+      console.log('3');
+      this.notifyService.notify = '';
+      this.dialog.open(GeneralPopupComponent).afterClosed().subscribe(result => {
+        if (result == true) {
+          this.updateStatus(houseId, 'blank');
+        }
+      });
     });
   }
 

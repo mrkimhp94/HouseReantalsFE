@@ -32,6 +32,7 @@ declare var $: any;
 export class DetailHouseComponent implements OnInit {
   stompClient: any;
   allowToReview: boolean = false;
+  changeRate:boolean=true;
   houseId?: any;
   house: House;
   images: string[] = [];
@@ -86,6 +87,7 @@ export class DetailHouseComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.changeRate=true;
     this.checkAllowToReview();
     this.getHouse(this.houseId).then(() => {
       console.log('Sau Khi lay ra house');
@@ -196,6 +198,7 @@ export class DetailHouseComponent implements OnInit {
       this.tempRvList=listReview;
 
       this.countReview = listReview.length;
+      if(this.changeRate==true){
       for (let review of this.reviewList) {
         if (review.rating == 1) {
           this.oneStar++;
@@ -214,7 +217,7 @@ export class DetailHouseComponent implements OnInit {
         }
       }
       this.totalRate = ((this.oneStar + this.twoStar * 2 + this.threeStar * 3 + this.fiveStar * 5 + this.fourStar * 4) / listReview.length).toFixed(1);
-    });
+    }});
   }
 
 
@@ -261,6 +264,7 @@ export class DetailHouseComponent implements OnInit {
   }
 
   createReviewUsingSocket(review) {
+    this.changeRate=true;
     this.stompClient.send('/app/houses', {}, JSON.stringify(review));
   }
 
@@ -277,7 +281,7 @@ export class DetailHouseComponent implements OnInit {
     }
   }
 
-  ///
+
   filteredListReview() {
     const startIndex = this.currentPage * this.size;
     const endIndex = (this.currentPage + 1) * this.size;
@@ -291,6 +295,7 @@ export class DetailHouseComponent implements OnInit {
   }
 
   next() {
+    this.changeRate=false;
     if (this.currentPage < this.numberOfPage - 1) {
       this.currentPage++;
     }
@@ -304,6 +309,7 @@ export class DetailHouseComponent implements OnInit {
   }
 
   previous() {
+    this.changeRate=false;
     if (this.currentPage > 0) {
       this.currentPage--;
     }
@@ -316,6 +322,7 @@ export class DetailHouseComponent implements OnInit {
   }
 
   public goTo(page) {
+    this.changeRate=false;
     this.currentPage = page;
     this.getReviews().then(
       () =>{
