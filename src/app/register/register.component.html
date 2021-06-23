@@ -23,7 +23,7 @@
           <div *ngIf="registerForm.get('username').errors.maxlength" style="color: red">
             Maximum 6 characters required
           </div>
-          <div *ngIf="registerForm.get('username').errors.pattern" style="color: red">
+          <div *ngIf="registerForm.get('username').hasError('pattern')" style="color: red">
             Username does not contain special characters
           </div>
         </div>
@@ -81,10 +81,10 @@
         <div
           *ngIf="registerForm.get('phone').invalid && (registerForm.get('phone').dirty || registerForm.get('phone').touched)">
           <div *ngIf="registerForm.get('phone').errors.required" style="color: red">
-            Enter your phonenumber
+            Enter your phone number
           </div>
           <div *ngIf="registerForm.get('phone').hasError('pattern')" style="color: red">
-            Wrong your phonenumber, please try again.
+            Wrong your phone number, please try again.
           </div>
         </div>
         <div class="formError" *ngIf="isPhoneExists" style="color: red">
@@ -99,6 +99,9 @@
           *ngIf="registerForm.get('userAddress').invalid && (registerForm.get('userAddress').dirty || registerForm.get('userAddress').touched)">
           <div *ngIf="registerForm.get('userAddress').errors.required" style="color: red">
             Enter your address
+          </div>
+          <div *ngIf="registerForm.get('userAddress').hasError('pattern')" style="color: red">
+            User address does not contain special characters
           </div>
         </div>
       </div>

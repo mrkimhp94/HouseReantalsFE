@@ -3,9 +3,10 @@
 <app-nav></app-nav>
 <!-- Body content -->
 <style>
-  div{
+  div {
     visibility: visible;
   }
+
   a {
     visibility: visible;
   }
@@ -14,7 +15,7 @@
   <div class="container">
     <div class="row">
       <div class="page-head-content">
-        <h1 class="page-title"> </h1>
+        <h1 class="page-title"></h1>
       </div>
     </div>
   </div>
@@ -126,6 +127,62 @@
               <p>{{house.description}} </p>
             </div>
           </div>
+
+          <section id="comment-form" class="add-comments" [(ngModel)]="allowToReview" [hidden]="allowToReview==false">
+            <h4 class="text-uppercase wow fadeInLeft animated">Review this house</h4>
+            <br>
+            <form (ngSubmit)="createNewReview()">
+              <div class="row wow fadeInLeft animated">
+                <div class="col-sm-12">
+                  <label for="rating">Rating <span class="required">*</span>
+                  </label>
+                  <section class='rating-widget'>
+                    <!-- Rating Stars Box -->
+                    <div class='rating-stars text-center' id="rating">
+                      <ul id='stars'>
+                        <li class='star' title='Poor' data-value='1' value="1">
+                          <i class='fa fa-star fa-fw'></i>
+                        </li>
+                        <li class='star' title='Fair' data-value='2' value="2">
+                          <i class='fa fa-star fa-fw'></i>
+                        </li>
+                        <li class='star' title='Good' data-value='3' value="3">
+                          <i class='fa fa-star fa-fw'></i>
+                        </li>
+                        <li class='star' title='Excellent' data-value='4' value="4">
+                          <i class='fa fa-star fa-fw'></i>
+                        </li>
+                        <li class='star' title='WOW!!!' data-value='5' value="5">
+                          <i class='fa fa-star fa-fw'></i>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class='success-box text-center'>
+                      <div class='text-message'></div>
+                    </div>
+
+                  </section>
+                </div>
+              </div>
+
+
+              <div class="row wow fadeInLeft animated">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label for="comment"> Your Comment </label>
+                    <textarea class="form-control textarea" id="comment" name="comment" rows="4"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row wow fadeInLeft animated">
+                <div class="col-sm-12 text-right">
+                  <button class="btn btn-primary" type="submit"><i class="fa fa-comment-o"></i> Post review</button>
+                </div>
+              </div>
+            </form>
+          </section>
+
           <div class="section">
             <h4 class="s-property-title">Rating</h4>
 
@@ -158,8 +215,7 @@
             <div class="histo">
               <div class="five histo-rate">
                 <span class="histo-star"><i class="active fa fa-star-o"></i> 5</span>
-                <span class="
-                -block" [ngStyle]="{'width': ((fiveStar/countReview)*80) + '%'}">
+                <span class="bar-block" [ngStyle]="{'width': ((fiveStar/countReview)*80) + '%'}">
                       <span id="bar-five" class="bar">
                           <span>{{fiveStar}}</span>&nbsp;
                       </span>
@@ -205,7 +261,7 @@
 
           </div>
           <!-- End description area  -->
-          <br><br>
+          <br>
 
 
         </div>
@@ -272,7 +328,7 @@
 
       </div>
     </div>
-    <br><br><br>
+    <br>
 
 
     <!--    Review   -->
@@ -325,62 +381,7 @@
       </ul>
     </div>
     <br><br><br>
-    <section id="comment-form" class="add-comments"  [(ngModel)]="allowToReview" [hidden]="allowToReview==false">
-      <h4 class="text-uppercase wow fadeInLeft animated">Review this house</h4>
-      <br><br>
-      <form (ngSubmit)="createNewReview()">
-        <div class="row wow fadeInLeft animated">
-          <div class="col-sm-12">
-            <label for="rating">Rating <span class="required">*</span>
-            </label>
-            <section class='rating-widget'>
 
-              <!-- Rating Stars Box -->
-              <div class='rating-stars text-center' id="rating" >
-                <ul id='stars'>
-                  <li class='star' title='Poor' data-value='1' value="1">
-                    <i class='fa fa-star fa-fw'></i>
-                  </li>
-                  <li class='star' title='Fair' data-value='2' value="2">
-                    <i class='fa fa-star fa-fw'></i>
-                  </li>
-                  <li class='star' title='Good' data-value='3' value="3">
-                    <i class='fa fa-star fa-fw'></i>
-                  </li>
-                  <li class='star' title='Excellent' data-value='4' value="4">
-                    <i class='fa fa-star fa-fw'></i>
-                  </li>
-                  <li class='star' title='WOW!!!' data-value='5' value="5">
-                    <i class='fa fa-star fa-fw'></i>
-                  </li>
-                </ul>
-              </div>
-
-              <div class='success-box text-center'>
-                <div class='text-message'></div>
-              </div>
-
-            </section>
-          </div>
-        </div>
-
-
-        <div class="row wow fadeInLeft animated" >
-          <div class="col-sm-12">
-            <div class="form-group">
-              <label for="comment"> Your Comment </label>
-              <textarea class="form-control textarea" id="comment" name="comment" rows="4" ></textarea>
-            </div>
-          </div>
-        </div>
-
-        <div class="row wow fadeInLeft animated">
-          <div class="col-sm-12 text-right">
-            <button  class="btn btn-primary" type="submit"><i class="fa fa-comment-o"></i> Post review</button>
-          </div>
-        </div>
-      </form>
-    </section>
   </div>
 </div>
 </body>

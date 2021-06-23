@@ -68,7 +68,7 @@ export class RegisterComponent implements OnInit {
 
 
     this.registerForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+      username: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20) , Validators.pattern('[A-Za-z0-9._]+')]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
       confirmPassword: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -76,10 +76,10 @@ export class RegisterComponent implements OnInit {
         , [Validators.required, Validators.pattern('((0)+([0-9]{9})\\b)')]
       ],
       userAddress: [''
-        , [Validators.required, Validators.pattern('[A-Za-z0-9 ]+')]
+        , [Validators.required, Validators.pattern('[A-Za-z0-9ÁÀẢÃẠáàãảạêểếễệiíìịĩôốồỗổộưứữửựâấầẩẫậăẳằắặẵđơớờởợỡýỳỷỵỹĐ \\-\\\\ \\/\\\\]+')]
       ],
       fullname: [''
-        , [Validators.required, Validators.pattern('[A-Za-z0-9 ]+')]
+        , [Validators.required, Validators.pattern('[A-Za-z0-9ÁÀẢÃẠáàãảạêểếễệiíìịĩôốồỗổộưứữửựâấầẩẫậăẳằắặẵđơớờởợỡýỳỷỵỹĐ ]+')]
       ]
     });
 
