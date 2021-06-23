@@ -315,6 +315,11 @@ export class DetailHouseComponent implements OnInit {
 
   public goTo(page) {
     this.currentPage = page;
+    this.getReviews().then(
+      () =>{
+        this.reviewList = this.filteredListReview();
+      }
+    )
   }
 
 }

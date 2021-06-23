@@ -4,6 +4,8 @@ import {AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewChildren} f
 import {Chart, registerables} from 'chart.js';
 import {StatisticsService} from '../../service/statistics/statistics.service';
 import {HouseService} from '../../service/house/house.service';
+import {BookingServiceService} from '../../service/booking/bookingservice.service';
+import {Router} from '@angular/router';
 
 // @ts-ignore
 // @ts-ignore
@@ -13,6 +15,7 @@ import {HouseService} from '../../service/house/house.service';
   styleUrls: ['./months.component.css']
 })
 export class MonthsComponent implements OnInit {
+  month:any;
   currentYear = new Date(Date.now()).getFullYear();
   public canvas: any;
   public ctx: any;
@@ -21,13 +24,18 @@ export class MonthsComponent implements OnInit {
     chart1: [],
     chart2: []
   };
+  listBookings =[];
+  selectYear: any;
 
   constructor(private statisticService: StatisticsService,
+              private bookingService:BookingServiceService,
+              private router:Router,
               private houseService: HouseService) {
     Chart.register(...registerables);
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+
     this.statisticService.getTurnOverPerEachMonth(this.houseService.currentHouse, this.currentYear).subscribe(
       result => {
         this.dataCases.chart1 = result;
@@ -92,4 +100,19 @@ export class MonthsComponent implements OnInit {
   }
 
 
+  sort() {
+    this.bookingService.getBookingByHouseAndMonth(this.houseService.currentHouse,this.month,this.selectYear).subscribe(
+      result=>{
+        // @ts-ignore
+        this.listBookings=result
+        // const currentRoute = this.router.url;
+        //
+        // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        //   this.router.navigate([currentRoute]); // navigate to same route
+        // });
+        console.log(this.month) ,  console.log(this.selectYear)
+        console.log(result)
+      }
+    )
+  }
 }

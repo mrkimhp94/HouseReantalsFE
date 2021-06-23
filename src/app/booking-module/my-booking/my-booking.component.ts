@@ -52,12 +52,11 @@ export class BookingList implements OnInit {
           this.bookingService.deleteBooking(id).subscribe(
             () => {
               this.notifyService.notify = 'deleteSuccess';
-
-
-              this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-                this.router.navigate([  this.router.url]); // navigate to same route
-                this.dialog.open(GeneralPopupComponent);
-              });
+              this.dialog.open(GeneralPopupComponent);
+              // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+              //   this.router.navigate([  this.router.url]); // navigate to same route
+              // }
+              // );
             }
           );
         }

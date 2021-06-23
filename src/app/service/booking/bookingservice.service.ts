@@ -36,4 +36,7 @@ export class BookingServiceService {
   public getBookingByStatus(statusId: number, userId: number): Observable<any> {
     return this.http.get(API_URL + `/bookings/status/${statusId}/${userId}`);
   }
+  public getBookingByHouseAndMonth(houseId:number,month:number,year:number){
+    return this.http.get(`${API_URL}/bookings/${houseId}/${month}/${year}`)
+  }
 }
