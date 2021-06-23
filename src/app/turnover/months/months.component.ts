@@ -75,7 +75,8 @@ export class MonthsComponent implements OnInit {
           title: {
             display: true,
             text: 'The chart analyze  total earnings per each month ',
-            position: 'bottom'
+            position: 'top',
+            color:"red"
           },
           tooltips: {
             mode: 'index',

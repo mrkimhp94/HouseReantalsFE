@@ -4,7 +4,8 @@
 
 <div class="container">
   <div>
-    <div style="text-align: center"><h3>YOUR BOOKING</h3></div>
+    <div style="text-align: center"><h3>YOUR BOOKING</h3>
+     <button routerLink="/booking-history" class="navbar-btn nav-button wow bounceInRight login animated"  data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: bounceInRight;">Booking History</button></div>
     <div *ngIf="dataSource.length==0" style="text-align: center">
       <a style="color:red;">You havn't booked anything yet!</a>
     </div>
@@ -35,6 +36,7 @@
         <div class="dot-hr"></div>
         <div class="row">
           <div class="proerty-th" *ngFor="let booking of dataSource, let i = index">
+            <ng-container *ngIf="booking.bookingStatus!=1">
             <div class="col-sm-6 col-md-2 p0">
               <div>{{i}}</div>
             </div>
@@ -63,10 +65,11 @@
                            alt=""></span>
               </div>
             </div>
-          </div>
+          </ng-container>
         </div>
       </div>
     </div>
+  </div>
   </div>
 </div>
 <app-footer></app-footer>

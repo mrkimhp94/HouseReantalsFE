@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {ActivatedRoute, ParamMap} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {BookingServiceService} from '../../service/booking/bookingservice.service';
 import {UserServiceService} from '../../service/user-service.service';
 import {DateServiceService} from '../../service/date/date-service.service';
@@ -21,6 +21,7 @@ export class BookingList implements OnInit {
   constructor(private bookingService: BookingServiceService,
               private dialog: MatDialog, private activeRouter: ActivatedRoute,
               private userService: UserServiceService,
+              private router:Router,
               private dateService: DateServiceService,
               private notifyService: NotifyServiceService) {
 
@@ -51,8 +52,12 @@ export class BookingList implements OnInit {
           this.bookingService.deleteBooking(id).subscribe(
             () => {
               this.notifyService.notify = 'deleteSuccess';
-              this.dialog.open(GeneralPopupComponent);
-              window.location.reload();
+
+
+              this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+                this.router.navigate([  this.router.url]); // navigate to same route
+                this.dialog.open(GeneralPopupComponent);
+              });
             }
           );
         }

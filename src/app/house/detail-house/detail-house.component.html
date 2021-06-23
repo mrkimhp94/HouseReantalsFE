@@ -333,11 +333,30 @@
 
     <!--    Review   -->
 
+<!--    <section id="comments" class="comments wow " style="visibility: visible">-->
+<!--      <h4 class="text-uppercase wow fadeInLeft animated">{{countReview}} comments</h4>-->
+
+
+<!--      <div class="row comment" *ngFor="let review of reviewList">-->
+<!--        <div class="col-sm-3 col-md-2 text-center-xs">-->
+<!--          <p>-->
+<!--            <img src="{{review.user.avatarUrl}}" class="img-responsive img-circle" alt="">-->
+<!--          </p>-->
+<!--        </div>-->
+<!--        <div class="col-sm-9 col-md-10">-->
+<!--          <h5 class="text-uppercase">{{review.user.username}}</h5>-->
+<!--          <p class="posted"><i class="fa fa-clock-o"></i> Post in {{review.postDate}}</p>-->
+<!--          <p>{{review.comment}}</p>-->
+<!--          <p> Rate : {{review.rating}} <i class="fa fa-star-o"></i>-->
+<!--          </p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </section>-->
     <section id="comments" class="comments wow " style="visibility: visible">
       <h4 class="text-uppercase wow fadeInLeft animated">{{countReview}} comments</h4>
 
 
-      <div class="row comment" *ngFor="let review of reviewList">
+      <div class="row comment" [(ngModel)]="reviewList" *ngFor="let review of reviewList of filteredListReview ; index as i">
         <div class="col-sm-3 col-md-2 text-center-xs">
           <p>
             <img src="{{review.user.avatarUrl}}" class="img-responsive img-circle" alt="">
@@ -352,6 +371,15 @@
         </div>
       </div>
     </section>
+    <div class="pagination">
+      <ul>
+        <li class="clickable" [class.disabled]="currentPage === 0"><a (click)="previous()">Prev</a></li>
+        <li class="clickable" *ngFor="let page of pageArray" [class.active]="page === currentPage + 1"
+            (click)="goTo(page - 1)"><a>{{ page }}</a></li>
+        <li class="clickable" [class.disabled]="currentPage === numberOfPage - 1"><a (click)="next()">Next</a>
+        </li>
+      </ul>
+    </div>
     <br><br><br>
 
   </div>

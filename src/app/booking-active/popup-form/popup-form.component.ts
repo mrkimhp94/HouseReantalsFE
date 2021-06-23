@@ -6,21 +6,35 @@ import {element} from 'protractor';
 import {templateSourceUrl} from '@angular/compiler';
 import {getTemplateUrl} from 'codelyzer/util/ngQuery';
 import {GeneralPopupComponent} from '../../general-popup/general-popup.component';
+import {UserServiceService} from '../../service/user-service.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'popup-button',
   templateUrl: 'popup-form.component.html',
   // styleUrls: ['popup-form.component.css']
 })
-export class PopUpFormComponent {
-  constructor(private dialog: MatDialog, private notifyService: NotifyServiceService) {
+export class PopUpFormComponent implements OnInit {
+  constructor(private dialog: MatDialog,
+              private userService: UserServiceService,
+              private router: Router,
+              private notifyService: NotifyServiceService) {
   }
 
   @Output()
   submitEvt = new EventEmitter<any>();
 
   openDialog() {
-
+    if (this.userService.getCurrentUser() == null) {
+      this.notifyService.notify = 'loginToBooking';
+      this.dialog.open(GeneralPopupComponent).afterClosed().subscribe(
+        (data) => {
+          if (data == true) {
+            this.router.navigate(['/login']);
+          }
+        }
+      );
+    }else {
     if (this.notifyService.notify == 'valid') {
       const dialogRef = this.dialog.open(PopUpContent);
       dialogRef.afterClosed().subscribe(result => {
@@ -41,8 +55,12 @@ export class PopUpFormComponent {
 
     } else {
       this.dialog.open(PopUpContent);
-
     }
+    }
+  }
+
+
+  ngOnInit(): void {
   }
 }
 

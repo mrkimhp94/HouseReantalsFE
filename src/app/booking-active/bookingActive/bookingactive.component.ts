@@ -5,6 +5,9 @@ import {Booking} from '../../model/booking';
 import {NotifyServiceService} from '../../service/notify/notify-service.service';
 import {UserServiceService} from '../../service/user-service.service';
 import {HouseService} from '../../service/house/house.service';
+import {GeneralPopupComponent} from '../../general-popup/general-popup.component';
+import {Router} from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'booking-active',
@@ -23,11 +26,14 @@ export class BookingActiveComponent implements OnInit, DoCheck {
   constructor(private bookingService: BookingServiceService,
               private notifyService: NotifyServiceService,
               private userService: UserServiceService,
+              private router: Router,
+              private dialog:MatDialog,
               private houseService: HouseService) {
   }
 
   ngOnInit() {
     this.getAllBookingByHouseId(this.bookingService.currentId);
+    this.notifyService.notify=''
   }
 
   dateFilter = (d: Date) => {
@@ -127,6 +133,9 @@ export class BookingActiveComponent implements OnInit, DoCheck {
 
   ngDoCheck() {
     if (this.notifyService.notify == 'success') {
+      return;
+    }
+    if(this.notifyService.notify=='loginToBooking'){
       return;
     }
     if (this.formatDate(this.checkInDate) == this.formatDate(this.today)) {

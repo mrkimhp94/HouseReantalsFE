@@ -46,12 +46,17 @@ export class DetailHouseComponent implements OnInit {
   review: Review;
   currentUser: UserToken = {};
   public style: 'width:500px;height:600px;';
+  private login: boolean;
+
+
+  currentPage = 0;
+  size = 3;
+  numberOfPage = 1;
 
 
   constructor(private houseService: HouseService,
               private bookingService: BookingServiceService,
               private reviewService: ReviewService,
-              @Inject(DOCUMENT) private document : Document,
               private socketService: SocketService,
               private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService,
@@ -62,7 +67,7 @@ export class DetailHouseComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.houseId = paramMap.get('houseId');
       this.bookingService.currentId = this.houseId;
-      this.createNewReview();
+      // this.createNewReview();
     });
     this.authenticationService.currentUser.subscribe(value => {
       this.currentUser = value;
@@ -71,7 +76,7 @@ export class DetailHouseComponent implements OnInit {
   }
 
   async getHouse(houseId: number) {
-    await this.houseService.findByHouseId(houseId).toPromise().then((house) => {
+    return this.houseService.findByHouseId(houseId).toPromise().then((house) => {
       console.log('Function  lay ra list house');
       this.houseService.currentHouse = house;
       this.house = house;
@@ -79,11 +84,10 @@ export class DetailHouseComponent implements OnInit {
     });
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.checkAllowToReview();
-    await this.getHouse(this.houseId).then(() => {
+    this.getHouse(this.houseId).then(() => {
       console.log('Sau Khi lay ra house');
-
       //Load slide
       $(function() {
         $('#image-gallery').lightSlider({
@@ -100,7 +104,12 @@ export class DetailHouseComponent implements OnInit {
         });
       });
     });
-    await this.getReviews();
+    console.log(this.images);
+    this.getReviews().then(() => {
+      console.log('getReview');
+      this.numberOfPage = Math.ceil(this.reviewList.length / this.size);
+      this.reviewList = this.filteredListReview();
+    });
     this.connect();
 
 
@@ -127,6 +136,7 @@ export class DetailHouseComponent implements OnInit {
 
 
       /* 2. Action to perform on click */
+
       $('#stars li').on('click', function() {
         var onStar = parseInt($(this).data('value'), 10); // The star currently selected
         var stars = $(this).parent().children('li.star');
@@ -150,22 +160,6 @@ export class DetailHouseComponent implements OnInit {
         responseMessage(msg);
 
       });
-
-      $(function() {
-
-        $('#image-gallery').lightSlider({
-          gallery: true,
-          item: 1,
-          thumbItem: 9,
-          slideMargin: 0,
-          speed: 1000,
-          auto: true,
-          loop: true,
-          onSliderLoad: function() {
-            $('#image-gallery').removeClass('cS-hidden');
-          }
-        });
-      });
     });
 
     function responseMessage(msg) {
@@ -173,15 +167,32 @@ export class DetailHouseComponent implements OnInit {
       $('.success-box div.text-message').html('<span>' + msg + '</span>');
     }
 
+    $(function() {
+      $('#image-gallery').lightSlider({
+        gallery: true,
+        item: 1,
+        thumbItem: 9,
+        slideMargin: 0,
+        speed: 1000,
+        auto: true,
+        loop: true,
+        onSliderLoad: function() {
+          $('#image-gallery').removeClass('cS-hidden');
+        }
+      });
+    });
   }
 
+
   getReviews() {
-    return this.reviewService.getAllReview(this.houseId).subscribe(listReview => {
+    return this.reviewService.getAllReview(this.houseId).toPromise().then(listReview => {
+      console.log('lay ra list review');
       for (let i = 0; i < listReview.length; i++) {
         // @ts-ignore
         listReview[i].postDate = this.dateService.formatDateTime(listReview[i].postDate);
       }
       this.reviewList = listReview;
+
       this.countReview = listReview.length;
       for (let review of this.reviewList) {
         if (review.rating == 1) {
@@ -204,6 +215,7 @@ export class DetailHouseComponent implements OnInit {
     });
   }
 
+
   async createNewReview() {
 
     let rating = parseInt($('#stars li.selected').last().data('value'), 10);
@@ -223,7 +235,7 @@ export class DetailHouseComponent implements OnInit {
     // save current route first
     const currentRoute = this.router.url;
 
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
       this.router.navigate([currentRoute]); // navigate to same route
     });
 
@@ -261,6 +273,48 @@ export class DetailHouseComponent implements OnInit {
         }
       );
     }
+  }
+
+  ///
+  filteredListReview() {
+    const startIndex = this.currentPage * this.size;
+    const endIndex = (this.currentPage + 1) * this.size;
+    console.log(this.reviewList.slice(startIndex, endIndex));
+    return this.reviewList.slice(startIndex, endIndex);
+  }
+
+  get pageArray() {
+    const pages = [...Array(this.numberOfPage).keys()];
+    return Array.from(pages.map(page => page + 1));
+  }
+
+  next() {
+    if (this.currentPage < this.numberOfPage - 1) {
+      this.currentPage++;
+    }
+    this.getReviews().then(
+      () => {
+        this.numberOfPage = Math.ceil(this.reviewList.length / this.size);
+        this.reviewList = this.filteredListReview();
+      }
+    );
+    console.log(this.reviewList);
+  }
+
+  previous() {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+    }
+    this.getReviews().then(
+      () => {
+        this.numberOfPage = Math.ceil(this.reviewList.length / this.size);
+        this.reviewList = this.filteredListReview();
+      }
+    );
+  }
+
+  public goTo(page) {
+    this.currentPage = page;
   }
 
 }
